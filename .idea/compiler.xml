@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <annotationProcessing>
+      <profile name="Maven default annotation processors profile" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <module name="desktop-application-parent" />
+        <module name="application-dto" />
+        <module name="web-application" />
+        <module name="web-application-infrastructure" />
+        <module name="web-application-api" />
+        <module name="web-application-domain" />
+      </profile>
+    </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="application-dto" target="1.8" />
+      <module name="desktop-application-parent" target="1.8" />
+      <module name="hotel-management" target="1.8" />
+      <module name="web-application" target="1.8" />
+      <module name="web-application-api" target="1.8" />
+      <module name="web-application-domain" target="1.8" />
+      <module name="web-application-infrastructure" target="1.8" />
+      <module name="web-application-parent" target="1.8" />
+    </bytecodeTargetLevel>
+  </component>
+  <component name="JavacSettings">
+    <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="application-dto" options="-parameters" />
+      <module name="desktop-application-parent" options="-parameters" />
+      <module name="web-application" options="-parameters" />
+      <module name="web-application-api" options="-parameters" />
+      <module name="web-application-domain" options="-parameters" />
+      <module name="web-application-infrastructure" options="-parameters" />
+    </option>
+  </component>
+</project>

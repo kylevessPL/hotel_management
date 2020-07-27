@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/application-dto/application-dto.iml" filepath="$PROJECT_DIR$/application-dto/application-dto.iml" />
+      <module fileurl="file://$PROJECT_DIR$/desktop-application-parent/desktop-application-parent.iml" filepath="$PROJECT_DIR$/desktop-application-parent/desktop-application-parent.iml" />
+      <module fileurl="file://$PROJECT_DIR$/hotel-management.iml" filepath="$PROJECT_DIR$/hotel-management.iml" />
+      <module fileurl="file://$PROJECT_DIR$/web-application-parent/web-application/web-application.iml" filepath="$PROJECT_DIR$/web-application-parent/web-application/web-application.iml" />
+      <module fileurl="file://$PROJECT_DIR$/web-application-parent/web-application-api/web-application-api.iml" filepath="$PROJECT_DIR$/web-application-parent/web-application-api/web-application-api.iml" />
+      <module fileurl="file://$PROJECT_DIR$/web-application-parent/web-application-domain/web-application-domain.iml" filepath="$PROJECT_DIR$/web-application-parent/web-application-domain/web-application-domain.iml" />
+      <module fileurl="file://$PROJECT_DIR$/web-application-parent/web-application-infrastructure/web-application-infrastructure.iml" filepath="$PROJECT_DIR$/web-application-parent/web-application-infrastructure/web-application-infrastructure.iml" />
+      <module fileurl="file://$PROJECT_DIR$/web-application-parent/web-application-parent.iml" filepath="$PROJECT_DIR$/web-application-parent/web-application-parent.iml" />
+    </modules>
+  </component>
+</project>
