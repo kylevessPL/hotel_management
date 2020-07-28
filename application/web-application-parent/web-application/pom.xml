@@ -12,4 +12,12 @@
     <artifactId>web-application</artifactId>
     <packaging>jar</packaging>
 
+    <dependencies>
+        <dependency>
+            <groupId>pl.piasta.hotel</groupId>
+            <artifactId>web-application-api</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+    </dependencies>
+
 </project>
