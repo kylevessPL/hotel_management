@@ -1,4 +1,4 @@
-package pl.piasta.hotel.rest_hello;
+package pl.piasta.hotel.application;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
