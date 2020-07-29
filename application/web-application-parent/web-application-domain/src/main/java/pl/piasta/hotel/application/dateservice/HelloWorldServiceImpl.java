@@ -2,18 +2,17 @@ package pl.piasta.hotel.application.dateservice;
 
 import org.springframework.stereotype.Service;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 @Service
 public class HelloWorldServiceImpl implements HelloWorldService {
 
     @Override
     public String getDate() {
-        Date date = new Date();
-        DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
-        return dateFormat.format(date);
+        DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");
+        LocalDateTime datetime = LocalDateTime.now();
+        return dateFormat.format(datetime);
     }
 
 }
