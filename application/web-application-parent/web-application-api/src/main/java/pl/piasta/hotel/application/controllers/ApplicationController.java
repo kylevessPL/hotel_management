@@ -9,8 +9,12 @@ import pl.piasta.hotel.application.dateservice.HelloWorldService;
 
 @RestController
 public class ApplicationController {
-    @Autowired
     HelloWorldService dateService;
+
+    @Autowired
+    public ApplicationController(HelloWorldService dateService) {
+        this.dateService = dateService;
+    }
 
     @GetMapping("/hello")
     public ResponseEntity<String> get(@RequestParam(value = "name", defaultValue = "World") String name) {
