@@ -19,9 +19,6 @@
             <groupId>pl.piasta.hotel</groupId>
             <artifactId>web-application-domain</artifactId>
             <version>1.0</version>
-            <scope>compile</scope>
         </dependency>
     </dependencies>
-
-
 </project>
