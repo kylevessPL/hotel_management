@@ -6,6 +6,10 @@
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/pro http://www.liquibase.org/xml/ns/pro/liquibase-pro-4.0.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.0.xsd">
 
-    <include file="version/addTestTable.xml"/>
-    <include file="version/removeTestTable.xml"/>
+    <changeSet author="geekon" id="1">
+        <insert schemaName="public"
+                tableName="test">
+            <column name="field1" value="Test Field" type="varchar(255)"/>
+        </insert>
+    </changeSet>
 </databaseChangeLog>
