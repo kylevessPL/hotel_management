@@ -9,7 +9,7 @@ import pl.piasta.hotel.application.dateservice.HelloWorldService;
 
 @RestController
 public class ApplicationController {
-    HelloWorldService dateService;
+    private final HelloWorldService dateService;
 
     @Autowired
     public ApplicationController(HelloWorldService dateService) {
