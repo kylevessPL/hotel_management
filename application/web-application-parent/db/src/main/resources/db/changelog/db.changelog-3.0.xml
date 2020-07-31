@@ -47,7 +47,7 @@
                 <constraints nullable="false" primaryKey="true" primaryKeyName="special_offers_pk"/>
             </column>
             <column defaultValueNumeric="0" name="discount" type="DECIMAL(3,2)">
-                <constraints checkConstraint="CHECK (discount BETWEEN 0 AND 100"/>
+                <constraints checkConstraint="CHECK (discount BETWEEN 0 AND 100)"/>
             </column>
             <column defaultValueNumeric="0" name="bookings_amount" type="INTEGER"/>
             <column name="description" type="VARCHAR(100)"/>
