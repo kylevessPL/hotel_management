@@ -11,12 +11,12 @@
 
     <artifactId>db</artifactId>
 
+    <properties>
+        <hotel-db.username>${settings.servers.hotel-db.username}</hotel-db.username>
+        <hotel-db.password>${settings.servers.hotel-db.password}</hotel-db.password>
+    </properties>
+
     <dependencies>
-        <dependency>
-            <groupId>org.liquibase</groupId>
-            <artifactId>liquibase-core</artifactId>
-            <version>4.0.0</version>
-        </dependency>
         <dependency>
             <groupId>org.postgresql</groupId>
             <artifactId>postgresql</artifactId>
@@ -30,9 +30,27 @@
                 <artifactId>liquibase-maven-plugin</artifactId>
                 <version>4.0.0</version>
                 <configuration>
-                    <propertyFile>src/main/resources/liquibase.properties</propertyFile>
+                    <driver>org.postgresql.Driver</driver>
+                    <url>jdbc:postgresql://localhost:5432/hotel-db</url>
+                    <username>${hotel-db.username}</username>
+                    <password>${hotel-db.password}</password>
+                    <changeLogFile>src/main/resources/db/changelog/db.changelog-master.xml</changeLogFile>
+                    <outputChangeLogFile>src/main/resources/db/changelog/db.changelog-master.xml</outputChangeLogFile>
                 </configuration>
             </plugin>
         </plugins>
+        <extensions>
+            <extension>
+                <groupId>com.github.shyiko.servers-maven-extension</groupId>
+                <artifactId>servers-maven-extension</artifactId>
+                <version>1.3.1</version>
+            </extension>
+        </extensions>
+        <resources>
+            <resource>
+                <directory>src/main/resources</directory>
+                <filtering>true</filtering>
+            </resource>
+        </resources>
     </build>
 </project>
