@@ -6,7 +6,7 @@
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/pro http://www.liquibase.org/xml/ns/pro/liquibase-pro-4.0.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.0.xsd">
 
-    <changeSet author="geekon" id="1">
+    <changeSet author="geekon" id="3.0-1">
         <createTable tableName="additional_services">
             <column autoIncrement="true" name="id" type="INTEGER">
                 <constraints nullable="false" primaryKey="true" primaryKeyName="additional_services_pk"/>
@@ -17,7 +17,7 @@
             <column defaultValueNumeric="0" name="price" type="FLOAT4"/>
         </createTable>
     </changeSet>
-    <changeSet author="geekon" id="2">
+    <changeSet author="geekon" id="3.0-2">
         <createTable tableName="amenities">
             <column autoIncrement="true" name="id" type="INTEGER">
                 <constraints nullable="false" primaryKey="true" primaryKeyName="amenities_pk"/>
@@ -27,7 +27,7 @@
             </column>
         </createTable>
     </changeSet>
-    <changeSet author="geekon" id="3">
+    <changeSet author="geekon" id="3.0-3">
         <createTable tableName="rooms">
             <column autoIncrement="true" name="id" type="INTEGER">
                 <constraints nullable="false" primaryKey="true" primaryKeyName="rooms_pk"/>
@@ -41,7 +41,7 @@
             <column defaultValueNumeric="0" name="price" type="FLOAT4"/>
         </createTable>
     </changeSet>
-    <changeSet author="geekon" id="4">
+    <changeSet author="geekon" id="3.0-4">
         <createTable tableName="special_offers">
             <column autoIncrement="true" name="id" type="INTEGER">
                 <constraints nullable="false" primaryKey="true" primaryKeyName="special_offers_pk"/>
@@ -51,7 +51,7 @@
             <column name="description" type="VARCHAR(40)"/>
         </createTable>
     </changeSet>
-    <changeSet author="geekon" id="5">
+    <changeSet author="geekon" id="3.0-5">
         <createTable tableName="bookings">
             <column autoIncrement="true" name="id" type="INTEGER">
                 <constraints nullable="false" primaryKey="true" primaryKeyName="bookings_pk"/>
@@ -73,7 +73,7 @@
             <column name="payment_id" type="INTEGER"/>
         </createTable>
     </changeSet>
-    <changeSet author="geekon" id="6">
+    <changeSet author="geekon" id="3.0-6">
         <createTable tableName="people">
             <column autoIncrement="true" name="id" type="INTEGER">
                 <constraints nullable="false" primaryKey="true" primaryKeyName="people_pk"/>
@@ -98,7 +98,7 @@
             </column>
         </createTable>
     </changeSet>
-    <changeSet author="geekon" id="7">
+    <changeSet author="geekon" id="3.0-7">
         <createTable tableName="payments">
             <column autoIncrement="true" name="id" type="INTEGER">
                 <constraints nullable="false" primaryKey="true" primaryKeyName="payments_pk"/>
@@ -111,7 +111,7 @@
             </column>
         </createTable>
     </changeSet>
-    <changeSet author="geekon" id="8">
+    <changeSet author="geekon" id="3.0-8">
         <createTable tableName="bookings_services">
             <column name="booking_id" type="INTEGER">
                 <constraints nullable="false" primaryKey="true" primaryKeyName="bookings_services_pk"/>
@@ -121,7 +121,7 @@
             </column>
         </createTable>
     </changeSet>
-    <changeSet author="geekon" id="9">
+    <changeSet author="geekon" id="3.0-9">
         <createTable tableName="payment_forms">
             <column autoIncrement="true" name="id" type="INTEGER">
                 <constraints nullable="false" primaryKey="true" primaryKeyName="payment_forms_pk"/>
@@ -131,7 +131,7 @@
             </column>
         </createTable>
     </changeSet>
-    <changeSet author="geekon" id="10">
+    <changeSet author="geekon" id="3.0-10">
         <createTable tableName="room_amenities">
             <column name="room_id" type="INTEGER">
                 <constraints nullable="false" primaryKey="true" primaryKeyName="room_amenities_pk"/>
@@ -141,56 +141,56 @@
             </column>
         </createTable>
     </changeSet>
-    <changeSet author="geekon" id="11">
+    <changeSet author="geekon" id="3.0-11">
         <createIndex indexName="additional_services_name_key" tableName="additional_services" unique="true">
             <column name="name"/>
         </createIndex>
     </changeSet>
-    <changeSet author="geekon" id="12">
+    <changeSet author="geekon" id="3.0-12">
         <addForeignKeyConstraint baseColumnNames="service_id" baseTableName="bookings_services" constraintName="bookings_services_fk1" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="additional_services" validate="true"/>
     </changeSet>
-    <changeSet author="geekon" id="13">
+    <changeSet author="geekon" id="3.0-13">
         <createIndex indexName="amenities_name_key" tableName="amenities" unique="true">
             <column name="name"/>
         </createIndex>
     </changeSet>
-    <changeSet author="geekon" id="14">
+    <changeSet author="geekon" id="3.0-14">
         <addForeignKeyConstraint baseColumnNames="amenity_id" baseTableName="room_amenities" constraintName="room_amenities_fk1" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="amenities" validate="true"/>
     </changeSet>
-    <changeSet author="geekon" id="15">
+    <changeSet author="geekon" id="3.0-15">
         <addForeignKeyConstraint baseColumnNames="room_id" baseTableName="bookings" constraintName="bookings_fk1" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="rooms" validate="true"/>
     </changeSet>
-    <changeSet author="geekon" id="16">
+    <changeSet author="geekon" id="3.0-16">
         <addForeignKeyConstraint baseColumnNames="offer_id" baseTableName="bookings" constraintName="bookings_fk2" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="special_offers" validate="true"/>
     </changeSet>
-    <changeSet author="geekon" id="17">
+    <changeSet author="geekon" id="3.0-17">
         <createIndex indexName="bookings_room_id_key" tableName="bookings" unique="true">
             <column name="room_id"/>
         </createIndex>
     </changeSet>
-    <changeSet author="geekon" id="18">
+    <changeSet author="geekon" id="3.0-18">
         <addForeignKeyConstraint baseColumnNames="booking_id" baseTableName="bookings_services" constraintName="bookings_services_fk0" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="bookings" validate="true"/>
     </changeSet>
-    <changeSet author="geekon" id="19">
+    <changeSet author="geekon" id="3.0-19">
         <createIndex indexName="people_document_id_key" tableName="people" unique="true">
             <column name="document_id"/>
         </createIndex>
     </changeSet>
-    <changeSet author="geekon" id="20">
+    <changeSet author="geekon" id="3.0-20">
         <createIndex indexName="payment_forms_name_key" tableName="payment_forms" unique="true">
             <column name="name"/>
         </createIndex>
     </changeSet>
-    <changeSet author="geekon" id="21">
+    <changeSet author="geekon" id="3.0-21">
         <addForeignKeyConstraint baseColumnNames="payment_form_id" baseTableName="payments" constraintName="payments_fk0" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="payment_forms" validate="true"/>
     </changeSet>
-    <changeSet author="geekon" id="22">
+    <changeSet author="geekon" id="3.0-22">
         <addForeignKeyConstraint baseColumnNames="room_id" baseTableName="room_amenities" constraintName="room_amenities_fk0" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="rooms" validate="true"/>
     </changeSet>
-    <changeSet author="geekon" id="23">
+    <changeSet author="geekon" id="3.0-23">
         <addForeignKeyConstraint baseColumnNames="person_id" baseTableName="bookings" constraintName="bookings_fk0" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="people" validate="true"/>
     </changeSet>
-    <changeSet author="geekon" id="24">
+    <changeSet author="geekon" id="3.0-24">
         <addForeignKeyConstraint baseColumnNames="payment_id" baseTableName="bookings" constraintName="bookings_fk3" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="payments" validate="true"/>
     </changeSet>
 </databaseChangeLog>
