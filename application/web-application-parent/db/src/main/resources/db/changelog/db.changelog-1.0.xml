@@ -7,7 +7,10 @@
         xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/pro http://www.liquibase.org/xml/ns/pro/liquibase-pro-4.0.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.0.xsd">
 
     <changeSet author="geekon" id="1.0-1">
-        <createTable schemaName="public"
-                     tableName="testTable"/>
+        <createTable schemaName="public" tableName="test_table">
+            <column autoIncrement="true" name="id" type="INTEGER">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="test_table_pk"/>
+            </column>
+        </createTable>
     </changeSet>
 </databaseChangeLog>
