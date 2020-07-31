@@ -8,6 +8,6 @@
 
     <changeSet author="geekon" id="1">
         <dropTable schemaName="public"
-                tableName="test"/>
+                   tableName="test"/>
     </changeSet>
 </databaseChangeLog>
