@@ -15,7 +15,10 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
+        <dependency>
+            <groupId>pl.piasta.hotel</groupId>
+            <artifactId>web-application-domain</artifactId>
+            <version>1.0</version>
+        </dependency>
     </dependencies>
-
-
 </project>
