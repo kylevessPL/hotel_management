@@ -11,16 +11,14 @@
 
     <artifactId>db</artifactId>
 
-    <properties>
-        <hotel-db.username>${settings.servers.hotel-db.username}</hotel-db.username>
-        <hotel-db.password>${settings.servers.hotel-db.password}</hotel-db.password>
-    </properties>
-
     <dependencies>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-jpa</artifactId>
+        </dependency>
         <dependency>
             <groupId>org.postgresql</groupId>
             <artifactId>postgresql</artifactId>
-            <version>42.2.14</version>
         </dependency>
     </dependencies>
     <build>
@@ -32,8 +30,8 @@
                 <configuration>
                     <driver>org.postgresql.Driver</driver>
                     <url>jdbc:postgresql://localhost:5432/hotel-db</url>
-                    <username>${hotel-db.username}</username>
-                    <password>${hotel-db.password}</password>
+                    <username>${settings.servers.hotel-db.username}</username>
+                    <password>${settings.servers.hotel-db.password}</password>
                     <changeLogFile>src/main/resources/db/changelog/db.changelog-master.xml</changeLogFile>
                     <outputChangeLogFile>src/main/resources/db/changelog/db.changelog-master.xml</outputChangeLogFile>
                 </configuration>
