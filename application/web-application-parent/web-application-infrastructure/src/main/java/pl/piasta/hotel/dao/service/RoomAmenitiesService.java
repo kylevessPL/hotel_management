@@ -1,44 +1,15 @@
 package pl.piasta.hotel.dao.service;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 import pl.piasta.hotel.dao.model.RoomAmenitiesEntity;
-import pl.piasta.hotel.dao.repository.RoomAmenitiesRepository;
 
-import javax.persistence.EntityNotFoundException;
 import java.util.List;
 
-@Service
-public class RoomAmenitiesService {
+public interface RoomAmenitiesService {
 
-	private final RoomAmenitiesRepository roomAmenitiesRepository;
-
-	@Autowired
-	public RoomAmenitiesService(RoomAmenitiesRepository roomAmenitiesRepository) {
-		this.roomAmenitiesRepository = roomAmenitiesRepository;
-	}
-
-	public List<RoomAmenitiesEntity> findAll() {
-		return roomAmenitiesRepository.findAll();
-	}
-
-	public RoomAmenitiesEntity findById(Integer id) {
-		return roomAmenitiesRepository.findById(id).orElseThrow(EntityNotFoundException::new);
-	}
-
-	public long count() {
-		return roomAmenitiesRepository.count();
-	}
-
-	public void delete(RoomAmenitiesEntity roomAmenitiesEntity) {
-		roomAmenitiesRepository.delete(roomAmenitiesEntity);
-	}
-
-	public void save(RoomAmenitiesEntity roomAmenitiesEntity) {
-		if (roomAmenitiesEntity == null) {
-			return;
-		}
-		roomAmenitiesRepository.save(roomAmenitiesEntity);
-	}
+	List<RoomAmenitiesEntity> findAll();
+	RoomAmenitiesEntity findById(Integer id);
+	long count();
+	void delete(RoomAmenitiesEntity roomAmenitiesEntity);
+	void save(RoomAmenitiesEntity roomAmenitiesEntity);
 
 }
