@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 import pl.piasta.hotel.dao.model.SpecialOffersEntity;
 import pl.piasta.hotel.dao.repository.SpecialOffersRepository;
 
+import javax.persistence.EntityNotFoundException;
 import java.util.List;
 
 @Service
@@ -19,6 +20,10 @@ public class SpecialOffersService {
 
 	public List<SpecialOffersEntity> findAll() {
 		return specialOffersRepository.findAll();
+	}
+
+	public SpecialOffersEntity findById(Integer id) {
+		return specialOffersRepository.findById(id).orElseThrow(EntityNotFoundException::new);
 	}
 
 	public long count() {

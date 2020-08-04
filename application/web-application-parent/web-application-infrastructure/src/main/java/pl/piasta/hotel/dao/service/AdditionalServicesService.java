@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 import pl.piasta.hotel.dao.model.AdditionalServicesEntity;
 import pl.piasta.hotel.dao.repository.AdditionalServicesRepository;
 
+import javax.persistence.EntityNotFoundException;
 import java.util.List;
 
 @Service
@@ -19,6 +20,10 @@ public class AdditionalServicesService {
 
 	public List<AdditionalServicesEntity> findAll() {
 		return additionalServicesRepository.findAll();
+	}
+
+	public AdditionalServicesEntity findById(Integer id) {
+		return additionalServicesRepository.findById(id).orElseThrow(EntityNotFoundException::new);
 	}
 
 	public long count() {

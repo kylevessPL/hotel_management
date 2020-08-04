@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 import pl.piasta.hotel.dao.model.PaymentsEntity;
 import pl.piasta.hotel.dao.repository.PaymentsRepository;
 
+import javax.persistence.EntityNotFoundException;
 import java.util.List;
 
 @Service
@@ -19,6 +20,10 @@ public class PaymentsService {
 
 	public List<PaymentsEntity> findAll() {
 		return paymentsRepository.findAll();
+	}
+
+	public PaymentsEntity findById(Integer id) {
+		return paymentsRepository.findById(id).orElseThrow(EntityNotFoundException::new);
 	}
 
 	public long count() {
