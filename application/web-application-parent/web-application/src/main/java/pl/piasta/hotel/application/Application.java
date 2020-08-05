@@ -7,7 +7,7 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
 @SpringBootApplication
-@ComponentScan("pl.piasta.hotel")
+@ComponentScan(basePackages={"pl.piasta.hotel"})
 @EntityScan("pl.piasta.hotel.dao.model")
 @EnableJpaRepositories("pl.piasta.hotel.dao.repository")
 public class Application {
