@@ -7,10 +7,11 @@ import pl.piasta.hotel.dao.repository.AdditionalServicesRepository;
 import pl.piasta.hotel.dao.service.AdditionalServicesService;
 
 import javax.persistence.EntityNotFoundException;
+import java.math.BigDecimal;
 import java.util.List;
 
 @Service
-public abstract class AdditionalServicesServiceImpl implements AdditionalServicesService {
+public class AdditionalServicesServiceImpl implements AdditionalServicesService {
 
 	private final AdditionalServicesRepository additionalServicesRepository;
 
@@ -27,6 +28,16 @@ public abstract class AdditionalServicesServiceImpl implements AdditionalService
 	@Override
 	public AdditionalServicesEntity findById(Integer id) {
 		return additionalServicesRepository.findById(id).orElseThrow(EntityNotFoundException::new);
+	}
+
+	@Override
+	public List<AdditionalServicesEntity> findByName(String name) {
+		return additionalServicesRepository.findByName(name).orElseThrow(EntityNotFoundException::new);
+	}
+
+	@Override
+	public List<AdditionalServicesEntity> findByPrice(BigDecimal price) {
+		return additionalServicesRepository.findByPrice(price).orElseThrow(EntityNotFoundException::new);
 	}
 
 	@Override

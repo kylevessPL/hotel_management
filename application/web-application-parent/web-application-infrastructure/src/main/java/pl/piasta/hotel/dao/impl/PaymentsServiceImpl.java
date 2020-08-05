@@ -7,10 +7,11 @@ import pl.piasta.hotel.dao.repository.PaymentsRepository;
 import pl.piasta.hotel.dao.service.PaymentsService;
 
 import javax.persistence.EntityNotFoundException;
+import java.sql.Timestamp;
 import java.util.List;
 
 @Service
-public abstract class PaymentsServiceImpl implements PaymentsService {
+public class PaymentsServiceImpl implements PaymentsService {
 
 	private final PaymentsRepository paymentsRepository;
 
@@ -27,6 +28,16 @@ public abstract class PaymentsServiceImpl implements PaymentsService {
 	@Override
 	public PaymentsEntity findById(Integer id) {
 		return paymentsRepository.findById(id).orElseThrow(EntityNotFoundException::new);
+	}
+
+	@Override
+	public List<PaymentsEntity> findByPaymentDate(Timestamp paymentDate) {
+		return paymentsRepository.findByPaymentDate(paymentDate).orElseThrow(EntityNotFoundException::new);
+	}
+
+	@Override
+	public List<PaymentsEntity> findByPaymentFormId(Integer paymentFormId) {
+		return paymentsRepository.findByPaymentFormId(paymentFormId).orElseThrow(EntityNotFoundException::new);
 	}
 
 	@Override

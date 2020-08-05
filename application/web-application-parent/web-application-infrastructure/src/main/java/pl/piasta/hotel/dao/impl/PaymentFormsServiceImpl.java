@@ -10,7 +10,7 @@ import javax.persistence.EntityNotFoundException;
 import java.util.List;
 
 @Service
-public abstract class PaymentFormsServiceImpl implements PaymentFormsService {
+public class PaymentFormsServiceImpl implements PaymentFormsService {
 
 	private final PaymentFormsRepository paymentFormsRepository;
 
@@ -27,6 +27,11 @@ public abstract class PaymentFormsServiceImpl implements PaymentFormsService {
 	@Override
 	public PaymentFormsEntity findById(Integer id) {
 		return paymentFormsRepository.findById(id).orElseThrow(EntityNotFoundException::new);
+	}
+
+	@Override
+	public List<PaymentFormsEntity> findByName(String name) {
+		return paymentFormsRepository.findByName(name).orElseThrow(EntityNotFoundException::new);
 	}
 
 	@Override
