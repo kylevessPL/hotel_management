@@ -1,6 +1,5 @@
 package pl.piasta.hotel.dao.service;
 
-import org.springframework.data.repository.query.Param;
 import pl.piasta.hotel.dao.model.RoomsEntity;
 
 import java.math.BigDecimal;

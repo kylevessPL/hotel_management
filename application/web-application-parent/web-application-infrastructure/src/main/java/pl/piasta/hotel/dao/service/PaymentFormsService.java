@@ -1,6 +1,5 @@
 package pl.piasta.hotel.dao.service;
 
-import org.springframework.data.repository.query.Param;
 import pl.piasta.hotel.dao.model.PaymentFormsEntity;
 
 import java.util.List;
