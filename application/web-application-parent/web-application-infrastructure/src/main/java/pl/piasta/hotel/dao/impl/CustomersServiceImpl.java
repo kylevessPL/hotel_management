@@ -10,7 +10,7 @@ import javax.persistence.EntityNotFoundException;
 import java.util.List;
 
 @Service
-public abstract class CustomersServiceImpl implements CustomersService {
+public class CustomersServiceImpl implements CustomersService {
 
 	private final CustomersRepository customersRepository;
 
@@ -27,6 +27,46 @@ public abstract class CustomersServiceImpl implements CustomersService {
 	@Override
 	public CustomersEntity findById(Integer id) {
 		return customersRepository.findById(id).orElseThrow(EntityNotFoundException::new);
+	}
+
+	@Override
+	public List<CustomersEntity> findByFirstName(String firstName) {
+		return customersRepository.findByFirstName(firstName).orElseThrow(EntityNotFoundException::new);
+	}
+
+	@Override
+	public List<CustomersEntity> findByLastName(String lastName) {
+		return customersRepository.findByLastName(lastName).orElseThrow(EntityNotFoundException::new);
+	}
+
+	@Override
+	public List<CustomersEntity> findByStreetName(String streetName) {
+		return customersRepository.findByStreetName(streetName).orElseThrow(EntityNotFoundException::new);
+	}
+
+	@Override
+	public List<CustomersEntity> findByHouseNumber(Integer houseNumber) {
+		return customersRepository.findByHouseNumber(houseNumber).orElseThrow(EntityNotFoundException::new);
+	}
+
+	@Override
+	public List<CustomersEntity> findByZipCode(String zipCode) {
+		return customersRepository.findByZipCode(zipCode).orElseThrow(EntityNotFoundException::new);
+	}
+
+	@Override
+	public List<CustomersEntity> findByCity(String city) {
+		return customersRepository.findByCity(city).orElseThrow(EntityNotFoundException::new);
+	}
+
+	@Override
+	public List<CustomersEntity> findByDocumentType(String documentType) {
+		return customersRepository.findByDocumentType(documentType).orElseThrow(EntityNotFoundException::new);
+	}
+
+	@Override
+	public List<CustomersEntity> findByDocumentId(String documentId) {
+		return customersRepository.findByDocumentId(documentId).orElseThrow(EntityNotFoundException::new);
 	}
 
 	@Override
