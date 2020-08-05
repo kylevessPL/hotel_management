@@ -10,7 +10,7 @@ import javax.persistence.EntityNotFoundException;
 import java.util.List;
 
 @Service
-public abstract class BookingsServicesServiceImpl implements BookingsServicesService {
+public class BookingsServicesServiceImpl implements BookingsServicesService {
 
 	private final BookingsServicesRepository bookingsServicesRepository;
 

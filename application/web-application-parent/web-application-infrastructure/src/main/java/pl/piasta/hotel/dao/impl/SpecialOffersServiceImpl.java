@@ -10,7 +10,7 @@ import javax.persistence.EntityNotFoundException;
 import java.util.List;
 
 @Service
-public abstract class SpecialOffersServiceImpl implements SpecialOffersService {
+public class SpecialOffersServiceImpl implements SpecialOffersService {
 
 	private final SpecialOffersRepository specialOffersRepository;
 

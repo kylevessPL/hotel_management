@@ -10,7 +10,7 @@ import javax.persistence.EntityNotFoundException;
 import java.util.List;
 
 @Service
-public abstract class PaymentFormsServiceImpl implements PaymentFormsService {
+public class PaymentFormsServiceImpl implements PaymentFormsService {
 
 	private final PaymentFormsRepository paymentFormsRepository;
 
