@@ -10,7 +10,7 @@ import javax.persistence.EntityNotFoundException;
 import java.util.List;
 
 @Service
-public abstract class RoomAmenitiesServiceImpl implements RoomAmenitiesService {
+public class RoomAmenitiesServiceImpl implements RoomAmenitiesService {
 
 	private final RoomAmenitiesRepository roomAmenitiesRepository;
 
@@ -27,6 +27,11 @@ public abstract class RoomAmenitiesServiceImpl implements RoomAmenitiesService {
 	@Override
 	public RoomAmenitiesEntity findById(Integer id) {
 		return roomAmenitiesRepository.findById(id).orElseThrow(EntityNotFoundException::new);
+	}
+
+	@Override
+	public List<RoomAmenitiesEntity> findByAmenityId(Integer amenityId) {
+		return roomAmenitiesRepository.findByAmenityId(amenityId).orElseThrow(EntityNotFoundException::new);
 	}
 
 	@Override
