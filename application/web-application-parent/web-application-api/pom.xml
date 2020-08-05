@@ -18,7 +18,12 @@
         <dependency>
             <groupId>pl.piasta.hotel</groupId>
             <artifactId>web-application-domain</artifactId>
-            <version>1.0</version>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>pl.piasta.hotel</groupId>
+            <artifactId>web-application-infrastructure</artifactId>
+            <version>${project.version}</version>
         </dependency>
     </dependencies>
 </project>
