@@ -10,9 +10,9 @@ public interface RoomsService {
 
 	List<RoomsEntity> findAll();
 	RoomsEntity findById(Integer id);
-	List<RoomsEntity> findByRoomNumber(@Param("room_number") String roomNumber);
-	List<RoomsEntity> findByBedAmount(@Param("bed_amount") Integer bedAmount);
-	List<RoomsEntity> findByStandardPrice(@Param("standard_price") BigDecimal standardPrice);
+	List<RoomsEntity> findByRoomNumber(String roomNumber);
+	List<RoomsEntity> findByBedAmount(Integer bedAmount);
+	List<RoomsEntity> findByStandardPrice(BigDecimal standardPrice);
 	long count();
 	void delete(RoomsEntity roomsEntity);
 	void save(RoomsEntity roomsEntity);

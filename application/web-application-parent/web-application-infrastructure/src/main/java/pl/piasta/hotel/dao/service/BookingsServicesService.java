@@ -9,7 +9,7 @@ public interface BookingsServicesService {
 
 	List<BookingsServicesEntity> findAll();
 	BookingsServicesEntity findById(Integer id);
-	List<BookingsServicesEntity> findByServiceId(@Param("service_id") Integer serviceId);
+	List<BookingsServicesEntity> findByServiceId(Integer serviceId);
 	long count();
 	void delete(BookingsServicesEntity bookingsServicesEntity);
 	void save(BookingsServicesEntity bookingsServicesEntity);

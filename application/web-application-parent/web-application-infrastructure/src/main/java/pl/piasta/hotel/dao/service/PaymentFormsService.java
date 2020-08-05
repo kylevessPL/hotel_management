@@ -9,7 +9,7 @@ public interface PaymentFormsService {
 
 	List<PaymentFormsEntity> findAll();
 	PaymentFormsEntity findById(Integer id);
-	List<PaymentFormsEntity> findByName(@Param("name") String name);
+	List<PaymentFormsEntity> findByName(String name);
 	long count();
 	void delete(PaymentFormsEntity paymentFormsEntity);
 	void save(PaymentFormsEntity paymentFormsEntity);

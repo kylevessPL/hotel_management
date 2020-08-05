@@ -9,7 +9,7 @@ public interface AmenitiesService {
 
 	List<AmenitiesEntity> findAll();
 	AmenitiesEntity findById(Integer id);
-    List<AmenitiesEntity> findByName(@Param("name") String name);
+    List<AmenitiesEntity> findByName(String name);
     long count();
 	void delete(AmenitiesEntity amenitiesEntity);
 	void save(AmenitiesEntity amenitiesEntity);

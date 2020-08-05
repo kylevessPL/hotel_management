@@ -10,8 +10,8 @@ public interface AdditionalServicesService {
 
 	List<AdditionalServicesEntity> findAll();
 	AdditionalServicesEntity findById(Integer id);
-	List<AdditionalServicesEntity> findByName(@Param("name") String name);
-	List<AdditionalServicesEntity> findByPrice(@Param("price") BigDecimal price);
+	List<AdditionalServicesEntity> findByName(String name);
+	List<AdditionalServicesEntity> findByPrice(BigDecimal price);
 	long count();
 	void delete(AdditionalServicesEntity additionalServicesEntity);
 	void save(AdditionalServicesEntity additionalServicesEntity);

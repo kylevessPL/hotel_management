@@ -19,6 +19,9 @@ public interface CustomersRepository extends JpaRepository<CustomersEntity, Inte
     @Query(value = "Select * from customers where last_name = :last_name", nativeQuery = true)
     Optional<List<CustomersEntity>> findByLastName(@Param("last_name") String lastName);
 
+    @Query(value = "Select * from customers where first_name = :first_name and last_name = :last_name", nativeQuery = true)
+    Optional<List<CustomersEntity>> findByFirstAndLastName(@Param("first_name") String firstName, @Param("last_name") String lastName);
+
     @Query(value = "Select * from customers where street_name = :street_name", nativeQuery = true)
     Optional<List<CustomersEntity>> findByStreetName(@Param("street_name") String streetName);
 
