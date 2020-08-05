@@ -17,11 +17,6 @@
             <artifactId>web-application-api</artifactId>
             <version>${project.version}</version>
         </dependency>
-        <dependency>
-            <groupId>pl.piasta.hotel</groupId>
-            <artifactId>web-application-infrastructure</artifactId>
-            <version>${project.version}</version>
-        </dependency>
     </dependencies>
 
 </project>
