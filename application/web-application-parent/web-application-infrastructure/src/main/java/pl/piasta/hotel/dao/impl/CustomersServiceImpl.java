@@ -40,6 +40,11 @@ public class CustomersServiceImpl implements CustomersService {
 	}
 
 	@Override
+	public List<CustomersEntity> findByFirstAndLastName(String firstName, String lastName) {
+		return customersRepository.findByFirstAndLastName(firstName, lastName).orElseThrow(EntityNotFoundException::new);
+	}
+
+	@Override
 	public List<CustomersEntity> findByStreetName(String streetName) {
 		return customersRepository.findByStreetName(streetName).orElseThrow(EntityNotFoundException::new);
 	}
