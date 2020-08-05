@@ -35,7 +35,7 @@ public class ApplicationController {
     }
 
     @GetMapping("/hotel/services/additional-services/{id}")
-    public AdditionalServicesEntity findAdditionalService(@PathVariable Integer id) {
+    public AdditionalServicesEntity findAdditionalServiceById(@PathVariable Integer id) {
         return additionalServicesService.findById(id);
     }
 
