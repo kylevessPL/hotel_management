@@ -1,10 +1,9 @@
-package pl.piasta.hotel.dao.impl;
+package pl.piasta.hotel.application.dao.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import pl.piasta.hotel.dao.model.PaymentFormsEntity;
 import pl.piasta.hotel.dao.repository.PaymentFormsRepository;
-import pl.piasta.hotel.dao.service.PaymentFormsService;
 
 import javax.persistence.EntityNotFoundException;
 import java.util.List;

@@ -1,4 +1,4 @@
-package pl.piasta.hotel.dao.service;
+package pl.piasta.hotel.application.dao.service;
 
 import pl.piasta.hotel.dao.model.AmenitiesEntity;
 

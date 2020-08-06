@@ -1,19 +1,18 @@
 package pl.piasta.hotel.dao.model;
 
-import javax.persistence.*;
-import java.math.BigDecimal;
+import javax.persistence.Column;
+import javax.persistence.Id;
+import javax.persistence.Table;
 import java.util.Objects;
 
-@Entity
-@Table(name = "special_offers", schema = "public", catalog = "hotel-db")
+@Table(name = "special_offers", schema = "public")
 public class SpecialOffersEntity {
     private int id;
-    private BigDecimal discount;
+    private Integer discount;
     private Integer bookingsAmount;
     private String description;
 
-    @Id
-    @Column(name = "id", nullable = false)
+    @Id @Column(name = "id", nullable = false)
     public int getId() {
         return id;
     }
@@ -22,19 +21,15 @@ public class SpecialOffersEntity {
         this.id = id;
     }
 
-    @Basic
-    @Column(name = "discount", nullable = true, precision = 2)
-    public BigDecimal getDiscount() {
+    public @Column(name = "discount") Integer getDiscount() {
         return discount;
     }
 
-    public void setDiscount(BigDecimal discount) {
+    public void setDiscount(Integer discount) {
         this.discount = discount;
     }
 
-    @Basic
-    @Column(name = "bookings_amount", nullable = true)
-    public Integer getBookingsAmount() {
+    public @Column(name = "bookings_amount") Integer getBookingsAmount() {
         return bookingsAmount;
     }
 
@@ -42,9 +37,7 @@ public class SpecialOffersEntity {
         this.bookingsAmount = bookingsAmount;
     }
 
-    @Basic
-    @Column(name = "description", nullable = true, length = 100)
-    public String getDescription() {
+    public @Column(name = "description", length = 100) String getDescription() {
         return description;
     }
 

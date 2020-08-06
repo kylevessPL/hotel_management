@@ -1,19 +1,19 @@
 package pl.piasta.hotel.dao.model;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Id;
+import javax.persistence.Table;
 import java.sql.Timestamp;
 import java.util.Objects;
 
-@Entity
-@Table(name = "payments", schema = "public", catalog = "hotel-db")
+@Table(name = "payments", schema = "public")
 public class PaymentsEntity {
     private int id;
+    private int bookingId;
     private Timestamp paymentDate;
     private int paymentFormId;
 
-    @Id
-    @Column(name = "id", nullable = false)
-    public int getId() {
+    public @Id @Column(name = "id", nullable = false) int getId() {
         return id;
     }
 
@@ -21,9 +21,15 @@ public class PaymentsEntity {
         this.id = id;
     }
 
-    @Basic
-    @Column(name = "payment_date", nullable = false)
-    public Timestamp getPaymentDate() {
+    public @Column(name = "booking_id", nullable = false) int getBookingId() {
+        return bookingId;
+    }
+
+    public void setBookingId(int bookingId) {
+        this.bookingId = bookingId;
+    }
+
+    public @Column(name = "payment_date", nullable = false) Timestamp getPaymentDate() {
         return paymentDate;
     }
 
@@ -31,9 +37,7 @@ public class PaymentsEntity {
         this.paymentDate = paymentDate;
     }
 
-    @Basic
-    @Column(name = "payment_form_id", nullable = false)
-    public int getPaymentFormId() {
+    public @Column(name = "payment_form_id", nullable = false) int getPaymentFormId() {
         return paymentFormId;
     }
 
@@ -47,12 +51,13 @@ public class PaymentsEntity {
         if (o == null || getClass() != o.getClass()) return false;
         PaymentsEntity that = (PaymentsEntity) o;
         return id == that.id &&
+                bookingId == that.bookingId &&
                 paymentFormId == that.paymentFormId &&
                 Objects.equals(paymentDate, that.paymentDate);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, paymentDate, paymentFormId);
+        return Objects.hash(id, bookingId, paymentDate, paymentFormId);
     }
 }

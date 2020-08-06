@@ -1,10 +1,9 @@
-package pl.piasta.hotel.dao.impl;
+package pl.piasta.hotel.application.dao.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import pl.piasta.hotel.dao.model.AmenitiesEntity;
 import pl.piasta.hotel.dao.repository.AmenitiesRepository;
-import pl.piasta.hotel.dao.service.AmenitiesService;
 
 import javax.persistence.EntityNotFoundException;
 import java.util.List;

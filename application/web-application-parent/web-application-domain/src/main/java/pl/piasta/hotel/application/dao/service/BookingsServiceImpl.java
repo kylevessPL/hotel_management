@@ -1,10 +1,9 @@
-package pl.piasta.hotel.dao.impl;
+package pl.piasta.hotel.application.dao.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import pl.piasta.hotel.dao.model.BookingsEntity;
 import pl.piasta.hotel.dao.repository.BookingsRepository;
-import pl.piasta.hotel.dao.service.BookingsService;
 
 import javax.persistence.EntityNotFoundException;
 import java.math.BigDecimal;
@@ -37,6 +36,11 @@ public class BookingsServiceImpl implements BookingsService {
 	}
 
 	@Override
+	public List<BookingsEntity> findByStartDate(Date startDate) {
+		return bookingsRepository.findByStartDate(startDate).orElseThrow(EntityNotFoundException::new);
+	}
+
+	@Override
 	public List<BookingsEntity> findByEndDate(Date endDate) {
 		return bookingsRepository.findByEndDate(endDate).orElseThrow(EntityNotFoundException::new);
 	}
@@ -59,11 +63,6 @@ public class BookingsServiceImpl implements BookingsService {
 	@Override
 	public List<BookingsEntity> findByFinalPrice(BigDecimal finalPrice) {
 		return bookingsRepository.findByFinalPrice(finalPrice).orElseThrow(EntityNotFoundException::new);
-	}
-
-	@Override
-	public List<BookingsEntity> findByPaymentId(Integer paymentId) {
-		return bookingsRepository.findByPaymentId(paymentId).orElseThrow(EntityNotFoundException::new);
 	}
 
 	@Override

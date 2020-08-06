@@ -1,10 +1,9 @@
-package pl.piasta.hotel.dao.impl;
+package pl.piasta.hotel.application.dao.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import pl.piasta.hotel.dao.model.PaymentsEntity;
 import pl.piasta.hotel.dao.repository.PaymentsRepository;
-import pl.piasta.hotel.dao.service.PaymentsService;
 
 import javax.persistence.EntityNotFoundException;
 import java.sql.Timestamp;
@@ -28,6 +27,11 @@ public class PaymentsServiceImpl implements PaymentsService {
 	@Override
 	public PaymentsEntity findById(Integer id) {
 		return paymentsRepository.findById(id).orElseThrow(EntityNotFoundException::new);
+	}
+
+	@Override
+	public List<PaymentsEntity> findByBookingId(Integer bookingId) {
+		return paymentsRepository.findByBookingId(bookingId).orElseThrow(EntityNotFoundException::new);
 	}
 
 	@Override

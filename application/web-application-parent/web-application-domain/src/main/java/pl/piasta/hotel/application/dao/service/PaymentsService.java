@@ -1,4 +1,4 @@
-package pl.piasta.hotel.dao.service;
+package pl.piasta.hotel.application.dao.service;
 
 import pl.piasta.hotel.dao.model.PaymentsEntity;
 
@@ -9,6 +9,7 @@ public interface PaymentsService {
 
 	List<PaymentsEntity> findAll() ;
 	PaymentsEntity findById(Integer id);
+	List<PaymentsEntity> findByBookingId(Integer bookingId);
 	List<PaymentsEntity> findByPaymentDate(Timestamp paymentDate);
 	List<PaymentsEntity> findByPaymentFormId(Integer paymentFormId);
 	long count();

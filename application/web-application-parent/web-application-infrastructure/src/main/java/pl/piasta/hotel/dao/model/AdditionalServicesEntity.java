@@ -1,19 +1,18 @@
 package pl.piasta.hotel.dao.model;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Id;
+import javax.persistence.Table;
 import java.math.BigDecimal;
 import java.util.Objects;
 
-@Entity
-@Table(name = "additional_services", schema = "public", catalog = "hotel-db")
+@Table(name = "additional_services", schema = "public")
 public class AdditionalServicesEntity {
     private int id;
     private String name;
     private BigDecimal price;
 
-    @Id
-    @Column(name = "id", nullable = false)
-    public int getId() {
+    public @Id @Column(name = "id", nullable = false) int getId() {
         return id;
     }
 
@@ -21,9 +20,7 @@ public class AdditionalServicesEntity {
         this.id = id;
     }
 
-    @Basic
-    @Column(name = "name", nullable = false, length = 40)
-    public String getName() {
+    public @Column(name = "name", nullable = false, length = 40) String getName() {
         return name;
     }
 
@@ -31,9 +28,7 @@ public class AdditionalServicesEntity {
         this.name = name;
     }
 
-    @Basic
-    @Column(name = "price", precision = 2)
-    public BigDecimal getPrice() {
+    public @Column(name = "price", precision = 2) BigDecimal getPrice() {
         return price;
     }
 

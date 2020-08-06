@@ -1,25 +1,24 @@
 package pl.piasta.hotel.dao.model;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Id;
+import javax.persistence.Table;
 import java.math.BigDecimal;
 import java.sql.Date;
 import java.util.Objects;
 
-@Entity
-@Table(name = "bookings", schema = "public", catalog = "hotel-db")
+@Table(name = "bookings", schema = "public")
 public class BookingsEntity {
     private int id;
     private Date bookDate;
+    private Date startDate;
     private Date endDate;
     private int customerId;
     private int roomId;
     private Integer offerId;
     private BigDecimal finalPrice;
-    private Integer paymentId;
 
-    @Id
-    @Column(name = "id", nullable = false)
-    public int getId() {
+    public @Id @Column(name = "id", nullable = false) int getId() {
         return id;
     }
 
@@ -27,9 +26,7 @@ public class BookingsEntity {
         this.id = id;
     }
 
-    @Basic
-    @Column(name = "book_date", nullable = false)
-    public Date getBookDate() {
+    public @Column(name = "book_date", nullable = false) Date getBookDate() {
         return bookDate;
     }
 
@@ -37,9 +34,15 @@ public class BookingsEntity {
         this.bookDate = bookDate;
     }
 
-    @Basic
-    @Column(name = "end_date", nullable = false)
-    public Date getEndDate() {
+    public @Column(name = "start_date", nullable = false) Date getStartDate() {
+        return startDate;
+    }
+
+    public void setStartDate(Date startDate) {
+        this.startDate = startDate;
+    }
+
+    public @Column(name = "end_date", nullable = false) Date getEndDate() {
         return endDate;
     }
 
@@ -47,9 +50,7 @@ public class BookingsEntity {
         this.endDate = endDate;
     }
 
-    @Basic
-    @Column(name = "customer_id", nullable = false)
-    public int getCustomerId() {
+    public @Column(name = "customer_id", nullable = false) int getCustomerId() {
         return customerId;
     }
 
@@ -57,9 +58,7 @@ public class BookingsEntity {
         this.customerId = customerId;
     }
 
-    @Basic
-    @Column(name = "room_id", nullable = false)
-    public int getRoomId() {
+    public @Column(name = "room_id", nullable = false) int getRoomId() {
         return roomId;
     }
 
@@ -67,9 +66,7 @@ public class BookingsEntity {
         this.roomId = roomId;
     }
 
-    @Basic
-    @Column(name = "offer_id")
-    public Integer getOfferId() {
+    public @Column(name = "offer_id") Integer getOfferId() {
         return offerId;
     }
 
@@ -77,24 +74,12 @@ public class BookingsEntity {
         this.offerId = offerId;
     }
 
-    @Basic
-    @Column(name = "final_price", precision = 2)
-    public BigDecimal getFinalPrice() {
+    public @Column(name = "final_price", precision = 2) BigDecimal getFinalPrice() {
         return finalPrice;
     }
 
     public void setFinalPrice(BigDecimal finalPrice) {
         this.finalPrice = finalPrice;
-    }
-
-    @Basic
-    @Column(name = "payment_id")
-    public Integer getPaymentId() {
-        return paymentId;
-    }
-
-    public void setPaymentId(Integer paymentId) {
-        this.paymentId = paymentId;
     }
 
     @Override
@@ -106,14 +91,14 @@ public class BookingsEntity {
                 customerId == that.customerId &&
                 roomId == that.roomId &&
                 Objects.equals(bookDate, that.bookDate) &&
+                Objects.equals(startDate, that.startDate) &&
                 Objects.equals(endDate, that.endDate) &&
                 Objects.equals(offerId, that.offerId) &&
-                Objects.equals(finalPrice, that.finalPrice) &&
-                Objects.equals(paymentId, that.paymentId);
+                Objects.equals(finalPrice, that.finalPrice);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, bookDate, endDate, customerId, roomId, offerId, finalPrice, paymentId);
+        return Objects.hash(id, bookDate, startDate, endDate, customerId, roomId, offerId, finalPrice);
     }
 }

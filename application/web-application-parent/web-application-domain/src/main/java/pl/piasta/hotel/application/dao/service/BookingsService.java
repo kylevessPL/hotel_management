@@ -1,4 +1,4 @@
-package pl.piasta.hotel.dao.service;
+package pl.piasta.hotel.application.dao.service;
 
 import pl.piasta.hotel.dao.model.BookingsEntity;
 
@@ -11,12 +11,12 @@ public interface BookingsService {
 	List<BookingsEntity> findAll();
 	BookingsEntity findById(Integer id);
 	List<BookingsEntity> findByBookDate(Date bookDate);
+	List<BookingsEntity> findByStartDate(Date startDate);
 	List<BookingsEntity> findByEndDate(Date endDate);
 	List<BookingsEntity> findByCustomerId(Integer customerId);
 	List<BookingsEntity> findByRoomId(Integer roomId);
 	List<BookingsEntity> findByOfferId(Integer offerId);
 	List<BookingsEntity> findByFinalPrice(BigDecimal finalPrice);
-	List<BookingsEntity> findByPaymentId(Integer paymentId);
 	long count();
 	void delete(BookingsEntity bookingsEntity);
 	void save(BookingsEntity bookingsEntity);

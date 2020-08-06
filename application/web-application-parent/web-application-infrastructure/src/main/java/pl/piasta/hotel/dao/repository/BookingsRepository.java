@@ -18,6 +18,9 @@ public interface BookingsRepository extends JpaRepository<BookingsEntity, Intege
     @Query(value = "Select * from bookings where book_date = :book_date", nativeQuery = true)
     Optional<List<BookingsEntity>> findByBookDate(@Param("book_date") Date bookDate);
 
+    @Query(value = "Select * from bookings where start_date = :start_date", nativeQuery = true)
+    Optional<List<BookingsEntity>>findByStartDate(@Param("start_date") Date startDate);
+
     @Query(value = "Select * from bookings where end_date = :end_date", nativeQuery = true)
     Optional<List<BookingsEntity>>findByEndDate(@Param("end_date") Date endDate);
 
@@ -32,8 +35,5 @@ public interface BookingsRepository extends JpaRepository<BookingsEntity, Intege
 
     @Query(value = "Select * from bookings where final_price = :final_price", nativeQuery = true)
     Optional<List<BookingsEntity>> findByFinalPrice(@Param("final_price") BigDecimal finalPrice);
-
-    @Query(value = "Select * from bookings where payment_id = :payment_id", nativeQuery = true)
-    Optional<List<BookingsEntity>> findByPaymentId(@Param("payment_id") Integer paymentId);
 
 }

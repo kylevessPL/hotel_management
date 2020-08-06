@@ -14,6 +14,9 @@ import java.util.Optional;
 @Repository
 public interface PaymentsRepository extends JpaRepository<PaymentsEntity, Integer>, JpaSpecificationExecutor<PaymentsEntity> {
 
+    @Query(value = "Select * from payments where booking_id = :booking_id", nativeQuery = true)
+    Optional<List<PaymentsEntity>> findByBookingId(@Param("booking_id") Integer bookingId);
+
     @Query(value = "Select * from payments where payment_date = :payment_date", nativeQuery = true)
     Optional<List<PaymentsEntity>> findByPaymentDate(@Param("payment_date") Timestamp paymentDate);
 
