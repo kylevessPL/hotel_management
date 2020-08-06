@@ -1,10 +1,11 @@
 package pl.piasta.hotel.dao.model;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Id;
+import javax.persistence.Table;
 import java.util.Objects;
 
-@Entity
-@Table(name = "customers", schema = "public", catalog = "hotel-db")
+@Table(name = "customers", schema = "public")
 public class CustomersEntity {
     private int id;
     private String firstName;
@@ -16,9 +17,7 @@ public class CustomersEntity {
     private String documentType;
     private String documentId;
 
-    @Id
-    @Column(name = "id", nullable = false)
-    public int getId() {
+    public @Id @Column(name = "id", nullable = false) int getId() {
         return id;
     }
 
@@ -26,9 +25,7 @@ public class CustomersEntity {
         this.id = id;
     }
 
-    @Basic
-    @Column(name = "first_name", nullable = false, length = 30)
-    public String getFirstName() {
+    public @Column(name = "first_name", nullable = false, length = 30) String getFirstName() {
         return firstName;
     }
 
@@ -36,9 +33,7 @@ public class CustomersEntity {
         this.firstName = firstName;
     }
 
-    @Basic
-    @Column(name = "last_name", nullable = false, length = 30)
-    public String getLastName() {
+    public @Column(name = "last_name", nullable = false, length = 30) String getLastName() {
         return lastName;
     }
 
@@ -46,9 +41,7 @@ public class CustomersEntity {
         this.lastName = lastName;
     }
 
-    @Basic
-    @Column(name = "street_name", nullable = false, length = 30)
-    public String getStreetName() {
+    public @Column(name = "street_name", nullable = false, length = 30) String getStreetName() {
         return streetName;
     }
 
@@ -56,9 +49,7 @@ public class CustomersEntity {
         this.streetName = streetName;
     }
 
-    @Basic
-    @Column(name = "house_number", nullable = false)
-    public int getHouseNumber() {
+    public @Column(name = "house_number", nullable = false) int getHouseNumber() {
         return houseNumber;
     }
 
@@ -66,9 +57,7 @@ public class CustomersEntity {
         this.houseNumber = houseNumber;
     }
 
-    @Basic
-    @Column(name = "zip_code", nullable = false, length = 10)
-    public String getZipCode() {
+    public @Column(name = "zip_code", nullable = false, length = 10) String getZipCode() {
         return zipCode;
     }
 
@@ -76,9 +65,7 @@ public class CustomersEntity {
         this.zipCode = zipCode;
     }
 
-    @Basic
-    @Column(name = "city", nullable = false, length = 30)
-    public String getCity() {
+    public @Column(name = "city", nullable = false, length = 30) String getCity() {
         return city;
     }
 
@@ -86,9 +73,7 @@ public class CustomersEntity {
         this.city = city;
     }
 
-    @Basic
-    @Column(name = "document_type", nullable = false, length = 10)
-    public String getDocumentType() {
+    public @Column(name = "document_type", nullable = false, length = 10) String getDocumentType() {
         return documentType;
     }
 
@@ -96,9 +81,7 @@ public class CustomersEntity {
         this.documentType = documentType;
     }
 
-    @Basic
-    @Column(name = "document_id", nullable = false, length = 10)
-    public String getDocumentId() {
+    public @Column(name = "document_id", nullable = false, length = 10) String getDocumentId() {
         return documentId;
     }
 

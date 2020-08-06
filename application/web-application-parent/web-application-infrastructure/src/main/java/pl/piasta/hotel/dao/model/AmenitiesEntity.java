@@ -1,17 +1,16 @@
 package pl.piasta.hotel.dao.model;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Id;
+import javax.persistence.Table;
 import java.util.Objects;
 
-@Entity
-@Table(name = "amenities", schema = "public", catalog = "hotel-db")
+@Table(name = "amenities", schema = "public")
 public class AmenitiesEntity {
     private int id;
     private String name;
 
-    @Id
-    @Column(name = "id", nullable = false)
-    public int getId() {
+    public @Id @Column(name = "id", nullable = false) int getId() {
         return id;
     }
 
@@ -19,9 +18,7 @@ public class AmenitiesEntity {
         this.id = id;
     }
 
-    @Basic
-    @Column(name = "name", nullable = false, length = 40)
-    public String getName() {
+    public @Column(name = "name", nullable = false, length = 40) String getName() {
         return name;
     }
 

@@ -1,20 +1,19 @@
 package pl.piasta.hotel.dao.model;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Id;
+import javax.persistence.Table;
 import java.math.BigDecimal;
 import java.util.Objects;
 
-@Entity
-@Table(name = "rooms", schema = "public", catalog = "hotel-db")
+@Table(name = "rooms", schema = "public")
 public class RoomsEntity {
     private int id;
     private String roomNumber;
     private int bedAmount;
     private BigDecimal standardPrice;
 
-    @Id
-    @Column(name = "id", nullable = false)
-    public int getId() {
+    public @Id @Column(name = "id", nullable = false) int getId() {
         return id;
     }
 
@@ -22,9 +21,7 @@ public class RoomsEntity {
         this.id = id;
     }
 
-    @Basic
-    @Column(name = "room_number", nullable = false, length = 10)
-    public String getRoomNumber() {
+    public @Column(name = "room_number", nullable = false, length = 10) String getRoomNumber() {
         return roomNumber;
     }
 
@@ -32,9 +29,7 @@ public class RoomsEntity {
         this.roomNumber = roomNumber;
     }
 
-    @Basic
-    @Column(name = "bed_amount", nullable = false)
-    public int getBedAmount() {
+    public @Column(name = "bed_amount", nullable = false) int getBedAmount() {
         return bedAmount;
     }
 
@@ -42,9 +37,7 @@ public class RoomsEntity {
         this.bedAmount = bedAmount;
     }
 
-    @Basic
-    @Column(name = "standard_price", nullable = true, precision = 2)
-    public BigDecimal getStandardPrice() {
+    public @Column(name = "standard_price", precision = 2) BigDecimal getStandardPrice() {
         return standardPrice;
     }
 

@@ -1,10 +1,9 @@
-package pl.piasta.hotel.dao.impl;
+package pl.piasta.hotel.application.dao.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import pl.piasta.hotel.dao.model.SpecialOffersEntity;
 import pl.piasta.hotel.dao.repository.SpecialOffersRepository;
-import pl.piasta.hotel.dao.service.SpecialOffersService;
 
 import javax.persistence.EntityNotFoundException;
 import java.math.BigDecimal;
