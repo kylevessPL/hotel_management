@@ -17,7 +17,4 @@ public interface AdditionalServicesRepository extends JpaRepository<AdditionalSe
     @Query(value = "Select * from additional_services where name = :name", nativeQuery = true)
     Optional<List<AdditionalServicesEntity>> findByName(@Param("name") String name);
 
-    @Query(value = "Select * from additional_services where price = :price", nativeQuery = true)
-    Optional<List<AdditionalServicesEntity>> findByPrice(@Param("price") BigDecimal price);
-
 }
