@@ -11,12 +11,6 @@
 
     <artifactId>db</artifactId>
 
-    <dependencies>
-        <dependency>
-            <groupId>org.postgresql</groupId>
-            <artifactId>postgresql</artifactId>
-        </dependency>
-    </dependencies>
     <build>
         <plugins>
             <plugin>
@@ -31,6 +25,13 @@
                     <changeLogFile>src/main/resources/db/changelog/db.changelog-master.xml</changeLogFile>
                     <outputChangeLogFile>src/main/resources/db/changelog/db.changelog-master.xml</outputChangeLogFile>
                 </configuration>
+                <dependencies>
+                    <dependency>
+                        <groupId>org.postgresql</groupId>
+                        <artifactId>postgresql</artifactId>
+                        <version>42.2.14</version>
+                    </dependency>
+                </dependencies>
             </plugin>
         </plugins>
         <extensions>
