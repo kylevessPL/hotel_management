@@ -5,12 +5,13 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import java.math.BigDecimal;
 import java.sql.Date;
+import java.sql.Timestamp;
 import java.util.Objects;
 
 @Table(name = "bookings", schema = "public")
 public class BookingsEntity {
     private int id;
-    private Date bookDate;
+    private Timestamp bookDate;
     private Date startDate;
     private Date endDate;
     private int customerId;
@@ -26,11 +27,11 @@ public class BookingsEntity {
         this.id = id;
     }
 
-    public @Column(name = "book_date", nullable = false) Date getBookDate() {
+    public @Column(name = "book_date", nullable = false) Timestamp getBookDate() {
         return bookDate;
     }
 
-    public void setBookDate(Date bookDate) {
+    public void setBookDate(Timestamp bookDate) {
         this.bookDate = bookDate;
     }
 
