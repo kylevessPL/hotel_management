@@ -71,7 +71,7 @@
             <column name="id" type="INTEGER" defaultValueComputed="nextval('seq_bookings')">
                 <constraints nullable="false" unique="true" primaryKey="true" primaryKeyName="bookings_pk"/>
             </column>
-            <column name="book_date" type="date">
+            <column name="book_date" type="TIMESTAMP WITHOUT TIME ZONE">
                 <constraints nullable="false"/>
             </column>
             <column name="start_date" type="date">
