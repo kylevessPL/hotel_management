@@ -1,4 +1,4 @@
-package pl.piasta.hotel.application.dateservice;
+package pl.piasta.hotel.application.helloworld.service;
 
 import org.springframework.stereotype.Service;
 

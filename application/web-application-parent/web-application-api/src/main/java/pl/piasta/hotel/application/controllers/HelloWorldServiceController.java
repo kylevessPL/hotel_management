@@ -5,14 +5,15 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import pl.piasta.hotel.application.dateservice.HelloWorldService;
+import pl.piasta.hotel.application.helloworld.service.HelloWorldService;
 
 @RestController
-public class ApplicationController {
+public class HelloWorldServiceController {
+
     private final HelloWorldService dateService;
 
     @Autowired
-    public ApplicationController(HelloWorldService dateService) {
+    public HelloWorldServiceController(HelloWorldService dateService) {
         this.dateService = dateService;
     }
 
