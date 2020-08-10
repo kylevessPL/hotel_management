@@ -1,42 +1,23 @@
 package pl.piasta.hotel.infrastructure.model;
 
+import lombok.Getter;
+import lombok.NonNull;
+import lombok.Setter;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.Table;
 import java.math.BigDecimal;
 import java.util.Objects;
 
-@Entity
-@Table(name = "additional_services", schema = "public")
+@Entity(name = "additional_services")
+@Getter
+@Setter
 public class AdditionalServicesEntity {
-    private int id;
-    private String name;
-    private BigDecimal price;
 
-    public @Id @Column(name = "id", nullable = false) int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public @Column(name = "name", nullable = false, length = 40) String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public @Column(name = "price", precision = 2) BigDecimal getPrice() {
-        return price;
-    }
-
-    public void setPrice(BigDecimal price) {
-        this.price = price;
-    }
+    @Id @Column(name = "id", nullable = false) @NonNull private int id;
+    @Column(name = "name", nullable = false, length = 40) @NonNull private String name;
+    @Column(name = "price", precision = 2) private BigDecimal price;
 
     @Override
     public boolean equals(Object o) {
@@ -52,4 +33,5 @@ public class AdditionalServicesEntity {
     public int hashCode() {
         return Objects.hash(id, name, price);
     }
+
 }

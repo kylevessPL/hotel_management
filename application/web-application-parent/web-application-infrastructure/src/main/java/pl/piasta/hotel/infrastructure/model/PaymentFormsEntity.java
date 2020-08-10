@@ -1,30 +1,21 @@
 package pl.piasta.hotel.infrastructure.model;
 
+import lombok.Getter;
+import lombok.NonNull;
+import lombok.Setter;
+
 import javax.persistence.Column;
+import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.Table;
 import java.util.Objects;
 
-@Table(name = "payment_forms", schema = "public")
+@Entity(name = "payment_forms")
+@Getter
+@Setter
 public class PaymentFormsEntity {
-    private int id;
-    private String name;
 
-    public @Id @Column(name = "id", nullable = false) int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public @Column(name = "name", nullable = false, length = 10) String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
+    @Id @Column(name = "id", nullable = false) @NonNull private int id;
+    @Column(name = "name", nullable = false, length = 10) @NonNull private String name;
 
     @Override
     public boolean equals(Object o) {
@@ -39,4 +30,5 @@ public class PaymentFormsEntity {
     public int hashCode() {
         return Objects.hash(id, name);
     }
+
 }
