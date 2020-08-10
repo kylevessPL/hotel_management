@@ -27,12 +27,17 @@
         <dependencies>
             <dependency>
                 <groupId>pl.piasta.hotel</groupId>
-                <artifactId>web-application-domain</artifactId>
+                <artifactId>application-dto</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
                 <groupId>pl.piasta.hotel</groupId>
-                <artifactId>application-dto</artifactId>
+                <artifactId>web-application-api</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>pl.piasta.hotel</groupId>
+                <artifactId>web-application-domain</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
@@ -41,9 +46,25 @@
                 <version>${project.version}</version>
             </dependency>
             <dependency>
+                <groupId>pl.piasta.hotel</groupId>
+                <artifactId>web-application-infrastructure</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
                 <groupId>org.postgresql</groupId>
                 <artifactId>postgresql</artifactId>
                 <version>42.2.14</version>
+            </dependency>
+            <dependency>
+                <groupId>com.github.shyiko.servers-maven-extension</groupId>
+                <artifactId>servers-maven-extension</artifactId>
+                <version>1.3.1</version>
+            </dependency>
+            <dependency>
+                <groupId>org.projectlombok</groupId>
+                <artifactId>lombok</artifactId>
+                <version>1.18.12</version>
+                <scope>provided</scope>
             </dependency>
             <dependency>
                 <groupId>org.springframework.boot</groupId>
@@ -62,4 +83,16 @@
             </dependency>
         </dependencies>
     </dependencyManagement>
+
+    <build>
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <groupId>org.liquibase</groupId>
+                    <artifactId>liquibase-maven-plugin</artifactId>
+                    <version>4.0.0</version>
+                </plugin>
+            </plugins>
+        </pluginManagement>
+    </build>
 </project>

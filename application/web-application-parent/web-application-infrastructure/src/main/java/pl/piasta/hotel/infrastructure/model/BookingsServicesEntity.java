@@ -1,30 +1,21 @@
 package pl.piasta.hotel.infrastructure.model;
 
+import lombok.Getter;
+import lombok.NonNull;
+import lombok.Setter;
+
 import javax.persistence.Column;
+import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.Table;
 import java.util.Objects;
 
-@Table(name = "bookings_services", schema = "public")
+@Entity(name = "bookings_services")
+@Getter
+@Setter
 public class BookingsServicesEntity {
-    private int bookingId;
-    private int serviceId;
 
-    public @Id @Column(name = "booking_id", nullable = false) int getBookingId() {
-        return bookingId;
-    }
-
-    public void setBookingId(int bookingId) {
-        this.bookingId = bookingId;
-    }
-
-    public @Column(name = "service_id", nullable = false) int getServiceId() {
-        return serviceId;
-    }
-
-    public void setServiceId(int serviceId) {
-        this.serviceId = serviceId;
-    }
+    @Id @Column(name = "booking_id", nullable = false) @NonNull private int bookingId;
+    @Column(name = "service_id", nullable = false) @NonNull private int serviceId;
 
     @Override
     public boolean equals(Object o) {
@@ -39,4 +30,5 @@ public class BookingsServicesEntity {
     public int hashCode() {
         return Objects.hash(bookingId, serviceId);
     }
+
 }

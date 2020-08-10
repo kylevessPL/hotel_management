@@ -1,49 +1,24 @@
 package pl.piasta.hotel.infrastructure.model;
 
+import lombok.Getter;
+import lombok.NonNull;
+import lombok.Setter;
+
 import javax.persistence.Column;
+import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.Table;
 import java.math.BigDecimal;
 import java.util.Objects;
 
-@Table(name = "rooms", schema = "public")
+@Entity(name = "rooms")
+@Getter
+@Setter
 public class RoomsEntity {
-    private int id;
-    private String roomNumber;
-    private int bedAmount;
-    private BigDecimal standardPrice;
 
-    public @Id @Column(name = "id", nullable = false) int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public @Column(name = "room_number", nullable = false, length = 10) String getRoomNumber() {
-        return roomNumber;
-    }
-
-    public void setRoomNumber(String roomNumber) {
-        this.roomNumber = roomNumber;
-    }
-
-    public @Column(name = "bed_amount", nullable = false) int getBedAmount() {
-        return bedAmount;
-    }
-
-    public void setBedAmount(int bedAmount) {
-        this.bedAmount = bedAmount;
-    }
-
-    public @Column(name = "standard_price", precision = 2) BigDecimal getStandardPrice() {
-        return standardPrice;
-    }
-
-    public void setStandardPrice(BigDecimal standardPrice) {
-        this.standardPrice = standardPrice;
-    }
+    @Id @Column(name = "id", nullable = false) @NonNull private int id;
+    @Column(name = "room_number", nullable = false, length = 10) @NonNull private String roomNumber;
+    @Column(name = "bed_amount", nullable = false) @NonNull private int bedAmount;
+    @Column(name = "standard_price", precision = 2) private BigDecimal standardPrice;
 
     @Override
     public boolean equals(Object o) {
@@ -60,4 +35,5 @@ public class RoomsEntity {
     public int hashCode() {
         return Objects.hash(id, roomNumber, bedAmount, standardPrice);
     }
+
 }

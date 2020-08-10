@@ -1,49 +1,24 @@
 package pl.piasta.hotel.infrastructure.model;
 
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.NonNull;
+import lombok.Setter;
+
 import javax.persistence.Column;
+import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.Table;
 import java.util.Objects;
 
-@Table(name = "special_offers", schema = "public")
+@Entity(name = "special_offers")
+@Getter
+@Setter
 public class SpecialOffersEntity {
-    private int id;
-    private Integer discount;
-    private Integer bookingsAmount;
-    private String description;
 
-    @Id @Column(name = "id", nullable = false)
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public @Column(name = "discount") Integer getDiscount() {
-        return discount;
-    }
-
-    public void setDiscount(Integer discount) {
-        this.discount = discount;
-    }
-
-    public @Column(name = "bookings_amount") Integer getBookingsAmount() {
-        return bookingsAmount;
-    }
-
-    public void setBookingsAmount(Integer bookingsAmount) {
-        this.bookingsAmount = bookingsAmount;
-    }
-
-    public @Column(name = "description", length = 100) String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
+    @Id @Column(name = "id", nullable = false) @NonNull private int id;
+    @Column(name = "discount") private Integer discount;
+    @Column(name = "bookings_amount") private Integer bookingsAmount;
+    @Column(name = "description", length = 100) private String description;
 
     @Override
     public boolean equals(Object o) {
@@ -60,4 +35,5 @@ public class SpecialOffersEntity {
     public int hashCode() {
         return Objects.hash(id, discount, bookingsAmount, description);
     }
+
 }
