@@ -1,11 +1,13 @@
 package pl.piasta.hotel.dao.model;
 
 import javax.persistence.Column;
+import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import java.math.BigDecimal;
 import java.util.Objects;
 
+@Entity
 @Table(name = "additional_services", schema = "public")
 public class AdditionalServicesEntity {
     private int id;

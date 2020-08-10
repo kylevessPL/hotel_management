@@ -4,12 +4,10 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.context.annotation.ComponentScan;
-import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
 @SpringBootApplication
 @ComponentScan("pl.piasta.hotel")
-@EntityScan("pl.piasta.hotel.dao.model")
-@EnableJpaRepositories("pl.piasta.hotel.dao.repository")
+@EntityScan("pl.piasta.hotel")
 public class Application {
 
     public static void main(String[] args) {
