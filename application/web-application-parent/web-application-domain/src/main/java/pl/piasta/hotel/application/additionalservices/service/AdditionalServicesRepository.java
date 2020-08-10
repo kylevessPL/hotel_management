@@ -4,8 +4,6 @@ import pl.piasta.hotel.domain.additionalservices.AdditionalService;
 
 import java.util.List;
 
-public interface AdditionalServicesService {
-
+public interface AdditionalServicesRepository {
     List<AdditionalService> getAllAdditionalServices();
-
 }

@@ -2,32 +2,22 @@ package pl.piasta.hotel.application.additionalservices.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import pl.piasta.hotel.domain.additionalservices.AdditionalService;
 
 import java.util.List;
 
 @Service
 public class AdditionalServicesServiceImpl implements AdditionalServicesService {
 
-	private final AdditionalServicesDTOMapper mapper;
+    private final AdditionalServicesRepository repository;
 
-	@Autowired
-	AdditionalServicesServiceImpl(AdditionalServicesDTOMapper mapper) {
-		this.mapper = mapper;
-	}
+    @Autowired
+    public AdditionalServicesServiceImpl(AdditionalServicesRepository repository) {
+        this.repository = repository;
+    }
 
-	@Override
-	public List<AdditionalServicesDTO> findAll() {
-		return mapper.findAll();
-	}
-
-	@Override
-	public AdditionalServicesDTO findById(Integer id) {
-		return mapper.findById(id);
-	}
-
-	@Override
-	public List<AdditionalServicesDTO> findByName(String name) {
-		return mapper.findByName(name);
-	}
-
+    @Override
+    public List<AdditionalService> getAllAdditionalServices() {
+        return repository.getAllAdditionalServices();
+    }
 }

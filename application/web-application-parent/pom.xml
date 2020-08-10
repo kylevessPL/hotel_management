@@ -17,6 +17,7 @@
         <module>web-application-domain</module>
         <module>web-application-infrastructure</module>
         <module>db</module>
+        <module>web-application-domain-model</module>
     </modules>
 
 
