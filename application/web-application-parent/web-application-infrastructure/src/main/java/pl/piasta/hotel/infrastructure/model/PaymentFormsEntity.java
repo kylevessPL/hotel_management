@@ -14,8 +14,10 @@ import java.util.Objects;
 @Setter
 public class PaymentFormsEntity {
 
-    @Id @Column(name = "id", nullable = false) @NonNull private int id;
-    @Column(name = "name", nullable = false, length = 10) @NonNull private String name;
+    @Id @Column(name = "id", nullable = false)
+    private int id;
+    @Column(name = "name", nullable = false, length = 10)
+    private String name;
 
     @Override
     public boolean equals(Object o) {

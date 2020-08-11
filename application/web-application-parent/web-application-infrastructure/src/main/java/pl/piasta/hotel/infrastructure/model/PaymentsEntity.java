@@ -15,10 +15,14 @@ import java.util.Objects;
 @Setter
 public class PaymentsEntity {
 
-    @Id @Column(name = "id", nullable = false) @NonNull private int id;
-    @Column(name = "booking_id", nullable = false) @NonNull private int bookingId;
-    @Column(name = "payment_date", nullable = false) @NonNull private Timestamp paymentDate;
-    @Column(name = "payment_form_id", nullable = false) @NonNull private int paymentFormId;
+    @Id @Column(name = "id", nullable = false)
+    private int id;
+    @Column(name = "booking_id", nullable = false)
+    private int bookingId;
+    @Column(name = "payment_date", nullable = false)
+    private Timestamp paymentDate;
+    @Column(name = "payment_form_id", nullable = false)
+    private int paymentFormId;
 
     @Override
     public boolean equals(Object o) {

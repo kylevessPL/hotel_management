@@ -17,14 +17,22 @@ import java.util.Objects;
 @Setter
 public class BookingsEntity {
 
-    @Id @Column(name = "id", nullable = false) @NonNull private int id;
-    @Column(name = "book_date", nullable = false) @NonNull private Timestamp bookDate;
-    @Column(name = "start_date", nullable = false) @NonNull private Date startDate;
-    @Column(name = "end_date", nullable = false) @NonNull private Date endDate;
-    @Column(name = "customer_id", nullable = false) @NonNull private int customerId;
-    @Column(name = "room_id", nullable = false) @NonNull private int roomId;
-    @Column(name = "offer_id") private Integer offerId;
-    @Column(name = "final_price", precision = 2) private BigDecimal finalPrice;
+    @Id @Column(name = "id", nullable = false)
+    private int id;
+    @Column(name = "book_date", nullable = false)
+    private Timestamp bookDate;
+    @Column(name = "start_date", nullable = false)
+    private Date startDate;
+    @Column(name = "end_date", nullable = false)
+    private Date endDate;
+    @Column(name = "customer_id", nullable = false)
+    private int customerId;
+    @Column(name = "room_id", nullable = false)
+    private int roomId;
+    @Column(name = "offer_id")
+    private Integer offerId;
+    @Column(name = "final_price", precision = 2)
+    private BigDecimal finalPrice;
 
     @Override
     public boolean equals(Object o) {

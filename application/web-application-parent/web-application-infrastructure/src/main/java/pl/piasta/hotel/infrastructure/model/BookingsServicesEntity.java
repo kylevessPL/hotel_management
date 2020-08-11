@@ -14,8 +14,10 @@ import java.util.Objects;
 @Setter
 public class BookingsServicesEntity {
 
-    @Id @Column(name = "booking_id", nullable = false) @NonNull private int bookingId;
-    @Column(name = "service_id", nullable = false) @NonNull private int serviceId;
+    @Id @Column(name = "booking_id", nullable = false)
+    private int bookingId;
+    @Column(name = "service_id", nullable = false)
+    private int serviceId;
 
     @Override
     public boolean equals(Object o) {

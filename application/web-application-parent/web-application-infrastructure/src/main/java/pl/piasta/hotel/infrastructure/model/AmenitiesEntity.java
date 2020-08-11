@@ -14,8 +14,10 @@ import java.util.Objects;
 @Setter
 public class AmenitiesEntity {
 
-    @Id @Column(name = "id", nullable = false) @NonNull private int id;
-    @Column(name = "name", nullable = false, length = 40) @NonNull private String name;
+    @Id @Column(name = "id", nullable = false)
+    private int id;
+    @Column(name = "name", nullable = false, length = 40)
+    private String name;
 
     @Override
     public boolean equals(Object o) {

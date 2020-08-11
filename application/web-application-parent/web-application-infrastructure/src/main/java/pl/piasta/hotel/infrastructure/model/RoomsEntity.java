@@ -15,10 +15,14 @@ import java.util.Objects;
 @Setter
 public class RoomsEntity {
 
-    @Id @Column(name = "id", nullable = false) @NonNull private int id;
-    @Column(name = "room_number", nullable = false, length = 10) @NonNull private String roomNumber;
-    @Column(name = "bed_amount", nullable = false) @NonNull private int bedAmount;
-    @Column(name = "standard_price", precision = 2) private BigDecimal standardPrice;
+    @Id @Column(name = "id", nullable = false)
+    private int id;
+    @Column(name = "room_number", nullable = false, length = 10)
+    private String roomNumber;
+    @Column(name = "bed_amount", nullable = false)
+    private int bedAmount;
+    @Column(name = "standard_price", precision = 2)
+    private BigDecimal standardPrice;
 
     @Override
     public boolean equals(Object o) {

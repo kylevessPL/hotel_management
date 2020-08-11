@@ -1,6 +1,5 @@
 package pl.piasta.hotel.infrastructure.model;
 
-import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NonNull;
 import lombok.Setter;
@@ -15,10 +14,14 @@ import java.util.Objects;
 @Setter
 public class SpecialOffersEntity {
 
-    @Id @Column(name = "id", nullable = false) @NonNull private int id;
-    @Column(name = "discount") private Integer discount;
-    @Column(name = "bookings_amount") private Integer bookingsAmount;
-    @Column(name = "description", length = 100) private String description;
+    @Id @Column(name = "id", nullable = false)
+    private int id;
+    @Column(name = "discount")
+    private Integer discount;
+    @Column(name = "bookings_amount")
+    private Integer bookingsAmount;
+    @Column(name = "description", length = 100)
+    private String description;
 
     @Override
     public boolean equals(Object o) {
