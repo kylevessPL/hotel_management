@@ -14,7 +14,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class AdditionalServicesServiceController {
 
-    public final AdditionalServiceMapper additionalServiceMapper;
+    private final AdditionalServiceMapper additionalServiceMapper;
     private final AdditionalServicesService additionalServicesService;
 
     @GetMapping("/hotel/services/additional-services")
