@@ -1,7 +1,6 @@
 package pl.piasta.hotel.infrastructure.model;
 
 import lombok.Getter;
-import lombok.NonNull;
 import lombok.Setter;
 
 import javax.persistence.Column;
