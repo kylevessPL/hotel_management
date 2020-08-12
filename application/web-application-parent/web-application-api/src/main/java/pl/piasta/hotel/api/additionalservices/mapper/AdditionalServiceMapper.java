@@ -9,7 +9,6 @@ import java.util.List;
 @Mapper(componentModel = "spring")
 public interface AdditionalServiceMapper {
 
-    AdditionalServiceDto additionalServiceToDto(AdditionalService additionalService);
-    List<AdditionalServiceDto> additionalServicesToDto(List<AdditionalService> additionalServices);
+    List<AdditionalServiceDto> mapToDto(List<AdditionalService> additionalServices);
 
 }
