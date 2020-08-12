@@ -6,12 +6,13 @@ import lombok.Setter;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.Table;
 import java.math.BigDecimal;
 import java.sql.Date;
 import java.sql.Timestamp;
-import java.util.Objects;
 
-@Entity(name = "bookings")
+@Entity
+@Table(name = "bookings")
 @Getter
 @Setter
 public class BookingsEntity {
@@ -33,24 +34,5 @@ public class BookingsEntity {
     @Column(name = "final_price", precision = 2)
     private BigDecimal finalPrice;
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        BookingsEntity that = (BookingsEntity) o;
-        return id == that.id &&
-                customerId == that.customerId &&
-                roomId == that.roomId &&
-                Objects.equals(bookDate, that.bookDate) &&
-                Objects.equals(startDate, that.startDate) &&
-                Objects.equals(endDate, that.endDate) &&
-                Objects.equals(offerId, that.offerId) &&
-                Objects.equals(finalPrice, that.finalPrice);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(id, bookDate, startDate, endDate, customerId, roomId, offerId, finalPrice);
-    }
 
 }

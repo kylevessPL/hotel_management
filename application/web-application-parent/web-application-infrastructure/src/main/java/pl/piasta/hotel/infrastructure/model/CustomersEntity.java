@@ -6,9 +6,10 @@ import lombok.Setter;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import java.util.Objects;
+import javax.persistence.Table;
 
-@Entity(name = "customers")
+@Entity
+@Table(name = "customers")
 @Getter
 @Setter
 public class CustomersEntity {
@@ -31,26 +32,5 @@ public class CustomersEntity {
     private String documentType;
     @Column(name = "document_id", nullable = false, length = 10)
     private String documentId;
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        CustomersEntity that = (CustomersEntity) o;
-        return id == that.id &&
-                houseNumber == that.houseNumber &&
-                Objects.equals(firstName, that.firstName) &&
-                Objects.equals(lastName, that.lastName) &&
-                Objects.equals(streetName, that.streetName) &&
-                Objects.equals(zipCode, that.zipCode) &&
-                Objects.equals(city, that.city) &&
-                Objects.equals(documentType, that.documentType) &&
-                Objects.equals(documentId, that.documentId);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(id, firstName, lastName, streetName, houseNumber, zipCode, city, documentType, documentId);
-    }
 
 }

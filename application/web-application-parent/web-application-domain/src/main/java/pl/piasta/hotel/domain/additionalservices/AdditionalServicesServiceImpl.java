@@ -17,15 +17,4 @@ public class AdditionalServicesServiceImpl implements AdditionalServicesService 
         return repository.getAllAdditionalServices();
     }
 
-    @Override
-    public AdditionalService getAdditionalServiceById(int id) {
-        return repository.getAdditionalServiceById(id);
-    }
-
-    @Override
-    public List<AdditionalService> getAdditionalServicesByName(String name) {
-        return repository.getAdditionalServicesByName(name);
-    }
-
-
 }
