@@ -123,7 +123,6 @@ public class AdditionalServicesServiceControllerTest {
 
         mockMvc.perform(MockMvcRequestBuilders.get(ENDPOINT_URL).contentType(TestUtils.APPLICATION_JSON_UTF8))
                 .andExpect(MockMvcResultMatchers.status().isNotFound())
-                .andExpect(MockMvcResultMatchers.jsonPath("status").value(404))
                 .andExpect(MockMvcResultMatchers.jsonPath("exception").value("EntityNotFoundException"));
 
         Mockito.verify(additionalServicesService, Mockito.times(1)).getAllAdditionalServices();
