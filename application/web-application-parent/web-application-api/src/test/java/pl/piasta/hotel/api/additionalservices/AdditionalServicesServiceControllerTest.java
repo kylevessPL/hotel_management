@@ -12,12 +12,12 @@ import org.mockito.MockitoAnnotations;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.http.MediaType;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
-import pl.piasta.hotel.api.TestUtils;
 import pl.piasta.hotel.api.additionalservices.mapper.AdditionalServiceMapper;
 import pl.piasta.hotel.domain.additionalservices.AdditionalServicesService;
 import pl.piasta.hotel.domain.model.additionalservices.AdditionalService;
@@ -69,10 +69,10 @@ public class AdditionalServicesServiceControllerTest {
         Mockito.when(additionalServiceMapper.mapToDto(ArgumentMatchers.anyList())).thenReturn(additionalServicesDto);
         Mockito.when(additionalServicesService.getAllAdditionalServices()).thenReturn(additionalServices);
 
-        mockMvc.perform(MockMvcRequestBuilders.get(ENDPOINT_URL).contentType(TestUtils.APPLICATION_JSON_UTF8))
+        mockMvc.perform(MockMvcRequestBuilders.get(ENDPOINT_URL).contentType(MediaType.APPLICATION_JSON))
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andExpect(MockMvcResultMatchers.content()
-                        .contentType(TestUtils.APPLICATION_JSON_UTF8))
+                        .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(MockMvcResultMatchers.jsonPath("$", Matchers.hasSize(2)))
                 .andExpect(MockMvcResultMatchers.jsonPath("$[0].id").value(1))
                 .andExpect(MockMvcResultMatchers.jsonPath("$[0].name").value("Service1"))
@@ -93,10 +93,10 @@ public class AdditionalServicesServiceControllerTest {
         Mockito.when(additionalServiceMapper.mapToDto(ArgumentMatchers.anyList())).thenReturn(additionalServicesDtoEmptyList);
         Mockito.when(additionalServicesService.getAllAdditionalServices()).thenReturn(additionalServicesEmptyList);
 
-        mockMvc.perform(MockMvcRequestBuilders.get(ENDPOINT_URL).contentType(TestUtils.APPLICATION_JSON_UTF8))
+        mockMvc.perform(MockMvcRequestBuilders.get(ENDPOINT_URL).contentType(MediaType.APPLICATION_JSON))
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andExpect(MockMvcResultMatchers.content()
-                        .contentType(TestUtils.APPLICATION_JSON_UTF8))
+                        .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(MockMvcResultMatchers.content().string("[]"));
 
         Mockito.verify(additionalServicesService, Mockito.times(1)).getAllAdditionalServices();
@@ -108,7 +108,7 @@ public class AdditionalServicesServiceControllerTest {
         Mockito.when(additionalServiceMapper.mapToDto(ArgumentMatchers.anyList())).thenReturn(null);
         Mockito.when(additionalServicesService.getAllAdditionalServices()).thenReturn(null);
 
-        mockMvc.perform(MockMvcRequestBuilders.get(ENDPOINT_URL).contentType(TestUtils.APPLICATION_JSON_UTF8))
+        mockMvc.perform(MockMvcRequestBuilders.get(ENDPOINT_URL).contentType(MediaType.APPLICATION_JSON))
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andExpect(MockMvcResultMatchers.jsonPath("$").isEmpty());
 
@@ -121,7 +121,7 @@ public class AdditionalServicesServiceControllerTest {
         Mockito.when(additionalServiceMapper.mapToDto(ArgumentMatchers.anyList())).thenThrow(new EntityNotFoundException());
         Mockito.when(additionalServicesService.getAllAdditionalServices()).thenThrow(new EntityNotFoundException());
 
-        mockMvc.perform(MockMvcRequestBuilders.get(ENDPOINT_URL).contentType(TestUtils.APPLICATION_JSON_UTF8))
+        mockMvc.perform(MockMvcRequestBuilders.get(ENDPOINT_URL).contentType(MediaType.APPLICATION_JSON))
                 .andExpect(MockMvcResultMatchers.status().isNotFound())
                 .andExpect(MockMvcResultMatchers.jsonPath("exception").value("EntityNotFoundException"));
 
