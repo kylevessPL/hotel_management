@@ -1,18 +1,19 @@
 package pl.piasta.hotel.dto.additionalservices;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 
 import java.math.BigDecimal;
 
-@RequiredArgsConstructor
+@AllArgsConstructor
 @Getter
 @Setter
 public class AdditionalServiceDto {
 
-    private final int id;
-    private final String name;
-    private final BigDecimal price;
+    private int id;
+    private String name;
+    private BigDecimal price;
 
 }
