@@ -1,18 +1,18 @@
 package pl.piasta.hotel.dto.rooms;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 
 import java.math.BigDecimal;
 
-@RequiredArgsConstructor
+@AllArgsConstructor
 @Getter
 @Setter
 public class RoomDto {
 
-    private final int id;
-    private final int bedAmount;
-    private final BigDecimal standardPrice;
+    private int id;
+    private int bedAmount;
+    private BigDecimal standardPrice;
 
 }
