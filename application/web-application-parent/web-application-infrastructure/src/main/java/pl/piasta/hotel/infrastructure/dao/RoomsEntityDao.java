@@ -1,13 +1,10 @@
 package pl.piasta.hotel.infrastructure.dao;
 
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.PagingAndSortingRepository;
 import pl.piasta.hotel.infrastructure.model.RoomsEntity;
 
-import java.util.Arrays;
 import java.util.List;
 
 public interface RoomsEntityDao extends JpaRepository<RoomsEntity, Integer> {

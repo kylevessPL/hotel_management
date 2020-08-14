@@ -3,7 +3,6 @@ package pl.piasta.hotel.api.rooms;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import pl.piasta.hotel.api.rooms.mapper.RoomMapper;
 import pl.piasta.hotel.domain.rooms.RoomsService;

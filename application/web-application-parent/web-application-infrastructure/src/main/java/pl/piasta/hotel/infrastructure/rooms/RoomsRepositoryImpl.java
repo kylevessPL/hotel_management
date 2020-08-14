@@ -2,7 +2,6 @@ package pl.piasta.hotel.infrastructure.rooms;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Repository;
 import pl.piasta.hotel.domain.model.rooms.Room;
 import pl.piasta.hotel.domain.rooms.RoomsRepository;
