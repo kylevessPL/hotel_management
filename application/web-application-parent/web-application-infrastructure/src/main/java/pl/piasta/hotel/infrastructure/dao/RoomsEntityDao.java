@@ -11,8 +11,14 @@ import java.util.List;
 
 public interface RoomsEntityDao extends JpaRepository<RoomsEntity, Integer> {
 
-    @Query(value = "Select * from rooms where id not in" +
-            "(Select room_id from bookings where start_date >= :start_date and end_date <= :end_date)",
+    @Query(value = "Select rooms.id, bed_amount, standard_price, name from rooms " +
+            "inner join room_amenities " +
+            "on rooms.id = room_amenities.room_id " +
+            "inner join amenities " +
+            "on amenities.id = room_amenities.room_id " +
+            "where rooms.id not in " +
+            "(Select room_id from bookings " +
+            "where start_date >= :start_date and end_date <= :end_date)",
             nativeQuery = true)
     List<RoomsEntity> findAllAvailableWithinDateRange(@Param("start_date") Date startDate, @Param("end_date") Date endDate, Pageable pageable);
 

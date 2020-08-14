@@ -29,21 +29,15 @@ public class RoomsServiceController {
     private final RoomsService roomsService;
 
     @GetMapping("/hotel/services/rooms")
-    public List<RoomDto> getAllAvailableRoomsWithinDateRange(@RequestParam(name = "start-date") @DateTimeFormat(pattern = "dd-MM-yyyy") LocalDate startDate,
-                                                             @RequestParam(name = "end-date") @DateTimeFormat(pattern = "dd-MM-yyyy") LocalDate endDate,
-                                                             @RequestParam(name = "sortby", defaultValue = "id", required = false) String sortBy) {
+    public List<RoomDto> getAllAvailableRoomsWithinDateRange(@RequestParam(name = "start-date") @DateTimeFormat(pattern = "dd-MM-yyyy") LocalDate startDate, @RequestParam(name = "end-date") @DateTimeFormat(pattern = "dd-MM-yyyy") LocalDate endDate, @RequestParam(name = "sortby", defaultValue = "id", required = false) String sortBy) {
 
-        List<String> sortList = Arrays.asList(sortBy.replace("-", "_")
-                                                    .split(","));
+        List<String> sortList = Arrays.asList(sortBy.replace("-", "_").split(","));
         List<Sort.Order> sortParams = sortList.stream()
                 .map(s -> new Sort.Order(Sort.Direction.ASC, s))
                 .filter(StringUtils::isEmpty)
                 .collect(Collectors.toList());
 
-        return roomMapper.mapToDto(roomsService.getAllAvailableRoomsWithinDateRange(
-                Date.valueOf(startDate),
-                Date.valueOf(endDate),
-                PageRequest.of(0, 50, Sort.by(sortParams))));
+        return roomMapper.mapToDto(roomsService.getAllAvailableRoomsWithinDateRange(Date.valueOf(startDate), Date.valueOf(endDate), PageRequest.of(0, 50, Sort.by(sortParams))));
     }
 
 }
