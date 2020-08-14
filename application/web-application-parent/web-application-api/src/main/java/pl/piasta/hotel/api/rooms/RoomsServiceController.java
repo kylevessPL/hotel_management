@@ -1,8 +1,10 @@
 package pl.piasta.hotel.api.rooms;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.web.PageableDefault;
+import org.springframework.data.domain.Sort;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -11,7 +13,10 @@ import pl.piasta.hotel.domain.rooms.RoomsService;
 import pl.piasta.hotel.dto.rooms.RoomDto;
 
 import java.sql.Date;
+import java.time.LocalDate;
+import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequiredArgsConstructor
@@ -21,8 +26,19 @@ public class RoomsServiceController {
     private final RoomsService roomsService;
 
     @GetMapping("/hotel/services/rooms")
-    public List<RoomDto> getAllAvailableRoomsWithinDateRange(@RequestParam(name = "start-date") Date startDate, @RequestParam(name = "end-date") Date endDate, @PageableDefault(size = 50) Pageable pageable) {
-        return roomMapper.mapToDto(roomsService.getAllAvailableRoomsWithinDateRange(startDate, endDate, pageable));
+    public List<RoomDto> getAllAvailableRoomsWithinDateRange(@RequestParam(name = "start-date") @DateTimeFormat(pattern = "dd-MM-yyyy") LocalDate startDate,
+                                                             @RequestParam(name = "end-date") @DateTimeFormat(pattern = "dd-MM-yyyy") LocalDate endDate,
+                                                             @RequestParam(name = "sortby", required = false) String sortBy) {
+
+        List<String> sortList = Arrays.asList(sortBy.replace("-", "_")
+                                                    .split("[,]"));
+        List<Sort.Order> sortParams = sortList.stream()
+                .map(s -> new Sort.Order(Sort.Direction.ASC, s))
+                .collect(Collectors.toList());
+
+        Sort sort = Sort.by(sortParams);
+        Pageable pageable = PageRequest.of(0, 50, sort);
+        return roomMapper.mapToDto(roomsService.getAllAvailableRoomsWithinDateRange(Date.valueOf(startDate), Date.valueOf(endDate), pageable));
     }
 
 }

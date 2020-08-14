@@ -3,7 +3,6 @@ package pl.piasta.hotel.infrastructure.rooms;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Repository;
-import org.springframework.web.bind.annotation.RequestParam;
 import pl.piasta.hotel.domain.model.rooms.Room;
 import pl.piasta.hotel.domain.rooms.RoomsRepository;
 import pl.piasta.hotel.infrastructure.dao.RoomsEntityDao;
