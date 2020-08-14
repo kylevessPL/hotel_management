@@ -1,9 +1,8 @@
 package pl.piasta.hotel.dto.additionalservices;
 
 import lombok.AllArgsConstructor;
-import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.RequiredArgsConstructor;
+import lombok.Getter;
 import lombok.Setter;
 
 import java.math.BigDecimal;
