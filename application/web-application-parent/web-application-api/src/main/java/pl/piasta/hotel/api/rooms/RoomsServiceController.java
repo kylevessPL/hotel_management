@@ -2,7 +2,6 @@ package pl.piasta.hotel.api.rooms;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -28,7 +27,7 @@ public class RoomsServiceController {
     @GetMapping("/hotel/services/rooms")
     public List<RoomDto> getAllAvailableRoomsWithinDateRange(@RequestParam(name = "start-date") @DateTimeFormat(pattern = "dd-MM-yyyy") LocalDate startDate,
                                                              @RequestParam(name = "end-date") @DateTimeFormat(pattern = "dd-MM-yyyy") LocalDate endDate,
-                                                             @RequestParam(name = "sortby", required = false) String sortBy) {
+                                                             @RequestParam(name = "sortby", defaultValue = "id", required = false) String sortBy) {
 
         List<String> sortList = Arrays.asList(sortBy.replace("-", "_")
                                                     .split("[,]"));
@@ -36,9 +35,10 @@ public class RoomsServiceController {
                 .map(s -> new Sort.Order(Sort.Direction.ASC, s))
                 .collect(Collectors.toList());
 
-        Sort sort = Sort.by(sortParams);
-        Pageable pageable = PageRequest.of(0, 50, sort);
-        return roomMapper.mapToDto(roomsService.getAllAvailableRoomsWithinDateRange(Date.valueOf(startDate), Date.valueOf(endDate), pageable));
+        return roomMapper.mapToDto(roomsService.getAllAvailableRoomsWithinDateRange(
+                Date.valueOf(startDate),
+                Date.valueOf(endDate),
+                PageRequest.of(0, 50, Sort.by(sortParams))));
     }
 
 }
