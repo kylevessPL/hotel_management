@@ -15,7 +15,7 @@ public interface RoomsEntityDao extends JpaRepository<RoomsEntity, Integer> {
             "left join room_amenities " +
             "on rooms.id = room_amenities.room_id " +
             "left join amenities " +
-            "on amenities.id = room_amenities.room_id " +
+            "on amenities.id = room_amenities.amenity_id " +
             "where rooms.id not in " +
             "(Select room_id from bookings " +
             "where start_date >= :start_date and end_date <= :end_date)",
