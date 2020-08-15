@@ -6,7 +6,7 @@ import pl.piasta.hotel.dto.rooms.RoomDto;
 
 import java.util.List;
 
-@Mapper(componentModel = "spring")
+@Mapper(uses = AmenityMapper.class, componentModel = "spring")
 public interface RoomMapper {
 
     List<RoomDto> mapToDto(List<Room> rooms);

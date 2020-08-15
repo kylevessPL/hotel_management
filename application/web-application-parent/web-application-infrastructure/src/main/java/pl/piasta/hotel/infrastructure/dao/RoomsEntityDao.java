@@ -11,7 +11,7 @@ import java.util.List;
 
 public interface RoomsEntityDao extends JpaRepository<RoomsEntity, Integer> {
 
-    @Query(value = "Select rooms.id, bed_amount, standard_price, name from rooms " +
+    @Query(value = "Select rooms.id, room_number, bed_amount, standard_price, name from rooms " +
             "left join room_amenities " +
             "on rooms.id = room_amenities.room_id " +
             "left join amenities " +
