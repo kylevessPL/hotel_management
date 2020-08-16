@@ -11,7 +11,7 @@ import javax.persistence.JoinTable;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import java.math.BigDecimal;
-import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "rooms")
@@ -33,6 +33,6 @@ public class RoomsEntity {
             joinColumns = { @JoinColumn(name="room_id", referencedColumnName="id") },
             inverseJoinColumns = { @JoinColumn(name="amenity_id", referencedColumnName="id", unique=true) })
 
-    private List<AmenitiesEntity> amenitiesEntities;
+    private Set<AmenitiesEntity> amenitiesEntities;
 
 }
