@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -25,7 +26,7 @@ public class RoomsServiceController {
     private final RoomsService roomsService;
 
     @GetMapping("/hotel/services/rooms")
-    public List<RoomDto> getAllAvailableRoomsWithinDateRange(@RequestParam(name = "start-date") @DateTimeFormat(pattern = "dd-MM-yyyy") LocalDate startDate, @RequestParam(name = "end-date") @DateTimeFormat(pattern = "dd-MM-yyyy") LocalDate endDate, Pageable pageable) {
+    public List<RoomDto> getAllAvailableRoomsWithinDateRange(@RequestParam(name = "start-date") @DateTimeFormat(pattern = "dd-MM-yyyy") LocalDate startDate, @RequestParam(name = "end-date") @DateTimeFormat(pattern = "dd-MM-yyyy") LocalDate endDate, @PageableDefault(size = 50) Pageable pageable) {
 
         List<Sort.Order> sortParams = new ArrayList<>();
 
@@ -35,7 +36,7 @@ public class RoomsServiceController {
             sortParams.add(new Sort.Order(order.getDirection(), prop));
         }
 
-        return roomMapper.mapToDto(roomsService.getAllAvailableRoomsWithinDateRange(Date.valueOf(startDate), Date.valueOf(endDate), PageRequest.of(0, 50, Sort.by(sortParams))));
+        return roomMapper.mapToDto(roomsService.getAllAvailableRoomsWithinDateRange(Date.valueOf(startDate), Date.valueOf(endDate), PageRequest.of(0, pageable.getPageSize(), Sort.by(sortParams))));
     }
 
 }
