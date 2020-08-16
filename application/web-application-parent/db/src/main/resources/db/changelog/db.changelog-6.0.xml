@@ -813,5 +813,25 @@
             <column name="room_id" valueNumeric="48"/>
             <column name="amenity_id" valueNumeric="6"/>
         </insert>
+        <insert tableName="room_amenities">
+            <column name="id" valueNumeric="164"/>
+            <column name="room_id" valueNumeric="4"/>
+            <column name="amenity_id" valueNumeric="3"/>
+        </insert>
+        <insert tableName="room_amenities">
+            <column name="id" valueNumeric="165"/>
+            <column name="room_id" valueNumeric="7"/>
+            <column name="amenity_id" valueNumeric="2"/>
+        </insert>
+        <insert tableName="room_amenities">
+            <column name="id" valueNumeric="166"/>
+            <column name="room_id" valueNumeric="9"/>
+            <column name="amenity_id" valueNumeric="5"/>
+        </insert>
+        <insert tableName="room_amenities">
+            <column name="id" valueNumeric="167"/>
+            <column name="room_id" valueNumeric="14"/>
+            <column name="amenity_id" valueNumeric="6"/>
+        </insert>
     </changeSet>
 </databaseChangeLog>
