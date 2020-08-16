@@ -10,7 +10,7 @@ import lombok.Setter;
 import pl.piasta.hotel.dto.amenities.AmenityDto;
 
 import java.math.BigDecimal;
-import java.util.List;
+import java.util.Set;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -25,6 +25,6 @@ public class RoomDto {
     private int bedAmount;
     @JsonProperty(value = "standard-price")
     private BigDecimal standardPrice;
-    private List<AmenityDto> amenities;
+    private Set<AmenityDto> amenities;
 
 }

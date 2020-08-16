@@ -4,11 +4,11 @@ import org.mapstruct.Mapper;
 import pl.piasta.hotel.domain.model.amenities.Amenity;
 import pl.piasta.hotel.dto.amenities.AmenityDto;
 
-import java.util.List;
+import java.util.Set;
 
 @Mapper(componentModel = "spring")
 public interface AmenityMapper {
 
-    List<AmenityDto> mapToDto(List<Amenity> amenities);
+    Set<AmenityDto> mapToDto(Set<Amenity> amenities);
 
 }

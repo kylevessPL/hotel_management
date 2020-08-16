@@ -27,7 +27,7 @@ public class RoomsRepositoryImpl implements RoomsRepository {
                         entity.getStandardPrice(),
                         entity.getAmenitiesEntities().stream()
                                 .map(amenity -> new Amenity(amenity.getName()))
-                                .collect(Collectors.toList())))
+                                .collect(Collectors.toSet())))
                 .collect(Collectors.toList());
     }
 
