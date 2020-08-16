@@ -12,6 +12,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.Objects;
 
 @Entity
 @Table(name = "rooms")
@@ -27,6 +28,22 @@ public class RoomsEntity {
     private int bedAmount;
     @Column(name = "standard_price", precision = 2)
     private BigDecimal standardPrice;
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        RoomsEntity that = (RoomsEntity) o;
+        return id == that.id &&
+                bedAmount == that.bedAmount &&
+                Objects.equals(roomNumber, that.roomNumber) &&
+                Objects.equals(standardPrice, that.standardPrice);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, roomNumber, bedAmount, standardPrice);
+    }
 
     @OneToMany
     @JoinTable(name = "room_amenities",
