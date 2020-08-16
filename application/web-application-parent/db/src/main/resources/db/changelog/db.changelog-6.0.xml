@@ -833,5 +833,15 @@
             <column name="room_id" valueNumeric="14"/>
             <column name="amenity_id" valueNumeric="6"/>
         </insert>
+        <insert tableName="room_amenities">
+            <column name="id" valueNumeric="168"/>
+            <column name="room_id" valueNumeric="25"/>
+            <column name="amenity_id" valueNumeric="4"/>
+        </insert>
+        <insert tableName="room_amenities">
+            <column name="id" valueNumeric="169"/>
+            <column name="room_id" valueNumeric="30"/>
+            <column name="amenity_id" valueNumeric="1"/>
+        </insert>
     </changeSet>
 </databaseChangeLog>
