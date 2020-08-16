@@ -1,6 +1,8 @@
-package pl.piasta.hotel.application.helloworld;
+package pl.piasta.hotel.domain.helloworld;
 
 public interface HelloWorldService {
+
     String getDate();
+
 }
 

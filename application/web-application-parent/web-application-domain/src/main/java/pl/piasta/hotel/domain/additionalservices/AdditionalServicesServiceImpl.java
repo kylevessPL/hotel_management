@@ -1,23 +1,20 @@
-package pl.piasta.hotel.application.additionalservices.service;
+package pl.piasta.hotel.domain.additionalservices;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import pl.piasta.hotel.domain.additionalservices.AdditionalService;
+import pl.piasta.hotel.domain.model.additionalservices.AdditionalService;
 
 import java.util.List;
 
 @Service
+@RequiredArgsConstructor
 public class AdditionalServicesServiceImpl implements AdditionalServicesService {
 
     private final AdditionalServicesRepository repository;
-
-    @Autowired
-    public AdditionalServicesServiceImpl(AdditionalServicesRepository repository) {
-        this.repository = repository;
-    }
 
     @Override
     public List<AdditionalService> getAllAdditionalServices() {
         return repository.getAllAdditionalServices();
     }
+
 }
