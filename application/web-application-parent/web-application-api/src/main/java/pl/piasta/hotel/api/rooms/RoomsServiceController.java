@@ -26,7 +26,7 @@ public class RoomsServiceController {
     private final RoomsService roomsService;
 
     @GetMapping("/hotel/services/rooms")
-    public List<RoomDto> getAllAvailableRoomsWithinDateRange(@RequestParam(name = "start-date") @DateTimeFormat(pattern = "dd-MM-yyyy") LocalDate startDate, @RequestParam(name = "end-date") @DateTimeFormat(pattern = "dd-MM-yyyy") LocalDate endDate, @PageableDefault(size = 200) Pageable pageable) {
+    public List<RoomDto> getAllAvailableRoomsWithinDateRange(@RequestParam(name = "start-date") @DateTimeFormat(pattern = "dd-MM-yyyy") LocalDate startDate, @RequestParam(name = "end-date") @DateTimeFormat(pattern = "dd-MM-yyyy") LocalDate endDate, @PageableDefault(size = 50) Pageable pageable) {
 
         List<Sort.Order> sortParams = new ArrayList<>();
 

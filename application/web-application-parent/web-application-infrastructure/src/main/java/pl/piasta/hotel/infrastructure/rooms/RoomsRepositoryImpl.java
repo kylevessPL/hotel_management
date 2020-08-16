@@ -21,7 +21,7 @@ public class RoomsRepositoryImpl implements RoomsRepository {
     @Override
     public List<Room> getAllAvailableRoomsWithinDateRange(Date startDate, Date endDate, Pageable pageable) {
         return dao.findAllAvailableWithinDateRange(startDate, endDate, pageable).stream()
-                .distinct().map(entity -> new Room(
+                .map(entity -> new Room(
                         entity.getId(),
                         entity.getBedAmount(),
                         entity.getStandardPrice(),
