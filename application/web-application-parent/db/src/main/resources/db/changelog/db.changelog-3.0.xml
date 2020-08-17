@@ -167,46 +167,40 @@
         </createTable>
     </changeSet>
     <changeSet author="geekon" id="3.0-18">
-        <createSequence sequenceName="seq_room_amenities" cycle="false" minValue="1" maxValue="9223372036854775807" startValue="1" incrementBy="1"/>
-    </changeSet>
-    <changeSet author="geekon" id="3.0-19">
         <createTable tableName="room_amenities">
-            <column name="id" type="INTEGER" defaultValueComputed="nextval('seq_room_amenities')">
-                <constraints nullable="false" unique="true" primaryKey="true" primaryKeyName="room_amenities_pk"/>
-            </column>
             <column name="room_id" type="INTEGER">
-                <constraints nullable="false"/>
+                <constraints nullable="false" primaryKey="true" primaryKeyName="room_amenities_pk"/>
             </column>
             <column name="amenity_id" type="INTEGER">
                 <constraints nullable="false"/>
             </column>
         </createTable>
     </changeSet>
-    <changeSet author="geekon" id="3.0-20">
+    <changeSet author="geekon" id="3.0-19">
         <addForeignKeyConstraint baseColumnNames="service_id" baseTableName="bookings_services" constraintName="bookings_services_fk1" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="additional_services" validate="true"/>
     </changeSet>
-    <changeSet author="geekon" id="3.0-21">
+    <changeSet author="geekon" id="3.0-20">
         <addForeignKeyConstraint baseColumnNames="amenity_id" baseTableName="room_amenities" constraintName="room_amenities_fk1" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="amenities" validate="true"/>
     </changeSet>
-    <changeSet author="geekon" id="3.0-22">
+    <changeSet author="geekon" id="3.0-21">
         <addForeignKeyConstraint baseColumnNames="room_id" baseTableName="bookings" constraintName="bookings_fk1" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="rooms" validate="true"/>
     </changeSet>
-    <changeSet author="geekon" id="3.0-23">
+    <changeSet author="geekon" id="3.0-22">
         <addForeignKeyConstraint baseColumnNames="offer_id" baseTableName="bookings" constraintName="bookings_fk2" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="special_offers" validate="true"/>
     </changeSet>
-    <changeSet author="geekon" id="3.0-24">
+    <changeSet author="geekon" id="3.0-23">
         <addForeignKeyConstraint baseColumnNames="booking_id" baseTableName="bookings_services" constraintName="bookings_services_fk0" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="bookings" validate="true"/>
     </changeSet>
-    <changeSet author="geekon" id="3.0-25">
+    <changeSet author="geekon" id="3.0-24">
         <addForeignKeyConstraint baseColumnNames="booking_id" baseTableName="payments" constraintName="payments_fk0" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="bookings" validate="true"/>
     </changeSet>
-    <changeSet author="geekon" id="3.0-26">
+    <changeSet author="geekon" id="3.0-25">
         <addForeignKeyConstraint baseColumnNames="payment_form_id" baseTableName="payments" constraintName="payments_fk1" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="payment_forms" validate="true"/>
     </changeSet>
-    <changeSet author="geekon" id="3.0-27">
+    <changeSet author="geekon" id="3.0-26">
         <addForeignKeyConstraint baseColumnNames="room_id" baseTableName="room_amenities" constraintName="room_amenities_fk0" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="rooms" validate="true"/>
     </changeSet>
-    <changeSet author="geekon" id="3.0-28">
+    <changeSet author="geekon" id="3.0-27">
         <addForeignKeyConstraint baseColumnNames="customer_id" baseTableName="bookings" constraintName="bookings_fk0" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="customers" validate="true"/>
     </changeSet>
 </databaseChangeLog>
