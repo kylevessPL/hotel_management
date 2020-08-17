@@ -1,6 +1,5 @@
 package pl.piasta.hotel.infrastructure.amenities.mapper;
 
-import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import pl.piasta.hotel.domain.model.amenities.Amenity;
 import pl.piasta.hotel.infrastructure.model.AmenitiesEntity;
