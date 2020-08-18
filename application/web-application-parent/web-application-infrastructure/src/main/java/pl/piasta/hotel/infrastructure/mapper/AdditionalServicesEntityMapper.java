@@ -1,4 +1,4 @@
-package pl.piasta.hotel.infrastructure.additionalservices.mapper;
+package pl.piasta.hotel.infrastructure.mapper;
 
 import org.springframework.stereotype.Component;
 import pl.piasta.hotel.domain.model.additionalservices.AdditionalService;

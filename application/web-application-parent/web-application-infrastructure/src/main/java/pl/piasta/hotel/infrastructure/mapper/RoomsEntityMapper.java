@@ -1,9 +1,8 @@
-package pl.piasta.hotel.infrastructure.rooms.mapper;
+package pl.piasta.hotel.infrastructure.mapper;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import pl.piasta.hotel.domain.model.rooms.Room;
-import pl.piasta.hotel.infrastructure.amenities.mapper.AmenitiesEntityMapper;
 import pl.piasta.hotel.infrastructure.model.RoomsEntity;
 
 import java.util.List;

@@ -1,6 +1,5 @@
 package pl.piasta.hotel.dto.rooms;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -19,9 +18,7 @@ import java.util.List;
 public class RoomDto {
 
     private int id;
-    @JsonProperty(value = "bed-amount")
     private int bedAmount;
-    @JsonProperty(value = "standard-price")
     private BigDecimal standardPrice;
     private List<AmenityDto> amenities;
 
