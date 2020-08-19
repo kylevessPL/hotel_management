@@ -8,7 +8,6 @@ import pl.piasta.hotel.domain.rooms.utils.SortDir;
 import pl.piasta.hotel.domain.rooms.utils.SortParam;
 
 import java.sql.Date;
-import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
@@ -24,12 +23,16 @@ public class RoomsServiceImpl implements RoomsService {
         Date endDate = dateParam.getEndDate();
         List<Room> rooms = repository.getAllAvailableRoomsWithinDateRange(startDate, endDate);
         if(sortParam != null) {
-            rooms.sort(Comparator.comparing(room ->
-                    sortParam.getSortBy()
-                            .equals("bedAmount") ? room.getBedAmount() : room.getStandardPrice().longValue()));
-            if (sortParam.getSortDir().equals(SortDir.DESC)) {
-                rooms.sort(Collections.reverseOrder());
+            Comparator<Room> comparator;
+            if(sortParam.getSortBy().equals("bedAmount")) {
+                comparator = Comparator.comparing(Room::getBedAmount).thenComparing(Room::getStandardPrice);
+            } else {
+                comparator = Comparator.comparing(Room::getStandardPrice).thenComparing(Room::getBedAmount);
             }
+            if(sortParam.getSortDir() == SortDir.DESC) {
+                comparator.reversed();
+            }
+            rooms.sort(comparator);
         }
         return rooms;
     }
