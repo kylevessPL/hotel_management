@@ -11,13 +11,7 @@ import java.lang.annotation.Target;
 @Documented
 @Constraint(validatedBy = StringValidator.class)
 @Retention(RetentionPolicy.RUNTIME)
-@Target({
-        ElementType.ANNOTATION_TYPE,
-        ElementType.CONSTRUCTOR,
-        ElementType.FIELD,
-        ElementType.METHOD,
-        ElementType.PARAMETER
-})
+@Target(ElementType.FIELD)
 public @interface ValidateString {
 
     String[] acceptedValues();
