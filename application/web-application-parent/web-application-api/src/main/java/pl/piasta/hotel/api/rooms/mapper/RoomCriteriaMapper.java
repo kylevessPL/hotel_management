@@ -11,8 +11,6 @@ import pl.piasta.hotel.domain.rooms.utils.SortParam;
 public interface RoomCriteriaMapper {
 
     DateParam mapToDateParam(DateCriteria dateCriteria);
-    @Mapping(source = "by", target = "sortBy")
-    @Mapping(source = "dir", target = "sortDir")
     SortParam mapToSortParam(SortCriteria sortCriteria);
 
 }

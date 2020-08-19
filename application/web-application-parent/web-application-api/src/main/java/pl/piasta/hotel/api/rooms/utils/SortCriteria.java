@@ -15,9 +15,9 @@ public final class SortCriteria {
 
     @NotBlank
     @ValidateString(acceptedValues = {"bedAmount", "standardPrice"})
-    private String by;
+    private String sortBy;
     @NotNull
     @ValidateEnum(enumClass = SortDir.class)
-    private SortDir dir;
+    private SortDir sortDir;
 
 }

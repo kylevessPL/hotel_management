@@ -14,7 +14,7 @@ import java.util.List;
 @NoArgsConstructor
 @Getter
 @Setter
-@JsonPropertyOrder({ "id", "bed-amount", "standard-price", "amenities" })
+@JsonPropertyOrder({ "id", "bedAmount", "standardPrice", "amenities" })
 public class RoomDto {
 
     private int id;
