@@ -12,8 +12,7 @@ public class StringValidator implements ConstraintValidator<ValidateString, Stri
 
     @Override
     public void initialize(ValidateString constraintAnnotation) {
-        valueList = new ArrayList<>();
-        valueList.addAll(Arrays.asList(constraintAnnotation.acceptedValues()));
+        valueList = new ArrayList<>(Arrays.asList(constraintAnnotation.acceptedValues()));
     }
 
     @Override
