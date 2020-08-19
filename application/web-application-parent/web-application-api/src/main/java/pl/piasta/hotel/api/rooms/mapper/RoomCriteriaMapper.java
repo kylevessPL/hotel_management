@@ -1,7 +1,6 @@
 package pl.piasta.hotel.api.rooms.mapper;
 
 import org.mapstruct.Mapper;
-import org.mapstruct.Mapping;
 import pl.piasta.hotel.api.rooms.utils.DateCriteria;
 import pl.piasta.hotel.api.rooms.utils.SortCriteria;
 import pl.piasta.hotel.domain.rooms.utils.DateParam;
