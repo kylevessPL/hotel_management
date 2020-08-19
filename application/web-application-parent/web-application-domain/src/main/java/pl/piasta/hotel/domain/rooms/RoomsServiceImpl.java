@@ -29,10 +29,11 @@ public class RoomsServiceImpl implements RoomsService {
             } else {
                 comparator = Comparator.comparing(Room::getStandardPrice).thenComparing(Room::getBedAmount);
             }
-            if(sortParam.getSortDir() == SortDir.DESC) {
-                comparator.reversed();
+            if(sortParam.getSortDir() == SortDir.ASC) {
+                rooms.sort(comparator);
+            } else {
+                rooms.sort(comparator.reversed());
             }
-            rooms.sort(comparator);
         }
         return rooms;
     }

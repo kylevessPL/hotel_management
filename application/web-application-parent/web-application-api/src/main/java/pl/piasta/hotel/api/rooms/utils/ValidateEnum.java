@@ -11,14 +11,7 @@ import java.lang.annotation.Target;
 @Documented
 @Constraint(validatedBy = EnumValidator.class)
 @Retention(RetentionPolicy.RUNTIME)
-
-@Target({
-        ElementType.ANNOTATION_TYPE,
-        ElementType.CONSTRUCTOR,
-        ElementType.FIELD,
-        ElementType.METHOD,
-        ElementType.PARAMETER
-})
+@Target(ElementType.FIELD)
 public @interface ValidateEnum {
 
     String message() default "{Not a valid parameter}";
