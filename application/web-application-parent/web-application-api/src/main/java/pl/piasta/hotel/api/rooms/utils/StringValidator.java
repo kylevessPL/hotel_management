@@ -3,6 +3,7 @@ package pl.piasta.hotel.api.rooms.utils;
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class StringValidator implements ConstraintValidator<ValidateString, String> {
@@ -12,14 +13,12 @@ public class StringValidator implements ConstraintValidator<ValidateString, Stri
     @Override
     public void initialize(ValidateString constraintAnnotation) {
         valueList = new ArrayList<>();
-        for(String val : constraintAnnotation.acceptedValues()) {
-            valueList.add(val.toUpperCase());
-        }
+        valueList.addAll(Arrays.asList(constraintAnnotation.acceptedValues()));
     }
 
     @Override
     public boolean isValid(String value, ConstraintValidatorContext context) {
-        return valueList.contains(value.toUpperCase());
+        return valueList.contains(value);
     }
 
 }
