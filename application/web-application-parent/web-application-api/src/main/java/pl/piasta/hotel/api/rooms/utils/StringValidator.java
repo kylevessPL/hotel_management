@@ -7,17 +7,17 @@ import java.util.List;
 
 public class StringValidator implements ConstraintValidator<ValidateString, String> {
 
-    private List<String> valueList;
+    private List<String> acceptedValues;
 
     @Override
     public void initialize(final ValidateString constraintAnnotation) {
-        valueList = Arrays.asList(constraintAnnotation.acceptedValues());
+        acceptedValues = Arrays.asList(constraintAnnotation.acceptedValues());
     }
 
     @Override
     public boolean isValid(final String value, final ConstraintValidatorContext context) {
         if (value != null) {
-            return valueList.contains(value);
+            return acceptedValues.contains(value);
         }
         return false;
     }

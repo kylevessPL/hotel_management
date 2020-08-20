@@ -23,8 +23,8 @@ public class RoomsServiceController {
     @GetMapping("/hotel/services/rooms")
     public List<RoomDto> getAllAvailableRoomsWithinDateRange(@Valid RoomCriteria roomCriteria) {
         return roomMapper.mapToDto(roomsService.getAllAvailableRoomsWithinDateRange(
-                roomCriteriaMapper.mapToDateParam(roomCriteria.getDateCriteria()),
-                roomCriteriaMapper.mapToSortParam(roomCriteria.getSortCriteria())));
+                roomCriteriaMapper.mapToDateParam(roomCriteria),
+                roomCriteriaMapper.mapToSortParam(roomCriteria)));
     }
 
 }
