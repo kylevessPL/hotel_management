@@ -5,7 +5,6 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.springframework.format.annotation.DateTimeFormat;
 
-import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 
@@ -20,11 +19,9 @@ public final class RoomCriteria {
     @NotNull
     @DateTimeFormat(pattern = "dd-MM-yyyy")
     LocalDate endDate;
-    @NotBlank
     @ValidateString(acceptedValues = {"bedAmount", "standardPrice"})
-    private String sortBy;
-    @NotBlank
+    private String sortBy = "id";
     @ValidateString(acceptedValues = {"ASC", "DESC"})
-    private String sortDir;
+    private String sortDir = "ASC";
 
 }
