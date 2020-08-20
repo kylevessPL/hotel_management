@@ -3,9 +3,9 @@ package pl.piasta.hotel.domain.rooms;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import pl.piasta.hotel.domain.model.rooms.Room;
-import pl.piasta.hotel.domain.rooms.utils.DateParam;
-import pl.piasta.hotel.domain.rooms.utils.SortDir;
-import pl.piasta.hotel.domain.rooms.utils.SortParam;
+import pl.piasta.hotel.domain.model.rooms.utils.DateParam;
+import pl.piasta.hotel.domain.model.rooms.utils.SortDir;
+import pl.piasta.hotel.domain.model.rooms.utils.SortParam;
 
 import java.sql.Date;
 import java.util.Comparator;

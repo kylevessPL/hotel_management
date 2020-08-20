@@ -1,4 +1,4 @@
-package pl.piasta.hotel.domain.rooms.utils;
+package pl.piasta.hotel.domain.model.rooms.utils;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -11,7 +11,7 @@ import java.sql.Date;
 @Setter
 public class DateParam {
 
-    Date startDate;
-    Date endDate;
+    private Date startDate;
+    private Date endDate;
 
 }

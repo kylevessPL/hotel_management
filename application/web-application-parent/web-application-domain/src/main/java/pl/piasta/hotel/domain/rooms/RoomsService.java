@@ -1,8 +1,8 @@
 package pl.piasta.hotel.domain.rooms;
 
 import pl.piasta.hotel.domain.model.rooms.Room;
-import pl.piasta.hotel.domain.rooms.utils.DateParam;
-import pl.piasta.hotel.domain.rooms.utils.SortParam;
+import pl.piasta.hotel.domain.model.rooms.utils.DateParam;
+import pl.piasta.hotel.domain.model.rooms.utils.SortParam;
 
 import java.util.List;
 
