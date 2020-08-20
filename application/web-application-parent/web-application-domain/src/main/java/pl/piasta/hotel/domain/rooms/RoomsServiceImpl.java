@@ -23,19 +23,23 @@ public class RoomsServiceImpl implements RoomsService {
         Date endDate = dateParam.getEndDate();
         List<Room> rooms = repository.getAllAvailableRoomsWithinDateRange(startDate, endDate);
         if(sortParam != null) {
-            Comparator<Room> comparator;
-            if(sortParam.getSortBy().equals("bedAmount")) {
-                comparator = Comparator.comparing(Room::getBedAmount).thenComparing(Room::getStandardPrice);
-            } else {
-                comparator = Comparator.comparing(Room::getStandardPrice).thenComparing(Room::getBedAmount);
-            }
-            if(sortParam.getSortDir() == SortDir.ASC) {
-                rooms.sort(comparator);
-            } else {
-                rooms.sort(comparator.reversed());
-            }
+            sortRooms(rooms, sortParam);
         }
         return rooms;
+    }
+
+    private void sortRooms(List<Room> rooms, SortParam sortParam) {
+        Comparator<Room> comparator;
+        if(sortParam.getSortBy().equals("bedAmount")) {
+            comparator = Comparator.comparing(Room::getBedAmount).thenComparing(Room::getStandardPrice);
+        } else {
+            comparator = Comparator.comparing(Room::getStandardPrice).thenComparing(Room::getBedAmount);
+        }
+        if(sortParam.getSortDir() == SortDir.ASC) {
+            rooms.sort(comparator);
+        } else {
+            rooms.sort(comparator.reversed());
+        }
     }
 
 }
