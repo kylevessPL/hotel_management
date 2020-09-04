@@ -19,7 +19,7 @@ public final class RoomCriteria {
     @NotNull
     @DateTimeFormat(pattern = "dd-MM-yyyy")
     private LocalDate endDate;
-    @ValidateString(acceptedValues = {"bedAmount", "standardPrice"})
+    @ValidateString(acceptedValues = {"bedAmount", "standardPrice", "id"})
     private String sortBy = "id";
     @ValidateString(acceptedValues = {"ASC", "DESC"})
     private String sortDir = "ASC";
