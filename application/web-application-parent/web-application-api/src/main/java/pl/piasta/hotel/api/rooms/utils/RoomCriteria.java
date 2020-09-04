@@ -15,10 +15,10 @@ public final class RoomCriteria {
 
     @NotNull
     @DateTimeFormat(pattern = "dd-MM-yyyy")
-    LocalDate startDate;
+    private LocalDate startDate;
     @NotNull
     @DateTimeFormat(pattern = "dd-MM-yyyy")
-    LocalDate endDate;
+    private LocalDate endDate;
     @ValidateString(acceptedValues = {"bedAmount", "standardPrice"})
     private String sortBy = "id";
     @ValidateString(acceptedValues = {"ASC", "DESC"})
