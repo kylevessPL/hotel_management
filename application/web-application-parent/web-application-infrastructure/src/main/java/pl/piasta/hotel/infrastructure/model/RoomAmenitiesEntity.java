@@ -15,10 +15,10 @@ import javax.persistence.Table;
 public class RoomAmenitiesEntity {
 
     @Id @Column(name = "id", nullable = false)
-    private int id;
+    private Integer id;
     @Column(name = "room_id", nullable = false)
-    private int roomId;
+    private Integer roomId;
     @Column(name = "amenity_id", nullable = false)
-    private int amenityId;
+    private Integer amenityId;
 
 }

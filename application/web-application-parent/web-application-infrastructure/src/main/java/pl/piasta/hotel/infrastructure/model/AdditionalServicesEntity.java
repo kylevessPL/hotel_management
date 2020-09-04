@@ -16,7 +16,7 @@ import java.math.BigDecimal;
 public class AdditionalServicesEntity {
 
     @Id @Column(name = "id", nullable = false)
-    private int id;
+    private Integer id;
     @Column(name = "name", nullable = false, length = 40)
     private String name;
     @Column(name = "price", precision = 2)
