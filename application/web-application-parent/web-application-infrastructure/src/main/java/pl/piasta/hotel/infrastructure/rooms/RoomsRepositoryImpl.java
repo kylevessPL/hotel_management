@@ -14,6 +14,7 @@ import pl.piasta.hotel.infrastructure.model.RoomAmenitiesEntity;
 import pl.piasta.hotel.infrastructure.model.RoomsEntity;
 
 import java.sql.Date;
+import java.util.Comparator;
 import java.util.List;
 import java.util.TreeMap;
 import java.util.stream.Collectors;
@@ -38,6 +39,8 @@ public class RoomsRepositoryImpl implements RoomsRepository {
                 .map(RoomAmenitiesEntity::getAmenityId)
                 .distinct()
                 .collect(Collectors.toList()));
+        amenities.sort(Comparator.comparing(AmenitiesEntity::getName, String.CASE_INSENSITIVE_ORDER));
+
         TreeMap<Integer, List<AmenitiesEntity>> roomAmenitiesMap = new TreeMap<>();
         rooms.forEach(room -> {
             List<Integer> amenityId = roomAmenities
