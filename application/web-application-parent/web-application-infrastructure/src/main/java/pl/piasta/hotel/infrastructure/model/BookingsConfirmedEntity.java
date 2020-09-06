@@ -9,14 +9,14 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "payment_forms")
+@Table(name = "bookings_confirmed")
 @Getter
 @Setter
-public class PaymentFormsEntity {
+public class BookingsConfirmedEntity {
 
     @Id @Column(name = "id", nullable = false)
     private Integer id;
-    @Column(name = "name", nullable = false, length = 20)
-    private String name;
+    @Column(name = "booking_id", nullable = false)
+    private Integer bookingId;
 
 }
