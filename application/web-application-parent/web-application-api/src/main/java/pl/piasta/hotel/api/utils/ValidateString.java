@@ -1,4 +1,4 @@
-package pl.piasta.hotel.api.rooms.utils;
+package pl.piasta.hotel.api.utils;
 
 import javax.validation.Constraint;
 import javax.validation.Payload;

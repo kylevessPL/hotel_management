@@ -28,9 +28,9 @@ public class RoomsServiceImpl implements RoomsService {
 
     private void sortRooms(List<Room> rooms, SortParam sortParam) {
         Comparator<Room> comparator;
-        if(sortParam.getSortBy().equals("bedAmount")) {
+        if(sortParam.getSortBy().equalsIgnoreCase("bedAmount")) {
             comparator = Comparator.comparing(Room::getBedAmount).thenComparing(Room::getStandardPrice);
-        } else if(sortParam.getSortBy().equals("standardPrice")){
+        } else if(sortParam.getSortBy().equalsIgnoreCase("standardPrice")){
             comparator = Comparator.comparing(Room::getStandardPrice).thenComparing(Room::getBedAmount);
         } else {
             comparator = Comparator.comparing(Room::getId);
