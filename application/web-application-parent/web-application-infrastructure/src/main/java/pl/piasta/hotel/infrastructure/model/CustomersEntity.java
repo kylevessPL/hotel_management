@@ -22,8 +22,8 @@ public class CustomersEntity {
     private String lastName;
     @Column(name = "street_name", nullable = false, length = 30)
     private String streetName;
-    @Column(name = "house_number", nullable = false)
-    private Integer houseNumber;
+    @Column(name = "house_number", nullable = false, length = 10)
+    private String houseNumber;
     @Column(name = "zip_code", nullable = false, length = 10)
     private String zipCode;
     @Column(name = "city", nullable = false, length = 30)
