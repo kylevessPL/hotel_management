@@ -1,17 +1,14 @@
-package pl.piasta.hotel.dto.customers;
+package pl.piasta.hotel.domain.model.customers.utils;
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-@AllArgsConstructor
 @NoArgsConstructor
 @Getter
 @Setter
-public class CustomerDto {
+public class CustomerParam {
 
-    private Integer id;
     private String firstName;
     private String lastName;
     private String streetName;
@@ -20,5 +17,5 @@ public class CustomerDto {
     private String city;
     private String documentType;
     private String documentId;
-
+    
 }

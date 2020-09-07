@@ -26,4 +26,12 @@ public class RoomsEntityMapper {
                 .collect(Collectors.toList());
     }
 
+    public Room mapToRoom(RoomsEntity room, List<AmenitiesEntity> roomAmenities) {
+        return new Room(
+                room.getId(),
+                room.getBedAmount(),
+                room.getStandardPrice(),
+                amenitiesEntityMapper.mapToAmenity(roomAmenities));
+    }
+
 }

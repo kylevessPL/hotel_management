@@ -5,6 +5,7 @@ import lombok.Setter;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
@@ -14,7 +15,7 @@ import javax.persistence.Table;
 @Setter
 public class BookingsServicesEntity {
 
-    @Id @Column(name = "booking_id", nullable = false)
+    @Id @Column(name = "booking_id", nullable = false) @GeneratedValue
     private Integer bookingId;
     @Column(name = "service_id", nullable = false)
     private Integer serviceId;

@@ -5,6 +5,7 @@ import lombok.Setter;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import java.sql.Timestamp;
@@ -15,7 +16,7 @@ import java.sql.Timestamp;
 @Setter
 public class PaymentsEntity {
 
-    @Id @Column(name = "id", nullable = false)
+    @Id @Column(name = "id", nullable = false) @GeneratedValue
     private Integer id;
     @Column(name = "booking_id", nullable = false)
     private Integer bookingId;

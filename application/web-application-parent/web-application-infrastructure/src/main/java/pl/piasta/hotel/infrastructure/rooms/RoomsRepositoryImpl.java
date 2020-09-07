@@ -10,6 +10,7 @@ import pl.piasta.hotel.infrastructure.dao.RoomAmenitiesEntityDao;
 import pl.piasta.hotel.infrastructure.dao.RoomsEntityDao;
 import pl.piasta.hotel.infrastructure.mapper.RoomsEntityMapper;
 import pl.piasta.hotel.infrastructure.model.AmenitiesEntity;
+import pl.piasta.hotel.infrastructure.model.BookingsEntity;
 import pl.piasta.hotel.infrastructure.model.RoomAmenitiesEntity;
 import pl.piasta.hotel.infrastructure.model.RoomsEntity;
 
@@ -31,7 +32,10 @@ public class RoomsRepositoryImpl implements RoomsRepository {
 
     @Override
     public List<Room> getAllAvailableRoomsWithinDateRange(Date startDate, Date endDate) {
-        List<Integer> bookedRooms = bookingsDao.findRoomIdBetweenDates(startDate, endDate);
+        List<Integer> bookedRooms = bookingsDao.findByStartDateGreaterThanEqualAndEndDateLessThanEqual(startDate, endDate)
+                .stream()
+                .map(BookingsEntity::getRoomId)
+                .collect(Collectors.toList());
         List<RoomsEntity> rooms = bookedRooms.isEmpty() ? roomsDao.findAll() : roomsDao.findByIdNotIn(bookedRooms);
         List<RoomAmenitiesEntity> roomAmenities = roomAmenitiesDao.findAll();
         List<AmenitiesEntity> amenities = amenitiesEntityDao.findAllByIdIn(roomAmenities
