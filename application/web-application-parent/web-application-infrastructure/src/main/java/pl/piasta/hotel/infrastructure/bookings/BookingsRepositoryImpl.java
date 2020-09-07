@@ -119,8 +119,8 @@ public class BookingsRepositoryImpl implements BookingsRepository {
         if(id != null) {
             customersEntityMapper.updateEntity(id, customer);
         }
-        customersDao.save(customer);
-        bookingsDao.save(bookingsEntityMapper.createEntity(
+        customersDao.saveAndFlush(customer);
+        bookingsDao.saveAndFlush(bookingsEntityMapper.createEntity(
                 startDate,
                 endDate,
                 customer.getId(),
