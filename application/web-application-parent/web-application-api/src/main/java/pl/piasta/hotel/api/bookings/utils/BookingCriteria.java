@@ -5,7 +5,6 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.springframework.format.annotation.DateTimeFormat;
 import pl.piasta.hotel.api.utils.ValidateString;
-import pl.piasta.hotel.api.utils.ValidateStringArray;
 
 import javax.validation.constraints.Future;
 import javax.validation.constraints.Min;
@@ -23,7 +22,7 @@ public final class BookingCriteria {
     @NotNull
     @Min(1)
     private Integer roomId;
-    @ValidateStringArray(acceptedValues = {"Breakfast Pack", "Lunch & Dinner Pack", "Cleaning Service", "Additional Bed"})
+    //@ValidateStringArray(acceptedValues = {"Breakfast Pack", "Lunch & Dinner Pack", "Cleaning Service", "Additional Bed"})
     private String[] additionalServices;
     @NotNull
     @Future

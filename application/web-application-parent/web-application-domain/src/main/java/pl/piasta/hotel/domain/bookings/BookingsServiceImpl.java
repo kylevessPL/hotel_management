@@ -13,7 +13,6 @@ import pl.piasta.hotel.domain.model.rooms.utils.DateParam;
 
 import java.math.BigDecimal;
 import java.sql.Date;
-import java.time.Duration;
 import java.time.Period;
 import java.util.List;
 
@@ -39,7 +38,7 @@ public class BookingsServiceImpl implements BookingsService {
         List<AdditionalService> additionalServicesList = repository.getAdditionalServices(additionalServices);
         List<PaymentForm> paymentForms = repository.getAllPaymentForms();
         BigDecimal finalPrice = calculateFinalPrice(room, additionalServicesList, startDate, endDate);
-        repository.saveBooking(
+        Integer bookingId = repository.saveBookingAndGetId(
                 startDate,
                 endDate,
                 customerParam.getFirstName(),
@@ -55,6 +54,7 @@ public class BookingsServiceImpl implements BookingsService {
         );
         Customer customer = repository.getCustomerByDocumentId(customerParam.getDocumentId());
         return new Booking(
+                bookingId,
                 customer,
                 room,
                 additionalServicesList,

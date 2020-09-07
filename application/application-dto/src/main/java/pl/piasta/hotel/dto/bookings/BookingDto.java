@@ -19,6 +19,7 @@ import java.util.List;
 @Setter
 public class BookingDto {
 
+    private Integer bookingId;
     private CustomerDto customer;
     private RoomDto room;
     private List<AdditionalServiceDto> additionalServices;

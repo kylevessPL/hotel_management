@@ -92,7 +92,7 @@ public class BookingsRepositoryImpl implements BookingsRepository {
     }
 
     @Override
-    public void saveBooking(
+    public Integer saveBookingAndGetId(
             Date startDate,
             Date endDate,
             String firstName,
@@ -120,12 +120,13 @@ public class BookingsRepositoryImpl implements BookingsRepository {
             customersEntityMapper.updateEntity(id, customer);
         }
         customersDao.saveAndFlush(customer);
-        bookingsDao.saveAndFlush(bookingsEntityMapper.createEntity(
+        BookingsEntity newBooking = bookingsDao.saveAndFlush(bookingsEntityMapper.createEntity(
                 startDate,
                 endDate,
                 customer.getId(),
                 roomId,
                 finalPrice));
+        return newBooking.getId();
     }
 
 }

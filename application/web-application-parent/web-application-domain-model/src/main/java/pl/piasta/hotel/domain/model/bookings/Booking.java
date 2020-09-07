@@ -17,6 +17,7 @@ import java.util.List;
 @Setter
 public class Booking {
 
+    private final Integer bookingId;
     private final Customer customer;
     private final Room room;
     private final List<AdditionalService> additionalServices;
