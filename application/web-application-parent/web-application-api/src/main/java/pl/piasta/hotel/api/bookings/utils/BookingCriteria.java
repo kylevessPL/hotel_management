@@ -23,7 +23,7 @@ public final class BookingCriteria {
     @NotNull
     @Min(1)
     private Integer roomId;
-    @ValidateStringArray(acceptedValues = {"Breakfast Pack", "Lunch & Dinner Pack", "Cleaning Service", "Additional Bed"})
+    @ValidateStringArray(acceptedValues = {"Breakfast Pack", "Lunch &amp; Dinner Pack", "Cleaning Service", "Additional Bed"})
     private String[] additionalServices;
     @NotNull
     @Future
