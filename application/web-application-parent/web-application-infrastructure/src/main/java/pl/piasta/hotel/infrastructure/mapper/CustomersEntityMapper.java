@@ -42,9 +42,7 @@ public class CustomersEntityMapper {
         return customer;
     }
 
-    public void updateEntity(
-            Integer customerId,
-            CustomersEntity customer) {
+    public void updateEntity(Integer customerId, CustomersEntity customer) {
         customer.setId(customerId);
     }
 
