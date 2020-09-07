@@ -21,6 +21,7 @@ public class StringArrayValidator implements ConstraintValidator<ValidateStringA
                 if (acceptedValues.stream().noneMatch(acceptedValue -> acceptedValue.equalsIgnoreCase(value)))
                     return false;
             }
+            return true;
         }
         return false;
     }
