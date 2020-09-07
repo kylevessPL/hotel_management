@@ -7,6 +7,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 import pl.piasta.hotel.api.utils.ValidateString;
 import pl.piasta.hotel.api.utils.ValidateStringArray;
 
+import javax.validation.constraints.Future;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
@@ -25,9 +26,11 @@ public final class BookingCriteria {
     @ValidateStringArray(acceptedValues = {"Breakfast Pack", "Lunch & Dinner Pack", "Cleaning Service", "Additional Bed"})
     private String[] additionalServices;
     @NotNull
+    @Future
     @DateTimeFormat(pattern = "dd-MM-yyyy")
     private LocalDate startDate;
     @NotNull
+    @Future
     @DateTimeFormat(pattern = "dd-MM-yyyy")
     private LocalDate endDate;
     @NotBlank
