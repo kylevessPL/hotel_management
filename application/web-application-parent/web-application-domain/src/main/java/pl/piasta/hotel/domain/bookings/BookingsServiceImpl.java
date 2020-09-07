@@ -14,6 +14,7 @@ import pl.piasta.hotel.domain.model.rooms.utils.DateParam;
 import java.math.BigDecimal;
 import java.sql.Date;
 import java.time.Duration;
+import java.time.Period;
 import java.util.List;
 
 @Service
@@ -69,7 +70,7 @@ public class BookingsServiceImpl implements BookingsService {
     }
 
     private BigDecimal calculateFinalPrice(Room room, List<AdditionalService> additionalServices, Date startDate, Date endDate) {
-        long nights = Duration.between(startDate.toLocalDate(), endDate.toLocalDate()).toDays();
+        long nights = Period.between(startDate.toLocalDate(), endDate.toLocalDate()).getDays();
         BigDecimal roomPrice = room.getStandardPrice();
         BigDecimal additionalServicesPrice = additionalServices
                 .stream()
