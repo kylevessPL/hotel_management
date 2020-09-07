@@ -6,6 +6,7 @@ import lombok.Setter;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import java.math.BigDecimal;
@@ -16,7 +17,7 @@ import java.math.BigDecimal;
 @Setter
 public class RoomsEntity {
 
-    @Id @Column(name = "id", nullable = false) @GeneratedValue
+    @Id @Column(name = "id", nullable = false) @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     @Column(name = "room_number", nullable = false, length = 10)
     private String roomNumber;
