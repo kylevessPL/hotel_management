@@ -16,7 +16,7 @@ import javax.persistence.Table;
 @Setter
 public class SpecialOffersEntity {
 
-    @Id @Column(name = "id", nullable = false) @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id @Column(name = "id", nullable = false) @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Integer id;
     @Column(name = "discount")
     private Integer discount;

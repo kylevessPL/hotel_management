@@ -19,7 +19,7 @@ import java.sql.Timestamp;
 @Setter
 public class BookingsEntity {
 
-    @Id @Column(name = "id", nullable = false) @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id @Column(name = "id", nullable = false) @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Integer id;
     @Column(name = "book_date", nullable = false)
     private Timestamp bookDate;

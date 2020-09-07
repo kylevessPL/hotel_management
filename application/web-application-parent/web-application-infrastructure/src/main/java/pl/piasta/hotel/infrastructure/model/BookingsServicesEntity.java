@@ -16,7 +16,7 @@ import javax.persistence.Table;
 @Setter
 public class BookingsServicesEntity {
 
-    @Id @Column(name = "booking_id", nullable = false) @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id @Column(name = "booking_id", nullable = false) @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Integer bookingId;
     @Column(name = "service_id", nullable = false)
     private Integer serviceId;

@@ -16,7 +16,7 @@ import javax.persistence.Table;
 @Setter
 public class CustomersEntity {
 
-    @Id @Column(name = "id", nullable = false) @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id @Column(name = "id", nullable = false) @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Integer id;
     @Column(name = "first_name", nullable = false, length = 30)
     private String firstName;

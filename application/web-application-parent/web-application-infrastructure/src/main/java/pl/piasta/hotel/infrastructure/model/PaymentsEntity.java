@@ -17,7 +17,7 @@ import java.sql.Timestamp;
 @Setter
 public class PaymentsEntity {
 
-    @Id @Column(name = "id", nullable = false) @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id @Column(name = "id", nullable = false) @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Integer id;
     @Column(name = "booking_id", nullable = false)
     private Integer bookingId;

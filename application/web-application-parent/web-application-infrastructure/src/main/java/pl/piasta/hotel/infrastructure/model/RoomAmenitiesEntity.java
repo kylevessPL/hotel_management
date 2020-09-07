@@ -16,7 +16,7 @@ import javax.persistence.Table;
 @Setter
 public class RoomAmenitiesEntity {
 
-    @Id @Column(name = "id", nullable = false) @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id @Column(name = "id", nullable = false) @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Integer id;
     @Column(name = "room_id", nullable = false)
     private Integer roomId;

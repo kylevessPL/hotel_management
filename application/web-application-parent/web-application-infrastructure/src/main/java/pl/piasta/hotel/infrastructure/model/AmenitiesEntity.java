@@ -16,7 +16,7 @@ import javax.persistence.Table;
 @Setter
 public class AmenitiesEntity {
 
-    @Id @Column(name = "id", nullable = false) @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id @Column(name = "id", nullable = false) @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Integer id;
     @Column(name = "name", nullable = false, length = 40)
     private String name;

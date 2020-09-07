@@ -17,7 +17,7 @@ import java.math.BigDecimal;
 @Setter
 public class RoomsEntity {
 
-    @Id @Column(name = "id", nullable = false) @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id @Column(name = "id", nullable = false) @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Integer id;
     @Column(name = "room_number", nullable = false, length = 10)
     private String roomNumber;
