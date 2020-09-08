@@ -79,7 +79,13 @@ public class BookingsRepositoryImpl implements BookingsRepository {
 
     @Override
     public Customer getCustomerByDocumentId(String documentId) {
-        return customersEntityMapper.mapToCustomer(customersDao.findByDocumentId(documentId));
+        CustomersEntity customer;
+        try {
+            customer = customersDao.findByDocumentId(documentId).orElseThrow(EntityNotFoundException::new);
+        } catch (EntityNotFoundException ex) {
+            return null;
+        }
+        return customersEntityMapper.mapToCustomer(customer);
     }
 
     @Override
@@ -115,11 +121,11 @@ public class BookingsRepositoryImpl implements BookingsRepository {
                 documentType,
                 documentId
         );
-        Integer id = getCustomerByDocumentId(documentId).getId();
-        if(id != null) {
-            customersEntityMapper.updateEntity(id, customer);
+        Customer newCustomer = getCustomerByDocumentId(documentId);
+        if(newCustomer != null) {
+            customersEntityMapper.updateEntity(newCustomer.getId(), customer);
         }
-        customersDao.saveAndFlush(customer);
+        customer = customersDao.saveAndFlush(customer);
         BookingsEntity newBooking = bookingsDao.saveAndFlush(bookingsEntityMapper.createEntity(
                 startDate,
                 endDate,
