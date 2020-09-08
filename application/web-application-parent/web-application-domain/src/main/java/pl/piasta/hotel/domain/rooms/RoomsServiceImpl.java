@@ -30,6 +30,7 @@ public class RoomsServiceImpl implements RoomsService {
         Comparator<Room> comparator;
         if(sortParam.getSortBy().equalsIgnoreCase("bedAmount")) {
             comparator = Comparator.comparing(Room::getBedAmount).thenComparing(Room::getStandardPrice);
+        } else if(sortParam.getSortBy().equals("standardPrice")) {
         } else if(sortParam.getSortBy().equalsIgnoreCase("standardPrice")){
             comparator = Comparator.comparing(Room::getStandardPrice).thenComparing(Room::getBedAmount);
         } else {
