@@ -8,6 +8,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import java.math.BigDecimal;
 import java.sql.Date;
@@ -19,7 +20,9 @@ import java.sql.Timestamp;
 @Setter
 public class BookingsEntity {
 
-    @Id @Column(name = "id", nullable = false) @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @Id @Column(name = "id", nullable = false)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "bookings_generator")
+    @SequenceGenerator(name="bookings_generator", sequenceName = "seq_bookings", allocationSize = 1)
     private Integer id;
     @Column(name = "book_date", nullable = false)
     private Timestamp bookDate;

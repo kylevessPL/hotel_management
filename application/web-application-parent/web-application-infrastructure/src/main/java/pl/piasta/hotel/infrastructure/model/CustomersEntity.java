@@ -8,6 +8,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 @Entity
@@ -16,7 +17,9 @@ import javax.persistence.Table;
 @Setter
 public class CustomersEntity {
 
-    @Id @Column(name = "id", nullable = false) @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @Id @Column(name = "id", nullable = false)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "customers_generator")
+    @SequenceGenerator(name="customers_generator", sequenceName = "seq_customers", allocationSize = 1)
     private Integer id;
     @Column(name = "first_name", nullable = false, length = 30)
     private String firstName;
