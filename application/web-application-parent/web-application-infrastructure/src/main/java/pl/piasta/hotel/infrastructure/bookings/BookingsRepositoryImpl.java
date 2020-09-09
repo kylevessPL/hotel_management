@@ -51,7 +51,7 @@ public class BookingsRepositoryImpl implements BookingsRepository {
 
     @Override
     public List<Integer> getBookingsRoomIdBetweenDates(Date startDate, Date endDate) {
-        return bookingsDao.findByStartDateGreaterThanEqualAndEndDateLessThanEqual(startDate, endDate)
+        return bookingsDao.findByStartDateLessThanEqualAndEndDateGreaterThanEqual(startDate, endDate)
                 .stream()
                 .map(BookingsEntity::getRoomId)
                 .collect(Collectors.toList());
