@@ -39,7 +39,6 @@ public class RoomsRepositoryImpl implements RoomsRepository {
                 .map(RoomAmenitiesEntity::getAmenityId)
                 .distinct()
                 .collect(Collectors.toList()));
-        amenities.sort(Comparator.comparing(AmenitiesEntity::getName, String.CASE_INSENSITIVE_ORDER));
 
         TreeMap<Integer, List<AmenitiesEntity>> roomAmenitiesMap = new TreeMap<>();
         rooms.forEach(room -> {
