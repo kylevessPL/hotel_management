@@ -28,7 +28,7 @@ public class RoomsRepositoryImpl implements RoomsRepository {
     private final RoomsEntityDao roomsDao;
     private final BookingsEntityDao bookingsDao;
     private final RoomAmenitiesEntityDao roomAmenitiesDao;
-    private final AmenitiesEntityDao amenitiesEntityDao;
+    private final AmenitiesEntityDao amenitiesDao;
 
     @Override
     public List<Room> getAllAvailableRoomsWithinDateRange(Date startDate, Date endDate) {
@@ -42,7 +42,7 @@ public class RoomsRepositoryImpl implements RoomsRepository {
                 .map(RoomsEntity::getId)
                 .distinct()
                 .collect(Collectors.toList()));
-        List<AmenitiesEntity> amenities = amenitiesEntityDao.findAllByIdIn(roomAmenities
+        List<AmenitiesEntity> amenities = amenitiesDao.findAllByIdIn(roomAmenities
                 .stream()
                 .map(RoomAmenitiesEntity::getAmenityId)
                 .distinct()
