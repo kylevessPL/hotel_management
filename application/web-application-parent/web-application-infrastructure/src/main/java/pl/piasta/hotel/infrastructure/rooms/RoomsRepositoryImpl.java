@@ -33,7 +33,11 @@ public class RoomsRepositoryImpl implements RoomsRepository {
     public List<Room> getAllAvailableRoomsWithinDateRange(Date startDate, Date endDate) {
         List<Integer> bookedRooms = bookingsDao.findRoomIdBetweenDates(startDate, endDate);
         List<RoomsEntity> rooms = bookedRooms.isEmpty() ? roomsDao.findAll() : roomsDao.findByIdNotIn(bookedRooms);
-        List<RoomAmenitiesEntity> roomAmenities = roomAmenitiesDao.findAll();
+        List<RoomAmenitiesEntity> roomAmenities = roomAmenitiesDao.findAllByRoomIdIn(rooms
+                .stream()
+                .map(RoomsEntity::getId)
+                .distinct()
+                .collect(Collectors.toList()));
         List<AmenitiesEntity> amenities = amenitiesEntityDao.findAllByIdIn(roomAmenities
                 .stream()
                 .map(RoomAmenitiesEntity::getAmenityId)
