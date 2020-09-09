@@ -15,9 +15,9 @@ import pl.piasta.hotel.infrastructure.model.RoomAmenitiesEntity;
 import pl.piasta.hotel.infrastructure.model.RoomsEntity;
 
 import java.sql.Date;
-import java.util.Comparator;
+import java.util.HashMap;
 import java.util.List;
-import java.util.TreeMap;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 @Repository
@@ -37,24 +37,27 @@ public class RoomsRepositoryImpl implements RoomsRepository {
                 .map(BookingsEntity::getRoomId)
                 .collect(Collectors.toList());
         List<RoomsEntity> rooms = bookedRooms.isEmpty() ? roomsDao.findAll() : roomsDao.findByIdNotIn(bookedRooms);
-        List<RoomAmenitiesEntity> roomAmenities = roomAmenitiesDao.findAll();
+        List<RoomAmenitiesEntity> roomAmenities = roomAmenitiesDao.findAllByRoomIdIn(rooms
+                .stream()
+                .map(RoomsEntity::getId)
+                .distinct()
+                .collect(Collectors.toList()));
         List<AmenitiesEntity> amenities = amenitiesEntityDao.findAllByIdIn(roomAmenities
                 .stream()
                 .map(RoomAmenitiesEntity::getAmenityId)
                 .distinct()
                 .collect(Collectors.toList()));
-        amenities.sort(Comparator.comparing(AmenitiesEntity::getName, String.CASE_INSENSITIVE_ORDER));
 
-        TreeMap<Integer, List<AmenitiesEntity>> roomAmenitiesMap = new TreeMap<>();
+        Map<Integer, List<AmenitiesEntity>> roomAmenitiesMap = new HashMap<>();
         rooms.forEach(room -> {
-            List<Integer> amenityId = roomAmenities
+            List<Integer> amenityList = roomAmenities
                     .stream()
                     .filter(a -> a.getRoomId().equals(room.getId()))
                     .map(RoomAmenitiesEntity::getAmenityId)
                     .collect(Collectors.toList());
             roomAmenitiesMap.put(room.getId(), amenities
                     .stream()
-                    .filter(amenity -> amenityId.contains(amenity.getId()))
+                    .filter(amenity -> amenityList.contains(amenity.getId()))
                     .collect(Collectors.toList()));
         });
         return roomsEntityMapper.mapToRoom(rooms, roomAmenitiesMap);

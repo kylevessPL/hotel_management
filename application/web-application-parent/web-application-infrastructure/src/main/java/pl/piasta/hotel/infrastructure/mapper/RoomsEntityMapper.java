@@ -7,7 +7,7 @@ import pl.piasta.hotel.infrastructure.model.AmenitiesEntity;
 import pl.piasta.hotel.infrastructure.model.RoomsEntity;
 
 import java.util.List;
-import java.util.TreeMap;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 @Component
@@ -16,7 +16,7 @@ public class RoomsEntityMapper {
 
     private final AmenitiesEntityMapper amenitiesEntityMapper;
 
-     public List<Room> mapToRoom(List<RoomsEntity> rooms, TreeMap<Integer, List<AmenitiesEntity>> roomAmenitiesMap) {
+     public List<Room> mapToRoom(List<RoomsEntity> rooms, Map<Integer, List<AmenitiesEntity>> roomAmenitiesMap) {
         return rooms.stream()
                 .map(entity -> new Room(
                         entity.getId(),
