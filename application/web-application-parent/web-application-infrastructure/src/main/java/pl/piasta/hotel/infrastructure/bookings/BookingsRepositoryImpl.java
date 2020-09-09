@@ -71,15 +71,12 @@ public class BookingsRepositoryImpl implements BookingsRepository {
         } catch (EntityNotFoundException ex) {
             return null;
         }
-        List<Integer> amenityId = roomAmenitiesDao.findAll()
+        List<RoomAmenitiesEntity> roomAmenities = roomAmenitiesDao.findAllByRoomId(roomId);
+        List<AmenitiesEntity> amenities = amenitiesDao.findAllByIdIn(roomAmenities
                 .stream()
-                .filter(e -> e.getRoomId().equals(roomId))
                 .map(RoomAmenitiesEntity::getAmenityId)
-                .collect(Collectors.toList());
-        List<AmenitiesEntity> amenities = amenitiesDao.findAll()
-                .stream()
-                .filter(e -> amenityId.contains(e.getId()))
-                .collect(Collectors.toList());
+                .distinct()
+                .collect(Collectors.toList()));
         return roomsEntityMapper.mapToRoom(room, amenities);
     }
 
