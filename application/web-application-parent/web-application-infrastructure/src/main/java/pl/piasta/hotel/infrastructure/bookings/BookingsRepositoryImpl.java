@@ -19,6 +19,7 @@ import pl.piasta.hotel.infrastructure.mapper.BookingsEntityMapper;
 import pl.piasta.hotel.infrastructure.mapper.CustomersEntityMapper;
 import pl.piasta.hotel.infrastructure.mapper.PaymentFormsEntityMapper;
 import pl.piasta.hotel.infrastructure.mapper.RoomsEntityMapper;
+import pl.piasta.hotel.infrastructure.model.AdditionalServicesEntity;
 import pl.piasta.hotel.infrastructure.model.AmenitiesEntity;
 import pl.piasta.hotel.infrastructure.model.BookingsEntity;
 import pl.piasta.hotel.infrastructure.model.CustomersEntity;
@@ -64,7 +65,12 @@ public class BookingsRepositoryImpl implements BookingsRepository {
 
     @Override
     public Room getRoomById(Integer roomId) {
-        RoomsEntity room = roomsDao.findById(roomId).orElseThrow(EntityNotFoundException::new);
+        RoomsEntity room;
+        try {
+            room = roomsDao.findById(roomId).orElseThrow(EntityNotFoundException::new);
+        } catch (EntityNotFoundException ex) {
+            return null;
+        }
         List<Integer> amenityId = roomAmenitiesDao.findAll()
                 .stream()
                 .filter(e -> e.getRoomId().equals(roomId))
@@ -91,10 +97,14 @@ public class BookingsRepositoryImpl implements BookingsRepository {
     @Override
     public List<AdditionalService> getAdditionalServices(String[] additionalServices) {
         List<String> services = Arrays.stream(additionalServices).collect(Collectors.toList());
-        return additionalServicesMapper.mapToAdditionalService(additionalServicesDao.findAll()
+        List<AdditionalServicesEntity> additionalServicesList = additionalServicesDao.findAll()
                 .stream()
                 .filter(e -> services.contains(e.getName()))
-                .collect(Collectors.toList()));
+                .collect(Collectors.toList());
+        if(additionalServicesList.isEmpty()) {
+            return null;
+        }
+        return additionalServicesMapper.mapToAdditionalService(additionalServicesList);
     }
 
     @Override
