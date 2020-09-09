@@ -1,5 +1,6 @@
 package pl.piasta.hotel.api.bookings.utils;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -12,12 +13,13 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
+import java.io.Serializable;
 import java.time.LocalDate;
 
 @NoArgsConstructor
 @Getter
 @Setter
-public final class BookingCriteria {
+public final class BookingCriteria implements Serializable {
 
     @NotNull
     @Min(1)
@@ -26,10 +28,12 @@ public final class BookingCriteria {
     @NotNull
     @Future
     @DateTimeFormat(pattern = "dd-MM-yyyy")
+    @JsonFormat(pattern = "dd-MM-yyyy")
     private LocalDate startDate;
     @NotNull
     @Future
     @DateTimeFormat(pattern = "dd-MM-yyyy")
+    @JsonFormat(pattern = "dd-MM-yyyy")
     private LocalDate endDate;
     @NotBlank
     @Pattern(regexp = "^[a-zA-Z \\-.']*$")
