@@ -4,7 +4,9 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import pl.piasta.hotel.domain.model.additionalservices.AdditionalService;
 import pl.piasta.hotel.domain.model.bookings.Booking;
+import pl.piasta.hotel.domain.model.bookings.utils.AdditionalServiceNotFoundException;
 import pl.piasta.hotel.domain.model.bookings.utils.RoomNotAvailableException;
+import pl.piasta.hotel.domain.model.bookings.utils.RoomNotFoundException;
 import pl.piasta.hotel.domain.model.customers.Customer;
 import pl.piasta.hotel.domain.model.customers.utils.CustomerParam;
 import pl.piasta.hotel.domain.model.paymentforms.PaymentForm;
@@ -27,15 +29,22 @@ public class BookingsServiceImpl implements BookingsService {
             Integer roomId,
             String[] additionalServices,
             CustomerParam customerParam,
-            DateParam dateParam) throws RoomNotAvailableException {
+            DateParam dateParam) throws RoomNotAvailableException, RoomNotFoundException, AdditionalServiceNotFoundException {
         Date startDate = dateParam.getStartDate();
         Date endDate = dateParam.getEndDate();
+
+        Room room;
+        if((room = repository.getRoomById(roomId)) == null) {
+            throw new RoomNotFoundException();
+        }
         if(!isRoomAvailable(roomId, startDate, endDate)) {
             throw new RoomNotAvailableException();
         }
 
-        Room room = repository.getRoomById(roomId);
-        List<AdditionalService> additionalServicesList = repository.getAdditionalServices(additionalServices);
+        List<AdditionalService> additionalServicesList;
+        if((additionalServicesList = repository.getAdditionalServices(additionalServices)) == null) {
+            throw new AdditionalServiceNotFoundException();
+        }
         List<PaymentForm> paymentForms = repository.getAllPaymentForms();
         BigDecimal finalPrice = calculateFinalPrice(room, additionalServicesList, startDate, endDate);
         Integer bookingId = repository.saveBookingAndGetId(

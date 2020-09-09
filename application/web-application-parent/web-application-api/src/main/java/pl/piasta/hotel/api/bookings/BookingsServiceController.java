@@ -9,7 +9,9 @@ import pl.piasta.hotel.api.bookings.mapper.BookingCriteriaMapper;
 import pl.piasta.hotel.api.bookings.mapper.BookingMapper;
 import pl.piasta.hotel.api.bookings.utils.BookingCriteria;
 import pl.piasta.hotel.domain.bookings.BookingsService;
+import pl.piasta.hotel.domain.model.bookings.utils.AdditionalServiceNotFoundException;
 import pl.piasta.hotel.domain.model.bookings.utils.RoomNotAvailableException;
+import pl.piasta.hotel.domain.model.bookings.utils.RoomNotFoundException;
 import pl.piasta.hotel.dto.bookings.BookingDto;
 
 import javax.validation.Valid;
@@ -30,6 +32,8 @@ public class BookingsServiceController {
                     bookingCriteria.getAdditionalServices(),
                     bookingCriteriaMapper.mapToCustomerParam(bookingCriteria),
                     bookingCriteriaMapper.mapToDateParam(bookingCriteria)));
+        } catch (RoomNotFoundException | AdditionalServiceNotFoundException ex) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, ex.getLocalizedMessage(), ex);
         } catch (RoomNotAvailableException ex) {
             throw new ResponseStatusException(HttpStatus.CONFLICT, ex.getLocalizedMessage(), ex);
         }

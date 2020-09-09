@@ -8,6 +8,6 @@ import java.util.List;
 
 public interface BookingsEntityDao extends JpaRepository<BookingsEntity, Integer> {
 
-    List<BookingsEntity> findByStartDateGreaterThanEqualAndEndDateLessThanEqual(Date startDate, Date endDate);
+    List<BookingsEntity> findByStartDateLessThanEqualAndEndDateGreaterThanEqual(Date startDate, Date endDate);
 
 }

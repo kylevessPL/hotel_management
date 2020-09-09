@@ -8,5 +8,6 @@ import java.util.List;
 public interface RoomAmenitiesEntityDao extends JpaRepository<RoomAmenitiesEntity, Integer> {
 
     List<RoomAmenitiesEntity> findAllByRoomIdIn(List<Integer> roomId);
+    List<RoomAmenitiesEntity> findAllByRoomId(Integer roomId);
 
 }

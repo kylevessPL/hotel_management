@@ -19,6 +19,7 @@ import pl.piasta.hotel.infrastructure.mapper.BookingsEntityMapper;
 import pl.piasta.hotel.infrastructure.mapper.CustomersEntityMapper;
 import pl.piasta.hotel.infrastructure.mapper.PaymentFormsEntityMapper;
 import pl.piasta.hotel.infrastructure.mapper.RoomsEntityMapper;
+import pl.piasta.hotel.infrastructure.model.AdditionalServicesEntity;
 import pl.piasta.hotel.infrastructure.model.AmenitiesEntity;
 import pl.piasta.hotel.infrastructure.model.BookingsEntity;
 import pl.piasta.hotel.infrastructure.model.CustomersEntity;
@@ -51,7 +52,7 @@ public class BookingsRepositoryImpl implements BookingsRepository {
 
     @Override
     public List<Integer> getBookingsRoomIdBetweenDates(Date startDate, Date endDate) {
-        return bookingsDao.findByStartDateGreaterThanEqualAndEndDateLessThanEqual(startDate, endDate)
+        return bookingsDao.findByStartDateLessThanEqualAndEndDateGreaterThanEqual(startDate, endDate)
                 .stream()
                 .map(BookingsEntity::getRoomId)
                 .collect(Collectors.toList());
@@ -64,16 +65,18 @@ public class BookingsRepositoryImpl implements BookingsRepository {
 
     @Override
     public Room getRoomById(Integer roomId) {
-        RoomsEntity room = roomsDao.findById(roomId).orElseThrow(EntityNotFoundException::new);
-        List<Integer> amenityId = roomAmenitiesDao.findAll()
+        RoomsEntity room;
+        try {
+            room = roomsDao.findById(roomId).orElseThrow(EntityNotFoundException::new);
+        } catch (EntityNotFoundException ex) {
+            return null;
+        }
+        List<RoomAmenitiesEntity> roomAmenities = roomAmenitiesDao.findAllByRoomId(roomId);
+        List<AmenitiesEntity> amenities = amenitiesDao.findAllByIdIn(roomAmenities
                 .stream()
-                .filter(e -> e.getRoomId().equals(roomId))
                 .map(RoomAmenitiesEntity::getAmenityId)
-                .collect(Collectors.toList());
-        List<AmenitiesEntity> amenities = amenitiesDao.findAll()
-                .stream()
-                .filter(e -> amenityId.contains(e.getId()))
-                .collect(Collectors.toList());
+                .distinct()
+                .collect(Collectors.toList()));
         return roomsEntityMapper.mapToRoom(room, amenities);
     }
 
@@ -91,10 +94,14 @@ public class BookingsRepositoryImpl implements BookingsRepository {
     @Override
     public List<AdditionalService> getAdditionalServices(String[] additionalServices) {
         List<String> services = Arrays.stream(additionalServices).collect(Collectors.toList());
-        return additionalServicesMapper.mapToAdditionalService(additionalServicesDao.findAll()
+        List<AdditionalServicesEntity> additionalServicesList = additionalServicesDao.findAll()
                 .stream()
                 .filter(e -> services.contains(e.getName()))
-                .collect(Collectors.toList()));
+                .collect(Collectors.toList());
+        if(additionalServicesList.isEmpty()) {
+            return null;
+        }
+        return additionalServicesMapper.mapToAdditionalService(additionalServicesList);
     }
 
     @Override
@@ -121,9 +128,9 @@ public class BookingsRepositoryImpl implements BookingsRepository {
                 documentType,
                 documentId
         );
-        Customer newCustomer = getCustomerByDocumentId(documentId);
-        if(newCustomer != null) {
-            customersEntityMapper.updateEntity(newCustomer.getId(), customer);
+        Customer oldCustomer = getCustomerByDocumentId(documentId);
+        if(oldCustomer != null) {
+            customersEntityMapper.updateEntity(oldCustomer.getId(), customer);
         }
         customer = customersDao.saveAndFlush(customer);
         BookingsEntity newBooking = bookingsDao.saveAndFlush(bookingsEntityMapper.createEntity(
