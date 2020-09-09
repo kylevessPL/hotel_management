@@ -131,9 +131,9 @@ public class BookingsRepositoryImpl implements BookingsRepository {
                 documentType,
                 documentId
         );
-        Customer newCustomer = getCustomerByDocumentId(documentId);
-        if(newCustomer != null) {
-            customersEntityMapper.updateEntity(newCustomer.getId(), customer);
+        Customer oldCustomer = getCustomerByDocumentId(documentId);
+        if(oldCustomer != null) {
+            customersEntityMapper.updateEntity(oldCustomer.getId(), customer);
         }
         customer = customersDao.saveAndFlush(customer);
         BookingsEntity newBooking = bookingsDao.saveAndFlush(bookingsEntityMapper.createEntity(
