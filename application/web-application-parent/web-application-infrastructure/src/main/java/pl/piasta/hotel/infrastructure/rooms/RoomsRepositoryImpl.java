@@ -42,14 +42,14 @@ public class RoomsRepositoryImpl implements RoomsRepository {
 
         TreeMap<Integer, List<AmenitiesEntity>> roomAmenitiesMap = new TreeMap<>();
         rooms.forEach(room -> {
-            List<Integer> amenityId = roomAmenities
+            List<Integer> amenityList = roomAmenities
                     .stream()
                     .filter(a -> a.getRoomId().equals(room.getId()))
                     .map(RoomAmenitiesEntity::getAmenityId)
                     .collect(Collectors.toList());
             roomAmenitiesMap.put(room.getId(), amenities
                     .stream()
-                    .filter(amenity -> amenityId.contains(amenity.getId()))
+                    .filter(amenity -> amenityList.contains(amenity.getId()))
                     .collect(Collectors.toList()));
         });
         return roomsEntityMapper.mapToRoom(rooms, roomAmenitiesMap);
