@@ -1,6 +1,7 @@
 package pl.piasta.hotel.infrastructure.mapper;
 
 import org.springframework.stereotype.Component;
+import pl.piasta.hotel.domain.model.bookings.BookingDate;
 import pl.piasta.hotel.infrastructure.model.BookingsEntity;
 
 import java.math.BigDecimal;
@@ -15,7 +16,8 @@ public class BookingsEntityMapper {
             Date endDate,
             Integer customerId,
             Integer roomId,
-            BigDecimal finalPrice) {
+            BigDecimal finalPrice
+    ) {
         BookingsEntity booking = new BookingsEntity();
         booking.setBookDate(new Timestamp(System.currentTimeMillis()));
         booking.setStartDate(startDate);
@@ -24,6 +26,15 @@ public class BookingsEntityMapper {
         booking.setRoomId(roomId);
         booking.setFinalPrice(finalPrice);
         return booking;
+    }
+
+    public BookingDate mapToBookingDate(BookingsEntity booking) {
+        return new BookingDate(
+                booking.getId(),
+                booking.getBookDate(),
+                booking.getStartDate(),
+                booking.getEndDate()
+        );
     }
 
 }

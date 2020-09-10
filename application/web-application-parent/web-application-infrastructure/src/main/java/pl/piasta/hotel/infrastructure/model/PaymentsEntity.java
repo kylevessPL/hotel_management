@@ -28,5 +28,7 @@ public class PaymentsEntity {
     private Timestamp paymentDate;
     @Column(name = "payment_form_id", nullable = false)
     private Integer paymentFormId;
+    @Column(name = "transaction_id", nullable = false, length = 36)
+    private String transactionId;
 
 }

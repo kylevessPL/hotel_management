@@ -4,25 +4,33 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 import pl.piasta.hotel.domain.bookings.BookingsRepository;
 import pl.piasta.hotel.domain.model.additionalservices.AdditionalService;
+import pl.piasta.hotel.domain.model.bookings.BookingDate;
 import pl.piasta.hotel.domain.model.customers.Customer;
 import pl.piasta.hotel.domain.model.paymentforms.PaymentForm;
 import pl.piasta.hotel.domain.model.rooms.Room;
 import pl.piasta.hotel.infrastructure.dao.AdditionalServicesEntityDao;
 import pl.piasta.hotel.infrastructure.dao.AmenitiesEntityDao;
+import pl.piasta.hotel.infrastructure.dao.BookingsConfirmedEntityDao;
 import pl.piasta.hotel.infrastructure.dao.BookingsEntityDao;
 import pl.piasta.hotel.infrastructure.dao.CustomersEntityDao;
 import pl.piasta.hotel.infrastructure.dao.PaymentFormsEntityDao;
+import pl.piasta.hotel.infrastructure.dao.PaymentsEntityDao;
 import pl.piasta.hotel.infrastructure.dao.RoomAmenitiesEntityDao;
 import pl.piasta.hotel.infrastructure.dao.RoomsEntityDao;
 import pl.piasta.hotel.infrastructure.mapper.AdditionalServicesEntityMapper;
+import pl.piasta.hotel.infrastructure.mapper.BookingsConfirmedEntityMapper;
 import pl.piasta.hotel.infrastructure.mapper.BookingsEntityMapper;
 import pl.piasta.hotel.infrastructure.mapper.CustomersEntityMapper;
 import pl.piasta.hotel.infrastructure.mapper.PaymentFormsEntityMapper;
+import pl.piasta.hotel.infrastructure.mapper.PaymentsEntityMapper;
 import pl.piasta.hotel.infrastructure.mapper.RoomsEntityMapper;
 import pl.piasta.hotel.infrastructure.model.AdditionalServicesEntity;
 import pl.piasta.hotel.infrastructure.model.AmenitiesEntity;
+import pl.piasta.hotel.infrastructure.model.BookingsConfirmedEntity;
 import pl.piasta.hotel.infrastructure.model.BookingsEntity;
 import pl.piasta.hotel.infrastructure.model.CustomersEntity;
+import pl.piasta.hotel.infrastructure.model.PaymentFormsEntity;
+import pl.piasta.hotel.infrastructure.model.PaymentsEntity;
 import pl.piasta.hotel.infrastructure.model.RoomAmenitiesEntity;
 import pl.piasta.hotel.infrastructure.model.RoomsEntity;
 
@@ -39,14 +47,18 @@ public class BookingsRepositoryImpl implements BookingsRepository {
 
     private final PaymentFormsEntityMapper paymentFormsEntityMapper;
     private final BookingsEntityMapper bookingsEntityMapper;
+    private final BookingsConfirmedEntityMapper bookingsConfirmedEntityMapper;
     private final CustomersEntityMapper customersEntityMapper;
     private final AdditionalServicesEntityMapper additionalServicesMapper;
     private final RoomsEntityMapper roomsEntityMapper;
+    private final PaymentsEntityMapper paymentsEntityMapper;
     private final BookingsEntityDao bookingsDao;
+    private final BookingsConfirmedEntityDao bookingsConfirmedDao;
     private final RoomsEntityDao roomsDao;
     private final AmenitiesEntityDao amenitiesDao;
     private final RoomAmenitiesEntityDao roomAmenitiesDao;
     private final PaymentFormsEntityDao paymentFormsDao;
+    private final PaymentsEntityDao paymentsDao;
     private final AdditionalServicesEntityDao additionalServicesDao;
     private final CustomersEntityDao customersDao;
 
@@ -81,6 +93,17 @@ public class BookingsRepositoryImpl implements BookingsRepository {
     }
 
     @Override
+    public BookingDate getBookingDateById(Integer bookingId) {
+        BookingsEntity booking;
+        try {
+            booking = bookingsDao.findById(bookingId).orElseThrow(EntityNotFoundException::new);
+        } catch (EntityNotFoundException ex) {
+            return null;
+        }
+        return bookingsEntityMapper.mapToBookingDate(booking);
+    }
+
+    @Override
     public Customer getCustomerByDocumentId(String documentId) {
         CustomersEntity customer;
         try {
@@ -89,6 +112,28 @@ public class BookingsRepositoryImpl implements BookingsRepository {
             return null;
         }
         return customersEntityMapper.mapToCustomer(customer);
+    }
+
+    @Override
+    public Integer getBookingsConfirmedIdByBookingId(Integer bookingId) {
+        BookingsConfirmedEntity bookingConfirmed;
+        try {
+            bookingConfirmed = bookingsConfirmedDao.findByBookingId(bookingId).orElseThrow(EntityNotFoundException::new);
+        } catch (EntityNotFoundException ex) {
+            return null;
+        }
+        return bookingConfirmed.getId();
+    }
+
+    @Override
+    public Integer getPaymentFormIdByName(String paymentForm) {
+        PaymentFormsEntity paymentFormsEntity;
+        try {
+            paymentFormsEntity = paymentFormsDao.findByName(paymentForm).orElseThrow(EntityNotFoundException::new);
+        } catch (EntityNotFoundException ex) {
+            return null;
+        }
+        return paymentFormsEntity.getId();
     }
 
     @Override
@@ -140,6 +185,22 @@ public class BookingsRepositoryImpl implements BookingsRepository {
                 roomId,
                 finalPrice));
         return newBooking.getId();
+    }
+
+    @Override
+    public void savePayment(Integer bookingId, Integer paymentFormId, String transationId) {
+        PaymentsEntity payment = paymentsEntityMapper.createEntity(
+                bookingId,
+                paymentFormId,
+                transationId
+        );
+        paymentsDao.saveAndFlush(payment);
+    }
+
+    @Override
+    public void saveBookingConfirmation(Integer bookingId) {
+        BookingsConfirmedEntity bookingConfirmed = bookingsConfirmedEntityMapper.createEntity(bookingId);
+        bookingsConfirmedDao.saveAndFlush(bookingConfirmed);
     }
 
 }
