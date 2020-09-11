@@ -56,7 +56,7 @@ public class BookingsServiceImpl implements BookingsService {
                 customerParam.getHouseNumber(),
                 customerParam.getZipCode(),
                 customerParam.getCity(),
-                customerParam.getDocumentType(),
+                customerParam.getDocumentType().equals("IDCARD") ? "ID Card" : "Passport",
                 customerParam.getDocumentId(),
                 roomId,
                 finalPrice

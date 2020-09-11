@@ -5,7 +5,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.springframework.format.annotation.DateTimeFormat;
-import pl.piasta.hotel.api.utils.ValidateString;
 
 import javax.validation.constraints.Future;
 import javax.validation.constraints.Min;
@@ -55,9 +54,8 @@ public final class BookingRequest implements Serializable {
     @NotBlank
     @Size(min = 2, max = 30)
     private String city;
-    @NotBlank
-    @ValidateString(acceptedValues = {"ID Card", "Passport"})
-    private String documentType;
+    @NotNull
+    private DocumentType documentType;
     @NotBlank
     @Pattern(regexp = "^[0-9A-Z ]*$")
     @Size(min = 2, max = 10)

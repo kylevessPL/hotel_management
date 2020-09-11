@@ -2,7 +2,6 @@ package pl.piasta.hotel.infrastructure.model;
 
 import lombok.Getter;
 import lombok.Setter;
-import org.hibernate.annotations.ColumnDefault;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
