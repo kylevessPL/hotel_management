@@ -15,7 +15,7 @@ public interface BookingsRepository {
     List<PaymentForm> getAllPaymentForms();
     Room getRoomById(Integer roomId);
     Customer getCustomerByDocumentId(String documentId);
-    List<AdditionalService> getAdditionalServices(String[] additionalServices);
+    List<AdditionalService> getAllAdditionalServicesById(Integer[] additionalServices);
     Integer saveBookingAndGetId(
             Date startDate,
             Date endDate,

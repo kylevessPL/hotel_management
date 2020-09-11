@@ -11,7 +11,7 @@ public interface BookingsService {
 
     Booking bookAndGetSummary(
             Integer roomId,
-            String[] additionalServices,
+            Integer[] additionalServices,
             CustomerParam customerParam,
             DateParam dateParam) throws RoomNotAvailableException, RoomNotFoundException, AdditionalServiceNotFoundException;
 

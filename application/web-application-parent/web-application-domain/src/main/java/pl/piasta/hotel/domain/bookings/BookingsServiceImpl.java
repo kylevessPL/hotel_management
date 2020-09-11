@@ -27,7 +27,7 @@ public class BookingsServiceImpl implements BookingsService {
     @Override
     public Booking bookAndGetSummary(
             Integer roomId,
-            String[] additionalServices,
+            Integer[] additionalServices,
             CustomerParam customerParam,
             DateParam dateParam) throws RoomNotAvailableException, RoomNotFoundException, AdditionalServiceNotFoundException {
         Date startDate = dateParam.getStartDate();
@@ -42,7 +42,7 @@ public class BookingsServiceImpl implements BookingsService {
         }
 
         List<AdditionalService> additionalServicesList;
-        if((additionalServicesList = repository.getAdditionalServices(additionalServices)) == null) {
+        if((additionalServicesList = repository.getAllAdditionalServicesById(additionalServices)) == null) {
             throw new AdditionalServiceNotFoundException();
         }
         List<PaymentForm> paymentForms = repository.getAllPaymentForms();

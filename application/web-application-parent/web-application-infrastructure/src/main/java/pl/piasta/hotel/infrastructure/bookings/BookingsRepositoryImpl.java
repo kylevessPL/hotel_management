@@ -92,12 +92,9 @@ public class BookingsRepositoryImpl implements BookingsRepository {
     }
 
     @Override
-    public List<AdditionalService> getAdditionalServices(String[] additionalServices) {
-        List<String> services = Arrays.stream(additionalServices).collect(Collectors.toList());
-        List<AdditionalServicesEntity> additionalServicesList = additionalServicesDao.findAll()
-                .stream()
-                .filter(e -> services.contains(e.getName()))
-                .collect(Collectors.toList());
+    public List<AdditionalService> getAllAdditionalServicesById(Integer[] additionalServices) {
+        List<Integer> services = Arrays.stream(additionalServices).collect(Collectors.toList());
+        List<AdditionalServicesEntity> additionalServicesList = additionalServicesDao.findAllByIdIn(services);
         if(additionalServicesList.isEmpty()) {
             return null;
         }

@@ -23,7 +23,7 @@ public final class BookingRequest implements Serializable {
     @NotNull
     @Min(1)
     private Integer roomId;
-    private String[] additionalServices;
+    private Integer[] additionalServices;
     @NotNull
     @Future
     @DateTimeFormat(pattern = "dd-MM-yyyy")
