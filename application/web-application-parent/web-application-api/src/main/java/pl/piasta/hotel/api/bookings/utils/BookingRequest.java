@@ -19,7 +19,7 @@ import java.time.LocalDate;
 @NoArgsConstructor
 @Getter
 @Setter
-public final class BookingCriteria implements Serializable {
+public final class BookingRequest implements Serializable {
 
     @NotNull
     @Min(1)

@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 import pl.piasta.hotel.api.bookings.mapper.BookingCriteriaMapper;
 import pl.piasta.hotel.api.bookings.mapper.BookingMapper;
-import pl.piasta.hotel.api.bookings.utils.BookingCriteria;
+import pl.piasta.hotel.api.bookings.utils.BookingRequest;
 import pl.piasta.hotel.domain.bookings.BookingsService;
 import pl.piasta.hotel.domain.model.bookings.utils.AdditionalServiceNotFoundException;
 import pl.piasta.hotel.domain.model.bookings.utils.RoomNotAvailableException;
@@ -26,13 +26,13 @@ public class BookingsServiceController {
     private final BookingCriteriaMapper bookingCriteriaMapper;
 
     @PostMapping(value = "/hotel/services/bookings/book")
-    public BookingDto bookAndGetSummary(@RequestBody @Valid BookingCriteria bookingCriteria) {
+    public BookingDto bookAndGetSummary(@RequestBody @Valid BookingRequest bookingRequest) {
         try {
             return bookingMapper.mapToDto(bookingsService.bookAndGetSummary(
-                    bookingCriteria.getRoomId(),
-                    bookingCriteria.getAdditionalServices(),
-                    bookingCriteriaMapper.mapToCustomerParam(bookingCriteria),
-                    bookingCriteriaMapper.mapToDateParam(bookingCriteria)));
+                    bookingRequest.getRoomId(),
+                    bookingRequest.getAdditionalServices(),
+                    bookingCriteriaMapper.mapToCustomerParam(bookingRequest),
+                    bookingCriteriaMapper.mapToDateParam(bookingRequest)));
         } catch (RoomNotFoundException | AdditionalServiceNotFoundException ex) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, ex.getLocalizedMessage(), ex);
         } catch (RoomNotAvailableException ex) {
