@@ -15,7 +15,7 @@ import javax.persistence.Table;
 public class SpecialOffersEntity {
 
     @Id @Column(name = "id", nullable = false)
-    private int id;
+    private Integer id;
     @Column(name = "discount")
     private Integer discount;
     @Column(name = "bookings_amount")

@@ -14,9 +14,11 @@ import javax.persistence.Table;
 @Setter
 public class RoomAmenitiesEntity {
 
-    @Id @Column(name = "room_id", nullable = false)
-    private int roomId;
+    @Id @Column(name = "id", nullable = false)
+    private Integer id;
+    @Column(name = "room_id", nullable = false)
+    private Integer roomId;
     @Column(name = "amenity_id", nullable = false)
-    private int amenityId;
+    private Integer amenityId;
 
 }

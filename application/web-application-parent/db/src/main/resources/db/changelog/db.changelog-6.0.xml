@@ -1,0 +1,698 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+        xmlns:pro="http://www.liquibase.org/xml/ns/pro"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/pro http://www.liquibase.org/xml/ns/pro/liquibase-pro-4.0.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.0.xsd">
+
+    <changeSet author="geekon" id="6.0-1">
+        <createSequence sequenceName="seq_room_amenities" cycle="false" minValue="1" maxValue="9223372036854775807" startValue="1" incrementBy="1"/>
+    </changeSet>
+    <changeSet author="geekon" id="6.0-2">
+        <dropTable cascadeConstraints="true" tableName="room_amenities"/>
+    </changeSet>
+    <changeSet author="geekon" id="6.0-3">
+        <createTable tableName="room_amenities">
+            <column name="id" type="INTEGER" defaultValueComputed="nextval('seq_room_amenities')">
+                <constraints nullable="false" unique="true" primaryKey="true" primaryKeyName="room_amenities_pk"/>
+            </column>
+            <column name="room_id" type="INTEGER">
+                <constraints nullable="false"/>
+            </column>
+            <column name="amenity_id" type="INTEGER">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="geekon" id="6.0-4">
+        <insert tableName="amenities">
+            <column name="name" value="en suite"/>
+        </insert>
+        <insert tableName="amenities">
+            <column name="name" value="balcony"/>
+        </insert>
+        <insert tableName="amenities">
+            <column name="name" value="TV"/>
+        </insert>
+        <insert tableName="amenities">
+            <column name="name" value="radio"/>
+        </insert>
+        <insert tableName="amenities">
+            <column name="name" value="phone"/>
+        </insert>
+        <insert tableName="amenities">
+            <column name="name" value="A/C"/>
+        </insert>
+    </changeSet>
+    <changeSet author="geekon" id="6.0-5">
+        <insert tableName="room_amenities">
+            <column name="room_id" valueComputed="(select id from rooms where room_number='P02')"/>
+            <column name="amenity_id" valueComputed="(select id from amenities where name='en suite')"/>
+        </insert>
+        <insert tableName="room_amenities">
+            <column name="room_id" valueComputed="(select id from rooms where room_number='P12')"/>
+            <column name="amenity_id" valueComputed="(select id from amenities where name='en suite')"/>
+        </insert>
+        <insert tableName="room_amenities">
+            <column name="room_id" valueComputed="(select id from rooms where room_number='P17')"/>
+            <column name="amenity_id" valueComputed="(select id from amenities where name='en suite')"/>
+        </insert>
+        <insert tableName="room_amenities">
+            <column name="room_id" valueComputed="(select id from rooms where room_number='P22')"/>
+            <column name="amenity_id" valueComputed="(select id from amenities where name='en suite')"/>
+        </insert>
+        <insert tableName="room_amenities">
+            <column name="room_id" valueComputed="(select id from rooms where room_number='P26')"/>
+            <column name="amenity_id" valueComputed="(select id from amenities where name='en suite')"/>
+        </insert>
+        <insert tableName="room_amenities">
+            <column name="room_id" valueComputed="(select id from rooms where room_number='P28')"/>
+            <column name="amenity_id" valueComputed="(select id from amenities where name='en suite')"/>
+        </insert>
+        <insert tableName="room_amenities">
+            <column name="room_id" valueComputed="(select id from rooms where room_number='P31')"/>
+            <column name="amenity_id" valueComputed="(select id from amenities where name='en suite')"/>
+        </insert>
+        <insert tableName="room_amenities">
+            <column name="room_id" valueComputed="(select id from rooms where room_number='P44')"/>
+            <column name="amenity_id" valueComputed="(select id from amenities where name='en suite')"/>
+        </insert>
+        <insert tableName="room_amenities">
+            <column name="room_id" valueComputed="(select id from rooms where room_number='P03')"/>
+            <column name="amenity_id" valueComputed="(select id from amenities where name='en suite')"/>
+        </insert>
+        <insert tableName="room_amenities">
+            <column name="room_id" valueComputed="(select id from rooms where room_number='P18')"/>
+            <column name="amenity_id" valueComputed="(select id from amenities where name='en suite')"/>
+        </insert>
+        <insert tableName="room_amenities">
+            <column name="room_id" valueComputed="(select id from rooms where room_number='P36')"/>
+            <column name="amenity_id" valueComputed="(select id from amenities where name='en suite')"/>
+        </insert>
+        <insert tableName="room_amenities">
+            <column name="room_id" valueComputed="(select id from rooms where room_number='P45')"/>
+            <column name="amenity_id" valueComputed="(select id from amenities where name='en suite')"/>
+        </insert>
+        <insert tableName="room_amenities">
+            <column name="room_id" valueComputed="(select id from rooms where room_number='P06')"/>
+            <column name="amenity_id" valueComputed="(select id from amenities where name='en suite')"/>
+        </insert>
+        <insert tableName="room_amenities">
+            <column name="room_id" valueComputed="(select id from rooms where room_number='P34')"/>
+            <column name="amenity_id" valueComputed="(select id from amenities where name='en suite')"/>
+        </insert>
+        <insert tableName="room_amenities">
+            <column name="room_id" valueComputed="(select id from rooms where room_number='P37')"/>
+            <column name="amenity_id" valueComputed="(select id from amenities where name='en suite')"/>
+        </insert>
+        <insert tableName="room_amenities">
+            <column name="room_id" valueComputed="(select id from rooms where room_number='P41')"/>
+            <column name="amenity_id" valueComputed="(select id from amenities where name='en suite')"/>
+        </insert>
+        <insert tableName="room_amenities">
+            <column name="room_id" valueComputed="(select id from rooms where room_number='P43')"/>
+            <column name="amenity_id" valueComputed="(select id from amenities where name='en suite')"/>
+        </insert>
+        <insert tableName="room_amenities">
+            <column name="room_id" valueComputed="(select id from rooms where room_number='P46')"/>
+            <column name="amenity_id" valueComputed="(select id from amenities where name='en suite')"/>
+        </insert>
+        <insert tableName="room_amenities">
+            <column name="room_id" valueComputed="(select id from rooms where room_number='P47')"/>
+            <column name="amenity_id" valueComputed="(select id from amenities where name='en suite')"/>
+        </insert>
+        <insert tableName="room_amenities">
+            <column name="room_id" valueComputed="(select id from rooms where room_number='P50')"/>
+            <column name="amenity_id" valueComputed="(select id from amenities where name='en suite')"/>
+        </insert>
+        <insert tableName="room_amenities">
+            <column name="room_id" valueComputed="(select id from rooms where room_number='P01')"/>
+            <column name="amenity_id" valueComputed="(select id from amenities where name='en suite')"/>
+        </insert>
+        <insert tableName="room_amenities">
+            <column name="room_id" valueComputed="(select id from rooms where room_number='P05')"/>
+            <column name="amenity_id" valueComputed="(select id from amenities where name='en suite')"/>
+        </insert>
+        <insert tableName="room_amenities">
+            <column name="room_id" valueComputed="(select id from rooms where room_number='P15')"/>
+            <column name="amenity_id" valueComputed="(select id from amenities where name='en suite')"/>
+        </insert>
+        <insert tableName="room_amenities">
+            <column name="room_id" valueComputed="(select id from rooms where room_number='P19')"/>
+            <column name="amenity_id" valueComputed="(select id from amenities where name='en suite')"/>
+        </insert>
+        <insert tableName="room_amenities">
+            <column name="room_id" valueComputed="(select id from rooms where room_number='P24')"/>
+            <column name="amenity_id" valueComputed="(select id from amenities where name='en suite')"/>
+        </insert>
+        <insert tableName="room_amenities">
+            <column name="room_id" valueComputed="(select id from rooms where room_number='P27')"/>
+            <column name="amenity_id" valueComputed="(select id from amenities where name='en suite')"/>
+        </insert>
+        <insert tableName="room_amenities">
+            <column name="room_id" valueComputed="(select id from rooms where room_number='P38')"/>
+            <column name="amenity_id" valueComputed="(select id from amenities where name='en suite')"/>
+        </insert>
+        <insert tableName="room_amenities">
+            <column name="room_id" valueComputed="(select id from rooms where room_number='P40')"/>
+            <column name="amenity_id" valueComputed="(select id from amenities where name='en suite')"/>
+        </insert>
+        <insert tableName="room_amenities">
+            <column name="room_id" valueComputed="(select id from rooms where room_number='P42')"/>
+            <column name="amenity_id" valueComputed="(select id from amenities where name='en suite')"/>
+        </insert>
+        <insert tableName="room_amenities">
+            <column name="room_id" valueComputed="(select id from rooms where room_number='P48')"/>
+            <column name="amenity_id" valueComputed="(select id from amenities where name='en suite')"/>
+        </insert>
+        <insert tableName="room_amenities">
+            <column name="room_id" valueComputed="(select id from rooms where room_number='P02')"/>
+            <column name="amenity_id" valueComputed="(select id from amenities where name='balcony')"/>
+        </insert>
+        <insert tableName="room_amenities">
+            <column name="room_id" valueComputed="(select id from rooms where room_number='P26')"/>
+            <column name="amenity_id" valueComputed="(select id from amenities where name='balcony')"/>
+        </insert>
+        <insert tableName="room_amenities">
+            <column name="room_id" valueComputed="(select id from rooms where room_number='P31')"/>
+            <column name="amenity_id" valueComputed="(select id from amenities where name='balcony')"/>
+        </insert>
+        <insert tableName="room_amenities">
+            <column name="room_id" valueComputed="(select id from rooms where room_number='P44')"/>
+            <column name="amenity_id" valueComputed="(select id from amenities where name='balcony')"/>
+        </insert>
+        <insert tableName="room_amenities">
+            <column name="room_id" valueComputed="(select id from rooms where room_number='P03')"/>
+            <column name="amenity_id" valueComputed="(select id from amenities where name='balcony')"/>
+        </insert>
+        <insert tableName="room_amenities">
+            <column name="room_id" valueComputed="(select id from rooms where room_number='P18')"/>
+            <column name="amenity_id" valueComputed="(select id from amenities where name='balcony')"/>
+        </insert>
+        <insert tableName="room_amenities">
+            <column name="room_id" valueComputed="(select id from rooms where room_number='P36')"/>
+            <column name="amenity_id" valueComputed="(select id from amenities where name='balcony')"/>
+        </insert>
+        <insert tableName="room_amenities">
+            <column name="room_id" valueComputed="(select id from rooms where room_number='P45')"/>
+            <column name="amenity_id" valueComputed="(select id from amenities where name='balcony')"/>
+        </insert>
+        <insert tableName="room_amenities">
+            <column name="room_id" valueComputed="(select id from rooms where room_number='P06')"/>
+            <column name="amenity_id" valueComputed="(select id from amenities where name='balcony')"/>
+        </insert>
+        <insert tableName="room_amenities">
+            <column name="room_id" valueComputed="(select id from rooms where room_number='P34')"/>
+            <column name="amenity_id" valueComputed="(select id from amenities where name='balcony')"/>
+        </insert>
+        <insert tableName="room_amenities">
+            <column name="room_id" valueComputed="(select id from rooms where room_number='P41')"/>
+            <column name="amenity_id" valueComputed="(select id from amenities where name='balcony')"/>
+        </insert>
+        <insert tableName="room_amenities">
+            <column name="room_id" valueComputed="(select id from rooms where room_number='P43')"/>
+            <column name="amenity_id" valueComputed="(select id from amenities where name='balcony')"/>
+        </insert>
+        <insert tableName="room_amenities">
+            <column name="room_id" valueComputed="(select id from rooms where room_number='P46')"/>
+            <column name="amenity_id" valueComputed="(select id from amenities where name='balcony')"/>
+        </insert>
+        <insert tableName="room_amenities">
+            <column name="room_id" valueComputed="(select id from rooms where room_number='P47')"/>
+            <column name="amenity_id" valueComputed="(select id from amenities where name='balcony')"/>
+        </insert>
+        <insert tableName="room_amenities">
+            <column name="room_id" valueComputed="(select id from rooms where room_number='P50')"/>
+            <column name="amenity_id" valueComputed="(select id from amenities where name='balcony')"/>
+        </insert>
+        <insert tableName="room_amenities">
+            <column name="room_id" valueComputed="(select id from rooms where room_number='P19')"/>
+            <column name="amenity_id" valueComputed="(select id from amenities where name='balcony')"/>
+        </insert>
+        <insert tableName="room_amenities">
+            <column name="room_id" valueComputed="(select id from rooms where room_number='P24')"/>
+            <column name="amenity_id" valueComputed="(select id from amenities where name='balcony')"/>
+        </insert>
+        <insert tableName="room_amenities">
+            <column name="room_id" valueComputed="(select id from rooms where room_number='P38')"/>
+            <column name="amenity_id" valueComputed="(select id from amenities where name='balcony')"/>
+        </insert>
+        <insert tableName="room_amenities">
+            <column name="room_id" valueComputed="(select id from rooms where room_number='P40')"/>
+            <column name="amenity_id" valueComputed="(select id from amenities where name='balcony')"/>
+        </insert>
+        <insert tableName="room_amenities">
+            <column name="room_id" valueComputed="(select id from rooms where room_number='P02')"/>
+            <column name="amenity_id" valueComputed="(select id from amenities where name='TV')"/>
+        </insert>
+        <insert tableName="room_amenities">
+            <column name="room_id" valueComputed="(select id from rooms where room_number='P12')"/>
+            <column name="amenity_id" valueComputed="(select id from amenities where name='TV')"/>
+        </insert>
+        <insert tableName="room_amenities">
+            <column name="room_id" valueComputed="(select id from rooms where room_number='P17')"/>
+            <column name="amenity_id" valueComputed="(select id from amenities where name='TV')"/>
+        </insert>
+        <insert tableName="room_amenities">
+            <column name="room_id" valueComputed="(select id from rooms where room_number='P22')"/>
+            <column name="amenity_id" valueComputed="(select id from amenities where name='TV')"/>
+        </insert>
+        <insert tableName="room_amenities">
+            <column name="room_id" valueComputed="(select id from rooms where room_number='P23')"/>
+            <column name="amenity_id" valueComputed="(select id from amenities where name='TV')"/>
+        </insert>
+        <insert tableName="room_amenities">
+            <column name="room_id" valueComputed="(select id from rooms where room_number='P26')"/>
+            <column name="amenity_id" valueComputed="(select id from amenities where name='TV')"/>
+        </insert>
+        <insert tableName="room_amenities">
+            <column name="room_id" valueComputed="(select id from rooms where room_number='P28')"/>
+            <column name="amenity_id" valueComputed="(select id from amenities where name='TV')"/>
+        </insert>
+        <insert tableName="room_amenities">
+            <column name="room_id" valueComputed="(select id from rooms where room_number='P31')"/>
+            <column name="amenity_id" valueComputed="(select id from amenities where name='TV')"/>
+        </insert>
+        <insert tableName="room_amenities">
+            <column name="room_id" valueComputed="(select id from rooms where room_number='P44')"/>
+            <column name="amenity_id" valueComputed="(select id from amenities where name='TV')"/>
+        </insert>
+        <insert tableName="room_amenities">
+            <column name="room_id" valueComputed="(select id from rooms where room_number='P03')"/>
+            <column name="amenity_id" valueComputed="(select id from amenities where name='TV')"/>
+        </insert>
+        <insert tableName="room_amenities">
+            <column name="room_id" valueComputed="(select id from rooms where room_number='P10')"/>
+            <column name="amenity_id" valueComputed="(select id from amenities where name='TV')"/>
+        </insert>
+        <insert tableName="room_amenities">
+            <column name="room_id" valueComputed="(select id from rooms where room_number='P18')"/>
+            <column name="amenity_id" valueComputed="(select id from amenities where name='TV')"/>
+        </insert>
+        <insert tableName="room_amenities">
+            <column name="room_id" valueComputed="(select id from rooms where room_number='P36')"/>
+            <column name="amenity_id" valueComputed="(select id from amenities where name='TV')"/>
+        </insert>
+        <insert tableName="room_amenities">
+            <column name="room_id" valueComputed="(select id from rooms where room_number='P45')"/>
+            <column name="amenity_id" valueComputed="(select id from amenities where name='TV')"/>
+        </insert>
+        <insert tableName="room_amenities">
+            <column name="room_id" valueComputed="(select id from rooms where room_number='P49')"/>
+            <column name="amenity_id" valueComputed="(select id from amenities where name='TV')"/>
+        </insert>
+        <insert tableName="room_amenities">
+            <column name="room_id" valueComputed="(select id from rooms where room_number='P06')"/>
+            <column name="amenity_id" valueComputed="(select id from amenities where name='TV')"/>
+        </insert>
+        <insert tableName="room_amenities">
+            <column name="room_id" valueComputed="(select id from rooms where room_number='P34')"/>
+            <column name="amenity_id" valueComputed="(select id from amenities where name='TV')"/>
+        </insert>
+        <insert tableName="room_amenities">
+            <column name="room_id" valueComputed="(select id from rooms where room_number='P37')"/>
+            <column name="amenity_id" valueComputed="(select id from amenities where name='TV')"/>
+        </insert>
+        <insert tableName="room_amenities">
+            <column name="room_id" valueComputed="(select id from rooms where room_number='P41')"/>
+            <column name="amenity_id" valueComputed="(select id from amenities where name='TV')"/>
+        </insert>
+        <insert tableName="room_amenities">
+            <column name="room_id" valueComputed="(select id from rooms where room_number='P43')"/>
+            <column name="amenity_id" valueComputed="(select id from amenities where name='TV')"/>
+        </insert>
+        <insert tableName="room_amenities">
+            <column name="room_id" valueComputed="(select id from rooms where room_number='P46')"/>
+            <column name="amenity_id" valueComputed="(select id from amenities where name='TV')"/>
+        </insert>
+        <insert tableName="room_amenities">
+            <column name="room_id" valueComputed="(select id from rooms where room_number='P47')"/>
+            <column name="amenity_id" valueComputed="(select id from amenities where name='TV')"/>
+        </insert>
+        <insert tableName="room_amenities">
+            <column name="room_id" valueComputed="(select id from rooms where room_number='P50')"/>
+            <column name="amenity_id" valueComputed="(select id from amenities where name='TV')"/>
+        </insert>
+        <insert tableName="room_amenities">
+            <column name="room_id" valueComputed="(select id from rooms where room_number='P01')"/>
+            <column name="amenity_id" valueComputed="(select id from amenities where name='TV')"/>
+        </insert>
+        <insert tableName="room_amenities">
+            <column name="room_id" valueComputed="(select id from rooms where room_number='P05')"/>
+            <column name="amenity_id" valueComputed="(select id from amenities where name='TV')"/>
+        </insert>
+        <insert tableName="room_amenities">
+            <column name="room_id" valueComputed="(select id from rooms where room_number='P08')"/>
+            <column name="amenity_id" valueComputed="(select id from amenities where name='TV')"/>
+        </insert>
+        <insert tableName="room_amenities">
+            <column name="room_id" valueComputed="(select id from rooms where room_number='P13')"/>
+            <column name="amenity_id" valueComputed="(select id from amenities where name='TV')"/>
+        </insert>
+        <insert tableName="room_amenities">
+            <column name="room_id" valueComputed="(select id from rooms where room_number='P15')"/>
+            <column name="amenity_id" valueComputed="(select id from amenities where name='TV')"/>
+        </insert>
+        <insert tableName="room_amenities">
+            <column name="room_id" valueComputed="(select id from rooms where room_number='P16')"/>
+            <column name="amenity_id" valueComputed="(select id from amenities where name='TV')"/>
+        </insert>
+        <insert tableName="room_amenities">
+            <column name="room_id" valueComputed="(select id from rooms where room_number='P19')"/>
+            <column name="amenity_id" valueComputed="(select id from amenities where name='TV')"/>
+        </insert>
+        <insert tableName="room_amenities">
+            <column name="room_id" valueComputed="(select id from rooms where room_number='P20')"/>
+            <column name="amenity_id" valueComputed="(select id from amenities where name='TV')"/>
+        </insert>
+        <insert tableName="room_amenities">
+            <column name="room_id" valueComputed="(select id from rooms where room_number='P24')"/>
+            <column name="amenity_id" valueComputed="(select id from amenities where name='TV')"/>
+        </insert>
+        <insert tableName="room_amenities">
+            <column name="room_id" valueComputed="(select id from rooms where room_number='P27')"/>
+            <column name="amenity_id" valueComputed="(select id from amenities where name='TV')"/>
+        </insert>
+        <insert tableName="room_amenities">
+            <column name="room_id" valueComputed="(select id from rooms where room_number='P32')"/>
+            <column name="amenity_id" valueComputed="(select id from amenities where name='TV')"/>
+        </insert>
+        <insert tableName="room_amenities">
+            <column name="room_id" valueComputed="(select id from rooms where room_number='P38')"/>
+            <column name="amenity_id" valueComputed="(select id from amenities where name='TV')"/>
+        </insert>
+        <insert tableName="room_amenities">
+            <column name="room_id" valueComputed="(select id from rooms where room_number='P39')"/>
+            <column name="amenity_id" valueComputed="(select id from amenities where name='TV')"/>
+        </insert>
+        <insert tableName="room_amenities">
+            <column name="room_id" valueComputed="(select id from rooms where room_number='P40')"/>
+            <column name="amenity_id" valueComputed="(select id from amenities where name='TV')"/>
+        </insert>
+        <insert tableName="room_amenities">
+            <column name="room_id" valueComputed="(select id from rooms where room_number='P42')"/>
+            <column name="amenity_id" valueComputed="(select id from amenities where name='TV')"/>
+        </insert>
+        <insert tableName="room_amenities">
+            <column name="room_id" valueComputed="(select id from rooms where room_number='P48')"/>
+            <column name="amenity_id" valueComputed="(select id from amenities where name='TV')"/>
+        </insert>
+        <insert tableName="room_amenities">
+            <column name="room_id" valueComputed="(select id from rooms where room_number='P44')"/>
+            <column name="amenity_id" valueComputed="(select id from amenities where name='radio')"/>
+        </insert>
+        <insert tableName="room_amenities">
+            <column name="room_id" valueComputed="(select id from rooms where room_number='P18')"/>
+            <column name="amenity_id" valueComputed="(select id from amenities where name='radio')"/>
+        </insert>
+        <insert tableName="room_amenities">
+            <column name="room_id" valueComputed="(select id from rooms where room_number='P36')"/>
+            <column name="amenity_id" valueComputed="(select id from amenities where name='radio')"/>
+        </insert>
+        <insert tableName="room_amenities">
+            <column name="room_id" valueComputed="(select id from rooms where room_number='P34')"/>
+            <column name="amenity_id" valueComputed="(select id from amenities where name='radio')"/>
+        </insert>
+        <insert tableName="room_amenities">
+            <column name="room_id" valueComputed="(select id from rooms where room_number='P41')"/>
+            <column name="amenity_id" valueComputed="(select id from amenities where name='radio')"/>
+        </insert>
+        <insert tableName="room_amenities">
+            <column name="room_id" valueComputed="(select id from rooms where room_number='P43')"/>
+            <column name="amenity_id" valueComputed="(select id from amenities where name='radio')"/>
+        </insert>
+        <insert tableName="room_amenities">
+            <column name="room_id" valueComputed="(select id from rooms where room_number='P46')"/>
+            <column name="amenity_id" valueComputed="(select id from amenities where name='radio')"/>
+        </insert>
+        <insert tableName="room_amenities">
+            <column name="room_id" valueComputed="(select id from rooms where room_number='P47')"/>
+            <column name="amenity_id" valueComputed="(select id from amenities where name='radio')"/>
+        </insert>
+        <insert tableName="room_amenities">
+            <column name="room_id" valueComputed="(select id from rooms where room_number='P50')"/>
+            <column name="amenity_id" valueComputed="(select id from amenities where name='radio')"/>
+        </insert>
+        <insert tableName="room_amenities">
+            <column name="room_id" valueComputed="(select id from rooms where room_number='P19')"/>
+            <column name="amenity_id" valueComputed="(select id from amenities where name='radio')"/>
+        </insert>
+        <insert tableName="room_amenities">
+            <column name="room_id" valueComputed="(select id from rooms where room_number='P40')"/>
+            <column name="amenity_id" valueComputed="(select id from amenities where name='radio')"/>
+        </insert>
+        <insert tableName="room_amenities">
+            <column name="room_id" valueComputed="(select id from rooms where room_number='P18')"/>
+            <column name="amenity_id" valueComputed="(select id from amenities where name='phone')"/>
+        </insert>
+        <insert tableName="room_amenities">
+            <column name="room_id" valueComputed="(select id from rooms where room_number='P43')"/>
+            <column name="amenity_id" valueComputed="(select id from amenities where name='phone')"/>
+        </insert>
+        <insert tableName="room_amenities">
+            <column name="room_id" valueComputed="(select id from rooms where room_number='P01')"/>
+            <column name="amenity_id" valueComputed="(select id from amenities where name='phone')"/>
+        </insert>
+        <insert tableName="room_amenities">
+            <column name="room_id" valueComputed="(select id from rooms where room_number='P05')"/>
+            <column name="amenity_id" valueComputed="(select id from amenities where name='phone')"/>
+        </insert>
+        <insert tableName="room_amenities">
+            <column name="room_id" valueComputed="(select id from rooms where room_number='P15')"/>
+            <column name="amenity_id" valueComputed="(select id from amenities where name='phone')"/>
+        </insert>
+        <insert tableName="room_amenities">
+            <column name="room_id" valueComputed="(select id from rooms where room_number='P19')"/>
+            <column name="amenity_id" valueComputed="(select id from amenities where name='phone')"/>
+        </insert>
+        <insert tableName="room_amenities">
+            <column name="room_id" valueComputed="(select id from rooms where room_number='P20')"/>
+            <column name="amenity_id" valueComputed="(select id from amenities where name='phone')"/>
+        </insert>
+        <insert tableName="room_amenities">
+            <column name="room_id" valueComputed="(select id from rooms where room_number='P24')"/>
+            <column name="amenity_id" valueComputed="(select id from amenities where name='phone')"/>
+        </insert>
+        <insert tableName="room_amenities">
+            <column name="room_id" valueComputed="(select id from rooms where room_number='P27')"/>
+            <column name="amenity_id" valueComputed="(select id from amenities where name='phone')"/>
+        </insert>
+        <insert tableName="room_amenities">
+            <column name="room_id" valueComputed="(select id from rooms where room_number='P38')"/>
+            <column name="amenity_id" valueComputed="(select id from amenities where name='phone')"/>
+        </insert>
+        <insert tableName="room_amenities">
+            <column name="room_id" valueComputed="(select id from rooms where room_number='P40')"/>
+            <column name="amenity_id" valueComputed="(select id from amenities where name='phone')"/>
+        </insert>
+        <insert tableName="room_amenities">
+            <column name="room_id" valueComputed="(select id from rooms where room_number='P42')"/>
+            <column name="amenity_id" valueComputed="(select id from amenities where name='phone')"/>
+        </insert>
+        <insert tableName="room_amenities">
+            <column name="room_id" valueComputed="(select id from rooms where room_number='P48')"/>
+            <column name="amenity_id" valueComputed="(select id from amenities where name='phone')"/>
+        </insert>
+        <insert tableName="room_amenities">
+            <column name="room_id" valueComputed="(select id from rooms where room_number='P02')"/>
+            <column name="amenity_id" valueComputed="(select id from amenities where name='A/C')"/>
+        </insert>
+        <insert tableName="room_amenities">
+            <column name="room_id" valueComputed="(select id from rooms where room_number='P11')"/>
+            <column name="amenity_id" valueComputed="(select id from amenities where name='A/C')"/>
+        </insert>
+        <insert tableName="room_amenities">
+            <column name="room_id" valueComputed="(select id from rooms where room_number='P12')"/>
+            <column name="amenity_id" valueComputed="(select id from amenities where name='A/C')"/>
+        </insert>
+        <insert tableName="room_amenities">
+            <column name="room_id" valueComputed="(select id from rooms where room_number='P17')"/>
+            <column name="amenity_id" valueComputed="(select id from amenities where name='A/C')"/>
+        </insert>
+        <insert tableName="room_amenities">
+            <column name="room_id" valueComputed="(select id from rooms where room_number='P22')"/>
+            <column name="amenity_id" valueComputed="(select id from amenities where name='A/C')"/>
+        </insert>
+        <insert tableName="room_amenities">
+            <column name="room_id" valueComputed="(select id from rooms where room_number='P23')"/>
+            <column name="amenity_id" valueComputed="(select id from amenities where name='A/C')"/>
+        </insert>
+        <insert tableName="room_amenities">
+            <column name="room_id" valueComputed="(select id from rooms where room_number='P26')"/>
+            <column name="amenity_id" valueComputed="(select id from amenities where name='A/C')"/>
+        </insert>
+        <insert tableName="room_amenities">
+            <column name="room_id" valueComputed="(select id from rooms where room_number='P28')"/>
+            <column name="amenity_id" valueComputed="(select id from amenities where name='A/C')"/>
+        </insert>
+        <insert tableName="room_amenities">
+            <column name="room_id" valueComputed="(select id from rooms where room_number='P29')"/>
+            <column name="amenity_id" valueComputed="(select id from amenities where name='A/C')"/>
+        </insert>
+        <insert tableName="room_amenities">
+            <column name="room_id" valueComputed="(select id from rooms where room_number='P31')"/>
+            <column name="amenity_id" valueComputed="(select id from amenities where name='A/C')"/>
+        </insert>
+        <insert tableName="room_amenities">
+            <column name="room_id" valueComputed="(select id from rooms where room_number='P35')"/>
+            <column name="amenity_id" valueComputed="(select id from amenities where name='A/C')"/>
+        </insert>
+        <insert tableName="room_amenities">
+            <column name="room_id" valueComputed="(select id from rooms where room_number='P44')"/>
+            <column name="amenity_id" valueComputed="(select id from amenities where name='A/C')"/>
+        </insert>
+        <insert tableName="room_amenities">
+            <column name="room_id" valueComputed="(select id from rooms where room_number='P03')"/>
+            <column name="amenity_id" valueComputed="(select id from amenities where name='A/C')"/>
+        </insert>
+        <insert tableName="room_amenities">
+            <column name="room_id" valueComputed="(select id from rooms where room_number='P10')"/>
+            <column name="amenity_id" valueComputed="(select id from amenities where name='A/C')"/>
+        </insert>
+        <insert tableName="room_amenities">
+            <column name="room_id" valueComputed="(select id from rooms where room_number='P18')"/>
+            <column name="amenity_id" valueComputed="(select id from amenities where name='A/C')"/>
+        </insert>
+        <insert tableName="room_amenities">
+            <column name="room_id" valueComputed="(select id from rooms where room_number='P21')"/>
+            <column name="amenity_id" valueComputed="(select id from amenities where name='A/C')"/>
+        </insert>
+        <insert tableName="room_amenities">
+            <column name="room_id" valueComputed="(select id from rooms where room_number='P33')"/>
+            <column name="amenity_id" valueComputed="(select id from amenities where name='A/C')"/>
+        </insert>
+        <insert tableName="room_amenities">
+            <column name="room_id" valueComputed="(select id from rooms where room_number='P36')"/>
+            <column name="amenity_id" valueComputed="(select id from amenities where name='A/C')"/>
+        </insert>
+        <insert tableName="room_amenities">
+            <column name="room_id" valueComputed="(select id from rooms where room_number='P45')"/>
+            <column name="amenity_id" valueComputed="(select id from amenities where name='A/C')"/>
+        </insert>
+        <insert tableName="room_amenities">
+            <column name="room_id" valueComputed="(select id from rooms where room_number='P49')"/>
+            <column name="amenity_id" valueComputed="(select id from amenities where name='A/C')"/>
+        </insert>
+        <insert tableName="room_amenities">
+            <column name="room_id" valueComputed="(select id from rooms where room_number='P06')"/>
+            <column name="amenity_id" valueComputed="(select id from amenities where name='A/C')"/>
+        </insert>
+        <insert tableName="room_amenities">
+            <column name="room_id" valueComputed="(select id from rooms where room_number='P34')"/>
+            <column name="amenity_id" valueComputed="(select id from amenities where name='A/C')"/>
+        </insert>
+        <insert tableName="room_amenities">
+            <column name="room_id" valueComputed="(select id from rooms where room_number='P37')"/>
+            <column name="amenity_id" valueComputed="(select id from amenities where name='A/C')"/>
+        </insert>
+        <insert tableName="room_amenities">
+            <column name="room_id" valueComputed="(select id from rooms where room_number='P41')"/>
+            <column name="amenity_id" valueComputed="(select id from amenities where name='A/C')"/>
+        </insert>
+        <insert tableName="room_amenities">
+            <column name="room_id" valueComputed="(select id from rooms where room_number='P43')"/>
+            <column name="amenity_id" valueComputed="(select id from amenities where name='A/C')"/>
+        </insert>
+        <insert tableName="room_amenities">
+            <column name="room_id" valueComputed="(select id from rooms where room_number='P46')"/>
+            <column name="amenity_id" valueComputed="(select id from amenities where name='A/C')"/>
+        </insert>
+        <insert tableName="room_amenities">
+            <column name="room_id" valueComputed="(select id from rooms where room_number='P47')"/>
+            <column name="amenity_id" valueComputed="(select id from amenities where name='A/C')"/>
+        </insert>
+        <insert tableName="room_amenities">
+            <column name="room_id" valueComputed="(select id from rooms where room_number='P50')"/>
+            <column name="amenity_id" valueComputed="(select id from amenities where name='A/C')"/>
+        </insert>
+        <insert tableName="room_amenities">
+            <column name="room_id" valueComputed="(select id from rooms where room_number='P01')"/>
+            <column name="amenity_id" valueComputed="(select id from amenities where name='A/C')"/>
+        </insert>
+        <insert tableName="room_amenities">
+            <column name="room_id" valueComputed="(select id from rooms where room_number='P05')"/>
+            <column name="amenity_id" valueComputed="(select id from amenities where name='A/C')"/>
+        </insert>
+        <insert tableName="room_amenities">
+            <column name="room_id" valueComputed="(select id from rooms where room_number='P08')"/>
+            <column name="amenity_id" valueComputed="(select id from amenities where name='A/C')"/>
+        </insert>
+        <insert tableName="room_amenities">
+            <column name="room_id" valueComputed="(select id from rooms where room_number='P13')"/>
+            <column name="amenity_id" valueComputed="(select id from amenities where name='A/C')"/>
+        </insert>
+        <insert tableName="room_amenities">
+            <column name="room_id" valueComputed="(select id from rooms where room_number='P15')"/>
+            <column name="amenity_id" valueComputed="(select id from amenities where name='A/C')"/>
+        </insert>
+        <insert tableName="room_amenities">
+            <column name="room_id" valueComputed="(select id from rooms where room_number='P16')"/>
+            <column name="amenity_id" valueComputed="(select id from amenities where name='A/C')"/>
+        </insert>
+        <insert tableName="room_amenities">
+            <column name="room_id" valueComputed="(select id from rooms where room_number='P19')"/>
+            <column name="amenity_id" valueComputed="(select id from amenities where name='A/C')"/>
+        </insert>
+        <insert tableName="room_amenities">
+            <column name="room_id" valueComputed="(select id from rooms where room_number='P20')"/>
+            <column name="amenity_id" valueComputed="(select id from amenities where name='A/C')"/>
+        </insert>
+        <insert tableName="room_amenities">
+            <column name="room_id" valueComputed="(select id from rooms where room_number='P24')"/>
+            <column name="amenity_id" valueComputed="(select id from amenities where name='A/C')"/>
+        </insert>
+        <insert tableName="room_amenities">
+            <column name="room_id" valueComputed="(select id from rooms where room_number='P27')"/>
+            <column name="amenity_id" valueComputed="(select id from amenities where name='A/C')"/>
+        </insert>
+        <insert tableName="room_amenities">
+            <column name="room_id" valueComputed="(select id from rooms where room_number='P32')"/>
+            <column name="amenity_id" valueComputed="(select id from amenities where name='A/C')"/>
+        </insert>
+        <insert tableName="room_amenities">
+            <column name="room_id" valueComputed="(select id from rooms where room_number='P38')"/>
+            <column name="amenity_id" valueComputed="(select id from amenities where name='A/C')"/>
+        </insert>
+        <insert tableName="room_amenities">
+            <column name="room_id" valueComputed="(select id from rooms where room_number='P39')"/>
+            <column name="amenity_id" valueComputed="(select id from amenities where name='A/C')"/>
+        </insert>
+        <insert tableName="room_amenities">
+            <column name="room_id" valueComputed="(select id from rooms where room_number='P40')"/>
+            <column name="amenity_id" valueComputed="(select id from amenities where name='A/C')"/>
+        </insert>
+        <insert tableName="room_amenities">
+            <column name="room_id" valueComputed="(select id from rooms where room_number='P42')"/>
+            <column name="amenity_id" valueComputed="(select id from amenities where name='A/C')"/>
+        </insert>
+        <insert tableName="room_amenities">
+            <column name="room_id" valueComputed="(select id from rooms where room_number='P48')"/>
+            <column name="amenity_id" valueComputed="(select id from amenities where name='A/C')"/>
+        </insert>
+        <insert tableName="room_amenities">
+            <column name="room_id" valueComputed="(select id from rooms where room_number='P04')"/>
+            <column name="amenity_id" valueComputed="(select id from amenities where name='TV')"/>
+        </insert>
+        <insert tableName="room_amenities">
+            <column name="room_id" valueComputed="(select id from rooms where room_number='P07')"/>
+            <column name="amenity_id" valueComputed="(select id from amenities where name='balcony')"/>
+        </insert>
+        <insert tableName="room_amenities">
+            <column name="room_id" valueComputed="(select id from rooms where room_number='P09')"/>
+            <column name="amenity_id" valueComputed="(select id from amenities where name='phone')"/>
+        </insert>
+        <insert tableName="room_amenities">
+            <column name="room_id" valueComputed="(select id from rooms where room_number='P14')"/>
+            <column name="amenity_id" valueComputed="(select id from amenities where name='A/C')"/>
+        </insert>
+        <insert tableName="room_amenities">
+            <column name="room_id" valueComputed="(select id from rooms where room_number='P25')"/>
+            <column name="amenity_id" valueComputed="(select id from amenities where name='radio')"/>
+        </insert>
+        <insert tableName="room_amenities">
+            <column name="room_id" valueComputed="(select id from rooms where room_number='P30')"/>
+            <column name="amenity_id" valueComputed="(select id from amenities where name='en suite')"/>
+        </insert>
+    </changeSet>
+</databaseChangeLog>

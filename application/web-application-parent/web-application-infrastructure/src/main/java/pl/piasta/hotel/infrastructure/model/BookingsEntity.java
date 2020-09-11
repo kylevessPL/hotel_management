@@ -18,7 +18,7 @@ import java.sql.Timestamp;
 public class BookingsEntity {
 
     @Id @Column(name = "id", nullable = false)
-    private int id;
+    private Integer id;
     @Column(name = "book_date", nullable = false)
     private Timestamp bookDate;
     @Column(name = "start_date", nullable = false)
@@ -26,9 +26,9 @@ public class BookingsEntity {
     @Column(name = "end_date", nullable = false)
     private Date endDate;
     @Column(name = "customer_id", nullable = false)
-    private int customerId;
+    private Integer customerId;
     @Column(name = "room_id", nullable = false)
-    private int roomId;
+    private Integer roomId;
     @Column(name = "offer_id")
     private Integer offerId;
     @Column(name = "final_price", precision = 2)

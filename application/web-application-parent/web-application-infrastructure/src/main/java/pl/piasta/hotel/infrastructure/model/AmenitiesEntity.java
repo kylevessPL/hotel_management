@@ -15,7 +15,7 @@ import javax.persistence.Table;
 public class AmenitiesEntity {
 
     @Id @Column(name = "id", nullable = false)
-    private int id;
+    private Integer id;
     @Column(name = "name", nullable = false, length = 40)
     private String name;
 

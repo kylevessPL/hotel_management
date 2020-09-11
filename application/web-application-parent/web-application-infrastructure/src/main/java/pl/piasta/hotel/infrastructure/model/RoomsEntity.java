@@ -16,11 +16,11 @@ import java.math.BigDecimal;
 public class RoomsEntity {
 
     @Id @Column(name = "id", nullable = false)
-    private int id;
+    private Integer id;
     @Column(name = "room_number", nullable = false, length = 10)
     private String roomNumber;
     @Column(name = "bed_amount", nullable = false)
-    private int bedAmount;
+    private Integer bedAmount;
     @Column(name = "standard_price", precision = 2)
     private BigDecimal standardPrice;
 

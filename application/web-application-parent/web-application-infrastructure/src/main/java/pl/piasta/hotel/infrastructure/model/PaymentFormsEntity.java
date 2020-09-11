@@ -15,7 +15,7 @@ import javax.persistence.Table;
 public class PaymentFormsEntity {
 
     @Id @Column(name = "id", nullable = false)
-    private int id;
+    private Integer id;
     @Column(name = "name", nullable = false, length = 10)
     private String name;
 

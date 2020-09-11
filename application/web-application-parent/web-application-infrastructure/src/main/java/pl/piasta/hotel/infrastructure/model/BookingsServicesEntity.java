@@ -15,8 +15,8 @@ import javax.persistence.Table;
 public class BookingsServicesEntity {
 
     @Id @Column(name = "booking_id", nullable = false)
-    private int bookingId;
+    private Integer bookingId;
     @Column(name = "service_id", nullable = false)
-    private int serviceId;
+    private Integer serviceId;
 
 }

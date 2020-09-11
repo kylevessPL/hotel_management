@@ -16,12 +16,12 @@ import java.sql.Timestamp;
 public class PaymentsEntity {
 
     @Id @Column(name = "id", nullable = false)
-    private int id;
+    private Integer id;
     @Column(name = "booking_id", nullable = false)
-    private int bookingId;
+    private Integer bookingId;
     @Column(name = "payment_date", nullable = false)
     private Timestamp paymentDate;
     @Column(name = "payment_form_id", nullable = false)
-    private int paymentFormId;
+    private Integer paymentFormId;
 
 }
