@@ -36,15 +36,12 @@ public final class BookingCriteria implements Serializable {
     @JsonFormat(pattern = "dd-MM-yyyy")
     private LocalDate endDate;
     @NotBlank
-    @Pattern(regexp = "^[a-zA-Z \\-.']*$")
     @Size(min = 2, max = 30)
     private String firstName;
     @NotBlank
-    @Pattern(regexp = "^[a-zA-Z \\-.']*$")
     @Size(min = 2, max = 30)
     private String lastName;
     @NotBlank
-    @Pattern(regexp = "^[a-zA-Z \\-.']*$")
     @Size(min = 2, max = 30)
     private String streetName;
     @NotBlank
@@ -56,7 +53,6 @@ public final class BookingCriteria implements Serializable {
     @Size(min = 2, max = 10)
     private String zipCode;
     @NotBlank
-    @Pattern(regexp = "^[a-zA-Z]+(?:[\\s-][a-zA-Z]+)*$")
     @Size(min = 2, max = 30)
     private String city;
     @NotBlank
