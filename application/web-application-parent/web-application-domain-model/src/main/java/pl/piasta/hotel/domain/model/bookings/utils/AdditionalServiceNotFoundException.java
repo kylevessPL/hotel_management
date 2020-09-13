@@ -1,13 +1,9 @@
 package pl.piasta.hotel.domain.model.bookings.utils;
 
-public class AdditionalServiceNotFoundException extends Exception {
+public class AdditionalServiceNotFoundException extends RuntimeException {
 
     public AdditionalServiceNotFoundException() {
-        super("Additional service not found");
-    }
-
-    public AdditionalServiceNotFoundException(String message) {
-        super(message);
+        super("AS04");
     }
 
 }

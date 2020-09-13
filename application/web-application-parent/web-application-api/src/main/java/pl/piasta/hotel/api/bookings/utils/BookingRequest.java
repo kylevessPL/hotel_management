@@ -5,7 +5,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.springframework.format.annotation.DateTimeFormat;
-import pl.piasta.hotel.api.utils.ValidateString;
 
 import javax.validation.constraints.Future;
 import javax.validation.constraints.Min;
@@ -19,12 +18,12 @@ import java.time.LocalDate;
 @NoArgsConstructor
 @Getter
 @Setter
-public final class BookingCriteria implements Serializable {
+public final class BookingRequest implements Serializable {
 
     @NotNull
     @Min(1)
     private Integer roomId;
-    private String[] additionalServices;
+    private Integer[] additionalServices;
     @NotNull
     @Future
     @DateTimeFormat(pattern = "dd-MM-yyyy")
@@ -36,15 +35,12 @@ public final class BookingCriteria implements Serializable {
     @JsonFormat(pattern = "dd-MM-yyyy")
     private LocalDate endDate;
     @NotBlank
-    @Pattern(regexp = "^[a-zA-Z \\-.']*$")
     @Size(min = 2, max = 30)
     private String firstName;
     @NotBlank
-    @Pattern(regexp = "^[a-zA-Z \\-.']*$")
     @Size(min = 2, max = 30)
     private String lastName;
     @NotBlank
-    @Pattern(regexp = "^[a-zA-Z \\-.']*$")
     @Size(min = 2, max = 30)
     private String streetName;
     @NotBlank
@@ -56,12 +52,10 @@ public final class BookingCriteria implements Serializable {
     @Size(min = 2, max = 10)
     private String zipCode;
     @NotBlank
-    @Pattern(regexp = "^[a-zA-Z]+(?:[\\s-][a-zA-Z]+)*$")
     @Size(min = 2, max = 30)
     private String city;
-    @NotBlank
-    @ValidateString(acceptedValues = {"ID Card", "Passport"})
-    private String documentType;
+    @NotNull
+    private DocumentType documentType;
     @NotBlank
     @Pattern(regexp = "^[0-9A-Z ]*$")
     @Size(min = 2, max = 10)

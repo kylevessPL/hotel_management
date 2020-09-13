@@ -2,86 +2,91 @@ package pl.piasta.hotel.domain.bookings;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import pl.piasta.hotel.domain.additionalservices.AdditionalServicesRepository;
+import pl.piasta.hotel.domain.customers.CustomersRepository;
 import pl.piasta.hotel.domain.model.additionalservices.AdditionalService;
 import pl.piasta.hotel.domain.model.bookings.Booking;
 import pl.piasta.hotel.domain.model.bookings.BookingDate;
 import pl.piasta.hotel.domain.model.bookings.utils.AdditionalServiceNotFoundException;
-import pl.piasta.hotel.domain.model.bookings.utils.BookingAlreadyConfirmedException;
-import pl.piasta.hotel.domain.model.bookings.utils.BookingExpiredException;
-import pl.piasta.hotel.domain.model.bookings.utils.BookingNotFoundException;
-import pl.piasta.hotel.domain.model.bookings.utils.PaymentFormNotFoundException;
+import pl.piasta.hotel.domain.model.bookings.utils.BookingCommand;
+import pl.piasta.hotel.domain.model.bookings.utils.BookingDetails;
 import pl.piasta.hotel.domain.model.bookings.utils.RoomNotAvailableException;
 import pl.piasta.hotel.domain.model.bookings.utils.RoomNotFoundException;
-import pl.piasta.hotel.domain.model.customers.Customer;
-import pl.piasta.hotel.domain.model.customers.utils.CustomerParam;
+import pl.piasta.hotel.domain.model.customers.utils.CustomerDetails;
 import pl.piasta.hotel.domain.model.paymentforms.PaymentForm;
-import pl.piasta.hotel.domain.model.rooms.Room;
-import pl.piasta.hotel.domain.model.rooms.utils.DateParam;
+import pl.piasta.hotel.domain.model.rooms.utils.DateDetails;
+import pl.piasta.hotel.domain.model.rooms.utils.RoomDetails;
+import pl.piasta.hotel.domain.paymentforms.PaymentFormsRepository;
+import pl.piasta.hotel.domain.rooms.RoomsRepository;
 
 import java.math.BigDecimal;
-import java.sql.Date;
-import java.time.LocalDate;
 import java.time.Period;
-import java.time.ZoneOffset;
+import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
 public class BookingsServiceImpl implements BookingsService {
 
-    private final BookingsRepository repository;
+    private final BookingsRepository bookingsRepository;
+    private final AdditionalServicesRepository additionalServicesRepository;
+    private final CustomersRepository customersRepository;
+    private final RoomsRepository roomsRepository;
+    private final PaymentFormsRepository paymentFormsRepository;
 
     @Override
-    public Booking bookAndGetSummary(
-            Integer roomId,
-            String[] additionalServices,
-            CustomerParam customerParam,
-            DateParam dateParam
-    ) throws RoomNotAvailableException, RoomNotFoundException, AdditionalServiceNotFoundException {
-        Date startDate = dateParam.getStartDate();
-        Date endDate = dateParam.getEndDate();
+    public Booking bookAndGetSummary(BookingCommand bookingCommand) {
 
-        Room room;
-        if((room = repository.getRoomById(roomId)) == null) {
-            throw new RoomNotFoundException();
-        }
-        if(!isRoomAvailable(roomId, startDate, endDate)) {
-            throw new RoomNotAvailableException();
-        }
-
-        List<AdditionalService> additionalServicesList;
-        if((additionalServicesList = repository.getAdditionalServices(additionalServices)) == null) {
-            throw new AdditionalServiceNotFoundException();
-        }
-        List<PaymentForm> paymentForms = repository.getAllPaymentForms();
-        BigDecimal finalPrice = calculateFinalPrice(room, additionalServicesList, startDate, endDate);
-        Integer bookingId = repository.saveBookingAndGetId(
-                startDate,
-                endDate,
-                customerParam.getFirstName(),
-                customerParam.getLastName(),
-                customerParam.getStreetName(),
-                customerParam.getHouseNumber(),
-                customerParam.getZipCode(),
-                customerParam.getCity(),
-                customerParam.getDocumentType(),
-                customerParam.getDocumentId(),
-                roomId,
-                finalPrice
-        );
-        Customer customer = repository.getCustomerByDocumentId(customerParam.getDocumentId());
-        return new Booking(
-                bookingId,
-                customer,
-                room,
-                additionalServicesList,
-                startDate,
-                endDate,
-                finalPrice,
-                paymentForms
-        );
+        RoomDetails roomDetails = getRoomDetails(bookingCommand.getRoomId(), bookingCommand.getDateDetails());
+        List<AdditionalService> additionalServicesList = getAdditionalServices(bookingCommand.getAdditionalServices());
+        List<PaymentForm> paymentFormList = getPaymentForms();
+        BigDecimal finalPrice = calculateFinalPrice(roomDetails, additionalServicesList, bookingCommand.getDateDetails());
+        Integer customerId = saveCustomerAndGetId(bookingCommand.getCustomerDetails());
+        BookingDetails bookingDetails = getBookingDetails(bookingCommand.getDateDetails(), roomDetails, finalPrice, customerId);
+        Integer bookingId = saveBookingAndGetId(bookingDetails);
+        return getBookingSummary(paymentFormList, finalPrice, bookingId);
     }
 
+    private Booking getBookingSummary(List<PaymentForm> paymentFormList, BigDecimal finalPrice, Integer bookingId) {
+        return new Booking(bookingId, finalPrice, paymentFormList);
+    }
+
+    private Integer saveCustomerAndGetId(CustomerDetails customerDetails) {
+        return customersRepository.saveCustomerAndGetId(customerDetails);
+    }
+
+    private Integer saveBookingAndGetId(BookingDetails bookingDetails) {
+        return bookingsRepository.saveBookingAndGetId(bookingDetails);
+    }
+
+    private BookingDetails getBookingDetails(DateDetails dateDetails, RoomDetails roomDetails, BigDecimal finalPrice, Integer customerId) {
+        return new BookingDetails(
+                dateDetails,
+                customerId,
+                roomDetails,
+                finalPrice);
+    }
+
+    private List<PaymentForm> getPaymentForms() {
+        return paymentFormsRepository.getAllPaymentForms();
+    }
+
+    private List<AdditionalService> getAdditionalServices(Integer[] additionalServices) {
+        return additionalServicesRepository.getAllAdditionalServicesById(
+                Arrays.stream(additionalServices).collect(Collectors.toList()))
+                .orElseThrow(AdditionalServiceNotFoundException::new);
+    }
+
+    private RoomDetails getRoomDetails(Integer roomId, DateDetails dateDetails) {
+        if(isRoomAvailable(roomId, dateDetails)) {
+            return roomsRepository.getRoomDetailsByRoomId(roomId).orElseThrow(RoomNotFoundException::new);
+        }
+        else throw new RoomNotAvailableException();
+    }
+
+    private boolean isRoomAvailable(Integer roomId, DateDetails dateDetails) {
+        return !bookingsRepository.getBookingsRoomIdBetweenDates(dateDetails).contains(roomId);
     @Override
     public void confirmBooking(
             Integer bookingId,
@@ -101,8 +106,8 @@ public class BookingsServiceImpl implements BookingsService {
         ).getDays() > 14) {
             throw new BookingExpiredException();
         }
-        Integer paymentFormId;
         if((paymentFormId = repository.getPaymentFormIdByName(paymentForm)) == null) {
+        Integer paymentFormId;
             throw new PaymentFormNotFoundException();
         }
         repository.savePayment(
@@ -112,18 +117,17 @@ public class BookingsServiceImpl implements BookingsService {
         repository.saveBookingConfirmation(bookingId);
     }
 
-    private boolean isRoomAvailable(Integer roomId, Date startDate, Date endDate) {
-        return !repository.getBookingsRoomIdBetweenDates(startDate, endDate).contains(roomId);
-    }
-
-    private BigDecimal calculateFinalPrice(Room room, List<AdditionalService> additionalServices, Date startDate, Date endDate) {
-        long nights = Period.between(startDate.toLocalDate(), endDate.toLocalDate()).getDays();
-        BigDecimal roomPrice = room.getStandardPrice();
-        BigDecimal additionalServicesPrice = additionalServices
+    private BigDecimal calculateFinalPrice(RoomDetails roomDetails, List<AdditionalService> additionalServicesList, DateDetails dateDetails) {
+        long period = Period.between(
+                dateDetails.getStartDate().toLocalDate(),
+                dateDetails.getEndDate().toLocalDate())
+                .getDays();
+        BigDecimal roomPrice = roomDetails.getStandardPrice();
+        BigDecimal additionalServicesPrice = additionalServicesList
                 .stream()
                 .map(AdditionalService::getPrice)
                 .reduce(BigDecimal.ZERO, BigDecimal::add);
-        return roomPrice.add(additionalServicesPrice).multiply(new BigDecimal(nights));
+        return roomPrice.add(additionalServicesPrice).multiply(new BigDecimal(period));
     }
 
     private boolean isBookingNotConfirmed(Integer bookingId) {

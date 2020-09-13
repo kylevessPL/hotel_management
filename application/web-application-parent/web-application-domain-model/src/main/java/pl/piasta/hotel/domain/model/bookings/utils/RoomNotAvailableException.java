@@ -1,13 +1,9 @@
 package pl.piasta.hotel.domain.model.bookings.utils;
 
-public class RoomNotAvailableException extends Exception {
+public class RoomNotAvailableException extends RuntimeException {
 
     public RoomNotAvailableException() {
-        super("Room not available");
-    }
-
-    public RoomNotAvailableException(String message) {
-        super(message);
+        super("R12");
     }
 
 }

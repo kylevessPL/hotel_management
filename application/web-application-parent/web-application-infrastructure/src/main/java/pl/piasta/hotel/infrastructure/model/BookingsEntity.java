@@ -38,6 +38,7 @@ public class BookingsEntity {
     private Integer offerId;
     @Column(name = "final_price", precision = 2)
     private BigDecimal finalPrice;
-
+    @Column(name = "confirmed", nullable = false)
+    private Boolean confirmed = false;
 
 }
