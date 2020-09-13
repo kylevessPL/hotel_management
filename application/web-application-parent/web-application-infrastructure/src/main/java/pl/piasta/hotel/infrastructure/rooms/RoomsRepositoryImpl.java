@@ -67,7 +67,12 @@ public class RoomsRepositoryImpl implements RoomsRepository {
 
     @Override
     public Optional<RoomDetails> getRoomDetailsByRoomId(Integer roomId) {
-        return roomsEntityMapper.mapToRoomDetailsOptional(roomsDao.findById(roomId).orElseGet(RoomsEntity::new));
+        RoomDetails roomDetails = null;
+        RoomsEntity roomsEntity = roomsDao.findById(roomId).orElse(null);
+        if(roomsEntity != null) {
+            roomDetails = roomsEntityMapper.mapToRoomDetails(roomsEntity);
+        }
+        return Optional.ofNullable(roomDetails);
     }
 
 }

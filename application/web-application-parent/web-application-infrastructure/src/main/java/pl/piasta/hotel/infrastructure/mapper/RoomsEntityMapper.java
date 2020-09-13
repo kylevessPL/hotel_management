@@ -9,7 +9,6 @@ import pl.piasta.hotel.infrastructure.model.RoomsEntity;
 
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Component
@@ -28,11 +27,11 @@ public class RoomsEntityMapper {
                 .collect(Collectors.toList());
     }
 
-    public Optional<RoomDetails> mapToRoomDetailsOptional(RoomsEntity rooms) {
-         return Optional.of(new RoomDetails(
+    public RoomDetails mapToRoomDetails(RoomsEntity rooms) {
+         return new RoomDetails(
                  rooms.getId(),
                  rooms.getStandardPrice()
-         ));
+         );
     }
 
 }
