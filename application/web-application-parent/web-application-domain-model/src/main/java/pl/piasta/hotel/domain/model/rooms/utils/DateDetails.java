@@ -9,7 +9,7 @@ import java.sql.Date;
 @NoArgsConstructor
 @Getter
 @Setter
-public class DateParam {
+public class DateDetails {
 
     private Date startDate;
     private Date endDate;

@@ -7,7 +7,7 @@ import lombok.Setter;
 @NoArgsConstructor
 @Getter
 @Setter
-public class SortParam {
+public class SortDetails {
 
     private String sortBy;
     private SortDir sortDir;

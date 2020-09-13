@@ -1,13 +1,9 @@
 package pl.piasta.hotel.domain.model.bookings.utils;
 
-public class RoomNotFoundException extends Exception {
+public class RoomNotFoundException extends RuntimeException {
 
     public RoomNotFoundException() {
-        super("Room not found");
-    }
-
-    public RoomNotFoundException(String message) {
-        super(message);
+        super("R04");
     }
 
 }

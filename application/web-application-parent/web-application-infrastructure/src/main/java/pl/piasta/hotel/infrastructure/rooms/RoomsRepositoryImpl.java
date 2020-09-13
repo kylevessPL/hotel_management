@@ -3,6 +3,7 @@ package pl.piasta.hotel.infrastructure.rooms;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 import pl.piasta.hotel.domain.model.rooms.Room;
+import pl.piasta.hotel.domain.model.rooms.utils.RoomDetails;
 import pl.piasta.hotel.domain.rooms.RoomsRepository;
 import pl.piasta.hotel.infrastructure.dao.AmenitiesEntityDao;
 import pl.piasta.hotel.infrastructure.dao.BookingsEntityDao;
@@ -18,6 +19,7 @@ import java.sql.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Repository
@@ -61,6 +63,11 @@ public class RoomsRepositoryImpl implements RoomsRepository {
                     .collect(Collectors.toList()));
         });
         return roomsEntityMapper.mapToRoom(rooms, roomAmenitiesMap);
+    }
+
+    @Override
+    public Optional<RoomDetails> getRoomDetailsByRoomId(Integer roomId) {
+        return roomsEntityMapper.mapToRoomDetailsOptional(roomsDao.findById(roomId).orElseGet(RoomsEntity::new));
     }
 
 }

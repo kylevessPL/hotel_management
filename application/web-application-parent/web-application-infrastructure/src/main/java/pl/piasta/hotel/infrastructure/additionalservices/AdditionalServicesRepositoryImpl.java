@@ -8,17 +8,23 @@ import pl.piasta.hotel.infrastructure.dao.AdditionalServicesEntityDao;
 import pl.piasta.hotel.infrastructure.mapper.AdditionalServicesEntityMapper;
 
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 @RequiredArgsConstructor
 public class AdditionalServicesRepositoryImpl implements AdditionalServicesRepository {
 
-    private final AdditionalServicesEntityMapper additionalServicesEntityMapper;
+    private final AdditionalServicesEntityMapper additionalServicesMapper;
     private final AdditionalServicesEntityDao dao;
 
     @Override
     public List<AdditionalService> getAllAdditionalServices() {
-        return additionalServicesEntityMapper.mapToAdditionalService(dao.findAll());
+        return additionalServicesMapper.mapToAdditionalService(dao.findAll());
+    }
+
+    @Override
+    public Optional<List<AdditionalService>> getAllAdditionalServicesById(List<Integer> additionalServicesList) {
+        return additionalServicesMapper.mapToAdditionalServiceOptional(dao.findAllByIdIn(additionalServicesList));
     }
 
 }
