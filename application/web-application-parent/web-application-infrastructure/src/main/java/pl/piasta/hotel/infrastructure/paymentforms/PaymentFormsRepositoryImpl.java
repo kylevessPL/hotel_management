@@ -13,8 +13,8 @@ import java.util.List;
 @RequiredArgsConstructor
 public class PaymentFormsRepositoryImpl implements PaymentFormsRepository {
 
-    PaymentFormsEntityMapper paymentFormsEntityMapper;
-    PaymentFormsEntityDao dao;
+    private final PaymentFormsEntityMapper paymentFormsEntityMapper;
+    private final PaymentFormsEntityDao dao;
 
     @Override
     public List<PaymentForm> getAllPaymentForms() {

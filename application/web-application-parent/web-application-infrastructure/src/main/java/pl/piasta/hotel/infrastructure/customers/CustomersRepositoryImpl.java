@@ -12,7 +12,7 @@ import pl.piasta.hotel.infrastructure.model.CustomersEntity;
 @RequiredArgsConstructor
 public class CustomersRepositoryImpl implements CustomersRepository {
 
-    CustomersEntityDao dao;
+    private final CustomersEntityDao dao;
 
     @Override
     @Transactional
