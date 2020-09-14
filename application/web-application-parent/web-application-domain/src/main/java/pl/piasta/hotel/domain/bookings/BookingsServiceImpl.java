@@ -138,16 +138,12 @@ public class BookingsServiceImpl implements BookingsService {
     }
 
     private void checkBookingValidity(BookingConfirmationDetails bookingConfirmationDetails) {
-        if(isBookingAlreadyConfirmed(bookingConfirmationDetails)) {
+        if(bookingConfirmationDetails.isConfirmed()) {
             throw new BookingAlreadyConfirmedException();
         }
         if(!isBookingDateValid(bookingConfirmationDetails.getBookingDate())) {
             throw new BookingExpiredException();
         }
-    }
-
-    private boolean isBookingAlreadyConfirmed(BookingConfirmationDetails bookingConfirmationDetails) {
-        return bookingConfirmationDetails.isConfirmed();
     }
 
     private boolean isBookingDateValid(BookingDate bookingDate) {
