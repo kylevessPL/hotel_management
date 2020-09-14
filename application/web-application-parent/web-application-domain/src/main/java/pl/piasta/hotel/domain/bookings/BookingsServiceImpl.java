@@ -114,10 +114,9 @@ public class BookingsServiceImpl implements BookingsService {
     }
 
     private BigDecimal calculateFinalPrice(RoomDetails roomDetails, List<AdditionalService> additionalServicesList, DateDetails dateDetails) {
-        long period = Period.between(
-                dateDetails.getStartDate().toLocalDate(),
-                dateDetails.getEndDate().toLocalDate())
-                .getDays();
+        LocalDate startDate = dateDetails.getStartDate().toLocalDate();
+        LocalDate endDate = dateDetails.getEndDate().toLocalDate();
+        long period = Period.between(startDate, endDate).getDays();
         BigDecimal roomPrice = roomDetails.getStandardPrice();
         BigDecimal additionalServicesPrice = additionalServicesList
                 .stream()
@@ -150,11 +149,10 @@ public class BookingsServiceImpl implements BookingsService {
     }
 
     private boolean isBookingDateValid(BookingDate bookingDate) {
-        return LocalDate.now().isBefore(bookingDate.getStartDate().toLocalDate()) &&
-        Period.between(bookingDate.getBookDate().toInstant().atZone(
-                ZoneOffset.UTC).toLocalDate(),
-                LocalDate.now()
-        ).getDays() <= 14;
+        LocalDate currentDate = LocalDate.now();
+        LocalDate bookDate = bookingDate.getBookDate().toInstant().atZone(ZoneOffset.UTC).toLocalDate();
+        LocalDate startDate = bookingDate.getStartDate().toLocalDate();
+        return currentDate.isBefore(startDate) && Period.between(bookDate, currentDate).getDays() <= 14;
     }
 
     private void saveBookingConfirmation(Integer bookingId) {
