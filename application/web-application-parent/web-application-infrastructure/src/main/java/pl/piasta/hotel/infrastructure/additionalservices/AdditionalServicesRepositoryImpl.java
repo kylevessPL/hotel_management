@@ -28,7 +28,7 @@ public class AdditionalServicesRepositoryImpl implements AdditionalServicesRepos
 
     @Override
     @Transactional(readOnly = true)
-    public Optional<List<AdditionalService>> getAllAdditionalServicesById(List<Integer> additionalServicesList) {
+    public Optional<List<AdditionalService>> getAllAdditionalServices(List<Integer> additionalServicesList) {
         List<AdditionalService> additionalServices = null;
         List<AdditionalServicesEntity> additionalServicesEntities = dao.findAllByIdIn(additionalServicesList);
         if(containsAllFromList(additionalServicesEntities, additionalServicesList)) {

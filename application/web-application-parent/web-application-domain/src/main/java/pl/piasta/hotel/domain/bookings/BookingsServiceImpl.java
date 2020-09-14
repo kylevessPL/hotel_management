@@ -71,7 +71,7 @@ public class BookingsServiceImpl implements BookingsService {
     }
 
     private List<AdditionalService> getAdditionalServices(Integer[] additionalServices) {
-        return additionalServicesRepository.getAllAdditionalServicesById(
+        return additionalServicesRepository.getAllAdditionalServices(
                 Arrays.stream(additionalServices).collect(Collectors.toList()))
                 .orElseThrow(AdditionalServiceNotFoundException::new);
     }
@@ -80,7 +80,7 @@ public class BookingsServiceImpl implements BookingsService {
         if(!isRoomAvailable(roomId, dateDetails)) {
             throw new RoomNotAvailableException();
         }
-        return roomsRepository.getRoomDetailsByRoomId(roomId).orElseThrow(RoomNotFoundException::new);
+        return roomsRepository.getRoomDetails(roomId).orElseThrow(RoomNotFoundException::new);
     }
 
     private boolean isRoomAvailable(Integer roomId, DateDetails dateDetails) {
