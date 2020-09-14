@@ -21,6 +21,7 @@ public class BookingsRepositoryImpl implements BookingsRepository {
     private final BookingsEntityDao dao;
 
     @Override
+    @Transactional(readOnly = true)
     public List<Integer> getBookingsRoomIdBetweenDates(DateDetails dateDetails) {
         Date startDate = dateDetails.getStartDate();
         Date endDate = dateDetails.getEndDate();
@@ -35,7 +36,7 @@ public class BookingsRepositoryImpl implements BookingsRepository {
     public Integer saveBookingAndGetId(BookingDetails bookingDetails) {
         BookingsEntity booking = new BookingsEntity();
         updateEntity(booking, bookingDetails);
-        return dao.saveAndFlush(booking).getId();
+        return dao.save(booking).getId();
     }
 
     void updateEntity(BookingsEntity booking, BookingDetails bookingDetails) {

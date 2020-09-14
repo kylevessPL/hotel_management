@@ -2,6 +2,7 @@ package pl.piasta.hotel.infrastructure.additionalservices;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 import pl.piasta.hotel.domain.additionalservices.AdditionalServicesRepository;
 import pl.piasta.hotel.domain.model.additionalservices.AdditionalService;
 import pl.piasta.hotel.infrastructure.dao.AdditionalServicesEntityDao;
@@ -20,11 +21,13 @@ public class AdditionalServicesRepositoryImpl implements AdditionalServicesRepos
     private final AdditionalServicesEntityDao dao;
 
     @Override
+    @Transactional(readOnly = true)
     public List<AdditionalService> getAllAdditionalServices() {
         return additionalServicesMapper.mapToAdditionalService(dao.findAll());
     }
 
     @Override
+    @Transactional(readOnly = true)
     public Optional<List<AdditionalService>> getAllAdditionalServicesById(List<Integer> additionalServicesList) {
         List<AdditionalService> additionalServices = null;
         List<AdditionalServicesEntity> additionalServicesEntities = dao.findAllByIdIn(additionalServicesList);

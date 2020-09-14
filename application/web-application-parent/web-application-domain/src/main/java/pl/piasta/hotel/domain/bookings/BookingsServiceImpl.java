@@ -36,7 +36,6 @@ public class BookingsServiceImpl implements BookingsService {
 
     @Override
     public Booking bookAndGetSummary(BookingCommand bookingCommand) {
-
         RoomDetails roomDetails = getRoomDetails(bookingCommand.getRoomId(), bookingCommand.getDateDetails());
         List<AdditionalService> additionalServicesList = getAdditionalServices(bookingCommand.getAdditionalServices());
         List<PaymentForm> paymentFormList = getPaymentForms();
