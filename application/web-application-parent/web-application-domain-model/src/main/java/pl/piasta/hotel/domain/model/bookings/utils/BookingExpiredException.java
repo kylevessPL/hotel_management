@@ -1,13 +1,9 @@
 package pl.piasta.hotel.domain.model.bookings.utils;
 
-public class BookingExpiredException extends Exception {
+public class BookingExpiredException extends RuntimeException {
 
     public BookingExpiredException() {
-        super("Booking already expired");
-    }
-
-    public BookingExpiredException(String message) {
-        super(message);
+        super("B13");
     }
 
 }

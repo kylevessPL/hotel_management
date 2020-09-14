@@ -8,19 +8,29 @@ import pl.piasta.hotel.domain.model.additionalservices.AdditionalService;
 import pl.piasta.hotel.domain.model.bookings.Booking;
 import pl.piasta.hotel.domain.model.bookings.BookingDate;
 import pl.piasta.hotel.domain.model.bookings.utils.AdditionalServiceNotFoundException;
+import pl.piasta.hotel.domain.model.bookings.utils.BookingAlreadyConfirmedException;
 import pl.piasta.hotel.domain.model.bookings.utils.BookingCommand;
+import pl.piasta.hotel.domain.model.bookings.utils.BookingConfirmationCommand;
+import pl.piasta.hotel.domain.model.bookings.utils.BookingConfirmationDetails;
 import pl.piasta.hotel.domain.model.bookings.utils.BookingDetails;
+import pl.piasta.hotel.domain.model.bookings.utils.BookingExpiredException;
+import pl.piasta.hotel.domain.model.bookings.utils.BookingNotFoundException;
+import pl.piasta.hotel.domain.model.bookings.utils.PaymentFormNotFoundException;
 import pl.piasta.hotel.domain.model.bookings.utils.RoomNotAvailableException;
 import pl.piasta.hotel.domain.model.bookings.utils.RoomNotFoundException;
 import pl.piasta.hotel.domain.model.customers.utils.CustomerDetails;
 import pl.piasta.hotel.domain.model.paymentforms.PaymentForm;
+import pl.piasta.hotel.domain.model.payments.utils.PaymentDetails;
 import pl.piasta.hotel.domain.model.rooms.utils.DateDetails;
 import pl.piasta.hotel.domain.model.rooms.utils.RoomDetails;
 import pl.piasta.hotel.domain.paymentforms.PaymentFormsRepository;
+import pl.piasta.hotel.domain.payments.PaymentsRepository;
 import pl.piasta.hotel.domain.rooms.RoomsRepository;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.time.Period;
+import java.time.ZoneOffset;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -34,6 +44,7 @@ public class BookingsServiceImpl implements BookingsService {
     private final CustomersRepository customersRepository;
     private final RoomsRepository roomsRepository;
     private final PaymentFormsRepository paymentFormsRepository;
+    private final PaymentsRepository paymentsRepository;
 
     @Override
     public Booking bookAndGetSummary(BookingCommand bookingCommand) {
@@ -46,6 +57,22 @@ public class BookingsServiceImpl implements BookingsService {
         BookingDetails bookingDetails = getBookingDetails(bookingCommand.getDateDetails(), roomDetails, finalPrice, customerId);
         Integer bookingId = saveBookingAndGetId(bookingDetails);
         return getBookingSummary(paymentFormList, finalPrice, bookingId);
+    }
+
+    @Override
+    public void confirmBooking(BookingConfirmationCommand bookingConfirmationCommand) {
+        Integer bookingId = bookingConfirmationCommand.getBookingId();
+        Integer paymentFormId = bookingConfirmationCommand.getPaymentFormId();
+        BookingConfirmationDetails bookingConfirmationDetails = getBookingConfirmationDetails(bookingId);
+        checkBookingValidity(bookingConfirmationDetails);
+        checkPaymentValidity(paymentFormId);
+        PaymentDetails paymentDetails = getPaymentFormDetails(
+                bookingConfirmationCommand.getBookingId(),
+                bookingConfirmationCommand.getPaymentFormId(),
+                bookingConfirmationCommand.getTransactionId()
+        );
+        savePayment(paymentDetails);
+        saveBookingConfirmation(bookingId);
     }
 
     private Booking getBookingSummary(List<PaymentForm> paymentFormList, BigDecimal finalPrice, Integer bookingId) {
@@ -65,7 +92,8 @@ public class BookingsServiceImpl implements BookingsService {
                 dateDetails,
                 customerId,
                 roomDetails,
-                finalPrice);
+                finalPrice
+        );
     }
 
     private List<PaymentForm> getPaymentForms() {
@@ -87,34 +115,6 @@ public class BookingsServiceImpl implements BookingsService {
 
     private boolean isRoomAvailable(Integer roomId, DateDetails dateDetails) {
         return !bookingsRepository.getBookingsRoomIdBetweenDates(dateDetails).contains(roomId);
-    @Override
-    public void confirmBooking(
-            Integer bookingId,
-            String paymentForm,
-            String transationId
-    ) throws BookingNotFoundException, PaymentFormNotFoundException, BookingAlreadyConfirmedException, BookingExpiredException {
-        BookingDate bookingDate;
-        if((bookingDate = repository.getBookingDateById(bookingId)) == null) {
-            throw new BookingNotFoundException();
-        }
-        if(!isBookingNotConfirmed(bookingId)) {
-            throw new BookingAlreadyConfirmedException();
-        }
-        if(LocalDate.now().isAfter(bookingDate.getStartDate().toLocalDate()) ||
-        Period.between(bookingDate.getBookDate().toInstant().atZone(ZoneOffset.UTC).toLocalDate(),
-                LocalDate.now()
-        ).getDays() > 14) {
-            throw new BookingExpiredException();
-        }
-        if((paymentFormId = repository.getPaymentFormIdByName(paymentForm)) == null) {
-        Integer paymentFormId;
-            throw new PaymentFormNotFoundException();
-        }
-        repository.savePayment(
-                bookingId,
-                paymentFormId,
-                transationId);
-        repository.saveBookingConfirmation(bookingId);
     }
 
     private BigDecimal calculateFinalPrice(RoomDetails roomDetails, List<AdditionalService> additionalServicesList, DateDetails dateDetails) {
@@ -130,8 +130,47 @@ public class BookingsServiceImpl implements BookingsService {
         return roomPrice.add(additionalServicesPrice).multiply(new BigDecimal(period));
     }
 
-    private boolean isBookingNotConfirmed(Integer bookingId) {
-        return repository.getBookingsConfirmedIdByBookingId(bookingId) == null;
+    private BookingConfirmationDetails getBookingConfirmationDetails(Integer bookingId) {
+        return bookingsRepository.getBookingConfirmationDetails(bookingId).orElseThrow(BookingNotFoundException::new);
+    }
+
+    private void checkPaymentValidity(Integer paymentFormId) {
+        if(!paymentFormExists(paymentFormId)) {
+            throw new PaymentFormNotFoundException();
+        }
+    }
+
+    private void checkBookingValidity(BookingConfirmationDetails bookingConfirmationDetails) {
+        if(bookingConfirmationDetails.isConfirmed()) {
+            throw new BookingAlreadyConfirmedException();
+        }
+        if(!isBookingDateValid(bookingConfirmationDetails.getBookingDate())) {
+            throw new BookingExpiredException();
+        }
+    }
+
+    private boolean isBookingDateValid(BookingDate bookingDate) {
+        return LocalDate.now().isBefore(bookingDate.getStartDate().toLocalDate()) &&
+        Period.between(bookingDate.getBookDate().toInstant().atZone(
+                ZoneOffset.UTC).toLocalDate(),
+                LocalDate.now()
+        ).getDays() <= 14;
+    }
+
+    private void saveBookingConfirmation(Integer bookingId) {
+        bookingsRepository.saveBookingConfirmation(bookingId);
+    }
+
+    private void savePayment(PaymentDetails paymentDetails) {
+        paymentsRepository.savePayment(paymentDetails);
+    }
+
+    private PaymentDetails getPaymentFormDetails(Integer bookingId, Integer paymentFormId, String transactionId) {
+        return new PaymentDetails(bookingId, paymentFormId, transactionId);
+    }
+
+    private boolean paymentFormExists(Integer paymentFormId) {
+        return paymentFormsRepository.paymentFormExists(paymentFormId);
     }
 
 }

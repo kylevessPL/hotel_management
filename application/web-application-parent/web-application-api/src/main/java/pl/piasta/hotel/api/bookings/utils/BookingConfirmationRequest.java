@@ -8,23 +8,21 @@ import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
-import javax.validation.constraints.Size;
 import java.io.Serializable;
 
 @NoArgsConstructor
 @Getter
 @Setter
-public final class BookingConfirmationCriteria implements Serializable {
+public final class BookingConfirmationRequest implements Serializable {
 
     @NotNull
     @Min(1)
     Integer bookingId;
-    @NotBlank
-    @Pattern(regexp = "^[a-zA-Z \\-.']*$")
-    @Size(min = 2, max = 20)
-    String paymentForm;
+    @NotNull
+    @Min(1)
+    Integer paymentFormId;
     @NotBlank
     @Pattern(regexp = "^[a-z0-9 \\-]{36}$")
-    String transationId;
+    String transactionId;
 
 }

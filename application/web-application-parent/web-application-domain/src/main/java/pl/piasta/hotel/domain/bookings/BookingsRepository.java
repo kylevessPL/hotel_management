@@ -1,19 +1,16 @@
 package pl.piasta.hotel.domain.bookings;
 
+import pl.piasta.hotel.domain.model.bookings.utils.BookingConfirmationDetails;
 import pl.piasta.hotel.domain.model.bookings.utils.BookingDetails;
 import pl.piasta.hotel.domain.model.rooms.utils.DateDetails;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface BookingsRepository {
 
     List<Integer> getBookingsRoomIdBetweenDates(DateDetails dateDetails);
     Integer saveBookingAndGetId(BookingDetails booking);
-    void savePayment(
-            Integer bookingId,
-            Integer paymentFormId,
-            String transationId
-    );
     void saveBookingConfirmation(Integer bookingId);
-
+    Optional<BookingConfirmationDetails> getBookingConfirmationDetails(Integer bookingId);
 }

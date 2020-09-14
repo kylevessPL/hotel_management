@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 import pl.piasta.hotel.api.bookings.mapper.BookingMapper;
+import pl.piasta.hotel.api.bookings.utils.BookingConfirmationRequest;
 import pl.piasta.hotel.api.bookings.utils.BookingRequest;
 import pl.piasta.hotel.domain.bookings.BookingsService;
 import pl.piasta.hotel.domain.model.bookings.utils.AdditionalServiceNotFoundException;
@@ -42,18 +43,12 @@ public class BookingsServiceController {
     }
 
     @PostMapping(value = "/hotel/services/bookings/confirm")
-    public ResponseEntity<String> confirmBooking(@RequestBody @Valid BookingConfirmationCriteria bookingConfirmationCriteria) {
+    public ResponseEntity<String> confirmBooking(@RequestBody @Valid BookingConfirmationRequest bookingConfirmationRequest) {
         try {
-            bookingsService.confirmBooking(
-                    bookingConfirmationCriteria.getBookingId(),
-                    bookingConfirmationCriteria.getPaymentForm(),
-                    bookingConfirmationCriteria.getTransationId()
-            );
-            return ResponseEntity.ok("Booking id " + bookingConfirmationCriteria.getBookingId() + " confirmed");
-        } catch (BookingNotFoundException | PaymentFormNotFoundException ex) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, ex.getLocalizedMessage(), ex);
-        } catch (BookingAlreadyConfirmedException | BookingExpiredException ex) {
-            throw new ResponseStatusException(HttpStatus.CONFLICT, ex.getLocalizedMessage(), ex);
+            bookingsService.confirmBooking(bookingMapper.mapToCommand(bookingConfirmationRequest));
+            return ResponseEntity.ok("Booking id " + bookingConfirmationRequest.getBookingId() + " confirmed");
+        } catch (BookingNotFoundException | PaymentFormNotFoundException | BookingAlreadyConfirmedException | BookingExpiredException ex) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, ex.getLocalizedMessage(), ex);
         }
     }
 

@@ -4,20 +4,24 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 import pl.piasta.hotel.domain.bookings.BookingsRepository;
+import pl.piasta.hotel.domain.model.bookings.utils.BookingConfirmationDetails;
 import pl.piasta.hotel.domain.model.bookings.utils.BookingDetails;
 import pl.piasta.hotel.domain.model.rooms.utils.DateDetails;
 import pl.piasta.hotel.infrastructure.dao.BookingsEntityDao;
+import pl.piasta.hotel.infrastructure.mapper.BookingsEntityMapper;
 import pl.piasta.hotel.infrastructure.model.BookingsEntity;
 
 import java.sql.Date;
 import java.sql.Timestamp;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Repository
 @RequiredArgsConstructor
 public class BookingsRepositoryImpl implements BookingsRepository {
 
+    private final BookingsEntityMapper bookingsEntityMapper;
     private final BookingsEntityDao dao;
 
     @Override
@@ -38,6 +42,25 @@ public class BookingsRepositoryImpl implements BookingsRepository {
         return dao.saveAndFlush(booking).getId();
     }
 
+    @Override
+    @Transactional
+    public void saveBookingConfirmation(Integer bookingId) {
+        BookingsEntity booking = dao.findById(bookingId)
+                .orElseGet(BookingsEntity::new);
+        updateEntityConfirmationStatus(booking);
+        dao.saveAndFlush(booking);
+    }
+
+    @Override
+    public Optional<BookingConfirmationDetails> getBookingConfirmationDetails(Integer bookingId) {
+        BookingConfirmationDetails bookingConfirmationDetails = null;
+        BookingsEntity bookingsEntity = dao.findById(bookingId).orElse(null);
+        if(bookingsEntity != null) {
+            bookingConfirmationDetails = bookingsEntityMapper.mapToBookingConfirmationDetails(bookingsEntity);
+        }
+        return Optional.ofNullable(bookingConfirmationDetails);
+    }
+
     void updateEntity(BookingsEntity booking, BookingDetails bookingDetails) {
         booking.setBookDate(new Timestamp(System.currentTimeMillis()));
         booking.setStartDate(bookingDetails.getDateDetails().getStartDate());
@@ -47,41 +70,8 @@ public class BookingsRepositoryImpl implements BookingsRepository {
         booking.setFinalPrice(bookingDetails.getFinalPrice());
     }
 
-    @Override
-    public void savePayment(Integer bookingId, Integer paymentFormId, String transationId) {
-        PaymentsEntity payment = paymentsEntityMapper.createEntity(
-                bookingId,
-                paymentFormId,
-                transationId
-        );
-        paymentsDao.saveAndFlush(payment);
-    }
-
-    @Override
-    public void saveBookingConfirmation(Integer bookingId) {
-        BookingsConfirmedEntity bookingConfirmed = bookingsConfirmedEntityMapper.createEntity(bookingId);
-        bookingsConfirmedDao.saveAndFlush(bookingConfirmed);
-    }
-
-    @Override
-    public Integer getPaymentFormIdByName(String paymentForm) {
-        PaymentFormsEntity paymentFormsEntity;
-        try {
-            paymentFormsEntity = paymentFormsDao.findByName(paymentForm).orElseThrow(EntityNotFoundException::new);
-        } catch (EntityNotFoundException ex) {
-            return null;
-        }
-        return paymentFormsEntity.getId();
-    }
-    @Override
-    public Integer getBookingsConfirmedIdByBookingId(Integer bookingId) {
-        BookingsConfirmedEntity bookingConfirmed;
-        try {
-        } catch (EntityNotFoundException ex) {
-            bookingConfirmed = bookingsConfirmedDao.findByBookingId(bookingId).orElseThrow(EntityNotFoundException::new);
-            return null;
-        }
-        return bookingConfirmed.getId();
+    void updateEntityConfirmationStatus(BookingsEntity booking) {
+        booking.setConfirmed(true);
     }
 
 }

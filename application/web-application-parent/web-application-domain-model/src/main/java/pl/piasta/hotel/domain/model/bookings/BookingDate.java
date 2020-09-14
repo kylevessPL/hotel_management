@@ -12,7 +12,6 @@ import java.sql.Timestamp;
 @Setter
 public class BookingDate {
 
-    private final Integer bookingId;
     private final Timestamp bookDate;
     private final Date startDate;
     private final Date endDate;

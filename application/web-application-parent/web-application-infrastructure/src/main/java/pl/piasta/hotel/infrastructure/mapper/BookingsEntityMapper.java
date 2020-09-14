@@ -2,35 +2,20 @@ package pl.piasta.hotel.infrastructure.mapper;
 
 import org.springframework.stereotype.Component;
 import pl.piasta.hotel.domain.model.bookings.BookingDate;
+import pl.piasta.hotel.domain.model.bookings.utils.BookingConfirmationDetails;
 import pl.piasta.hotel.infrastructure.model.BookingsEntity;
-
-import java.math.BigDecimal;
-import java.sql.Date;
-import java.sql.Timestamp;
 
 @Component
 public class BookingsEntityMapper {
 
-    public BookingsEntity createEntity(
-            Date startDate,
-            Date endDate,
-            Integer customerId,
-            Integer roomId,
-            BigDecimal finalPrice
-    ) {
-        BookingsEntity booking = new BookingsEntity();
-        booking.setBookDate(new Timestamp(System.currentTimeMillis()));
-        booking.setStartDate(startDate);
-        booking.setEndDate(endDate);
-        booking.setCustomerId(customerId);
-        booking.setRoomId(roomId);
-        booking.setFinalPrice(finalPrice);
-        return booking;
+    public BookingConfirmationDetails mapToBookingConfirmationDetails(BookingsEntity bookingsEntity) {
+        BookingDate bookingDate = mapToBookingDate(bookingsEntity);
+        boolean confirmed = bookingsEntity.getConfirmed();
+        return new BookingConfirmationDetails(bookingDate, confirmed);
     }
 
-    public BookingDate mapToBookingDate(BookingsEntity booking) {
+    private BookingDate mapToBookingDate(BookingsEntity booking) {
         return new BookingDate(
-                booking.getId(),
                 booking.getBookDate(),
                 booking.getStartDate(),
                 booking.getEndDate()
