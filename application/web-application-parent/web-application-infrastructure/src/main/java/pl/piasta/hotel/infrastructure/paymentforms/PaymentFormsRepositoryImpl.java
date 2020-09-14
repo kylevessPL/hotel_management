@@ -24,6 +24,7 @@ public class PaymentFormsRepositoryImpl implements PaymentFormsRepository {
     }
 
     @Override
+    @Transactional(readOnly = true)
     public boolean paymentFormExists(Integer paymentFormId) {
         return dao.existsById(paymentFormId);
     }

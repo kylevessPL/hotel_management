@@ -49,10 +49,11 @@ public class BookingsRepositoryImpl implements BookingsRepository {
         BookingsEntity booking = dao.findById(bookingId)
                 .orElseGet(BookingsEntity::new);
         updateEntityConfirmationStatus(booking);
-        dao.saveAndFlush(booking);
+        dao.save(booking);
     }
 
     @Override
+    @Transactional(readOnly = true)
     public Optional<BookingConfirmationDetails> getBookingConfirmationDetails(Integer bookingId) {
         BookingConfirmationDetails bookingConfirmationDetails = null;
         BookingsEntity bookingsEntity = dao.findById(bookingId).orElse(null);
