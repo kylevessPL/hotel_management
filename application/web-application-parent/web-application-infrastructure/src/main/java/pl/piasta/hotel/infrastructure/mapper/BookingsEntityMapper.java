@@ -15,11 +15,7 @@ public class BookingsEntityMapper {
     }
 
     private BookingDate mapToBookingDate(BookingsEntity booking) {
-        return new BookingDate(
-                booking.getBookDate(),
-                booking.getStartDate(),
-                booking.getEndDate()
-        );
+        return new BookingDate(booking.getBookDate(), booking.getStartDate(), booking.getEndDate());
     }
 
 }
