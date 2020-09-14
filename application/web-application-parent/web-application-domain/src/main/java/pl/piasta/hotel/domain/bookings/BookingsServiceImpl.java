@@ -41,8 +41,7 @@ public class BookingsServiceImpl implements BookingsService {
         List<PaymentForm> paymentFormList = getPaymentForms();
         BigDecimal finalPrice = calculateFinalPrice(roomDetails, additionalServicesList, bookingCommand.getDateDetails());
         Integer customerId = saveCustomerAndGetId(bookingCommand.getCustomerDetails());
-        BookingDetails bookingDetails = createBookingDetails(bookingCommand.getDateDetails(), roomDetails, finalPrice, customerId);
-        Integer bookingId = saveBookingAndGetId(bookingDetails);
+        Integer bookingId = saveBookingAndGetId(bookingCommand.getDateDetails(), roomDetails, finalPrice, customerId);
         return getBookingSummary(paymentFormList, finalPrice, bookingId);
     }
 
@@ -54,7 +53,8 @@ public class BookingsServiceImpl implements BookingsService {
         return customersRepository.saveCustomerAndGetId(customerDetails);
     }
 
-    private Integer saveBookingAndGetId(BookingDetails bookingDetails) {
+    private Integer saveBookingAndGetId(DateDetails dateDetails, RoomDetails roomDetails, BigDecimal finalPrice, Integer customerId) {
+        BookingDetails bookingDetails = createBookingDetails(dateDetails, roomDetails, finalPrice, customerId);
         return bookingsRepository.saveBookingAndGetId(bookingDetails);
     }
 
