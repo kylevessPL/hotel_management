@@ -77,10 +77,10 @@ public class BookingsServiceImpl implements BookingsService {
     }
 
     private RoomDetails getRoomDetails(Integer roomId, DateDetails dateDetails) {
-        if(isRoomAvailable(roomId, dateDetails)) {
-            return roomsRepository.getRoomDetailsByRoomId(roomId).orElseThrow(RoomNotFoundException::new);
+        if(!isRoomAvailable(roomId, dateDetails)) {
+            throw new RoomNotAvailableException();
         }
-        else throw new RoomNotAvailableException();
+        return roomsRepository.getRoomDetailsByRoomId(roomId).orElseThrow(RoomNotFoundException::new);
     }
 
     private boolean isRoomAvailable(Integer roomId, DateDetails dateDetails) {
