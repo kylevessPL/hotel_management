@@ -61,14 +61,11 @@ public class BookingsServiceImpl implements BookingsService {
     public void confirmBooking(BookingConfirmationCommand bookingConfirmationCommand) {
         Integer bookingId = bookingConfirmationCommand.getBookingId();
         Integer paymentFormId = bookingConfirmationCommand.getPaymentFormId();
+        String transactionId = bookingConfirmationCommand.getTransactionId();
         BookingConfirmationDetails bookingConfirmationDetails = getBookingConfirmationDetails(bookingId);
         checkBookingValidity(bookingConfirmationDetails);
         checkPaymentValidity(paymentFormId);
-        PaymentDetails paymentDetails = getPaymentFormDetails(
-                bookingConfirmationCommand.getBookingId(),
-                bookingConfirmationCommand.getPaymentFormId(),
-                bookingConfirmationCommand.getTransactionId()
-        );
+        PaymentDetails paymentDetails = createPaymentFormDetails(bookingId, paymentFormId, transactionId);
         savePayment(paymentDetails);
         saveBookingConfirmation(bookingId);
     }
@@ -168,7 +165,7 @@ public class BookingsServiceImpl implements BookingsService {
         paymentsRepository.savePayment(paymentDetails);
     }
 
-    private PaymentDetails getPaymentFormDetails(Integer bookingId, Integer paymentFormId, String transactionId) {
+    private PaymentDetails createPaymentFormDetails(Integer bookingId, Integer paymentFormId, String transactionId) {
         return new PaymentDetails(bookingId, paymentFormId, transactionId);
     }
 
