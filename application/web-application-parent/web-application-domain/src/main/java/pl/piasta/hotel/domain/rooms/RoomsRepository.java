@@ -10,6 +10,6 @@ import java.util.Optional;
 public interface RoomsRepository {
 
     List<Room> getAllAvailableRoomsWithinDateRange(Date startDate, Date endDate);
-    Optional<RoomDetails> getRoomDetailsByRoomId(Integer roomId);
+    Optional<RoomDetails> getRoomDetails(Integer roomId);
 
 }

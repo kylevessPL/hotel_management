@@ -15,7 +15,7 @@ public class CustomerDetails {
     private String houseNumber;
     private String zipCode;
     private String city;
-    private String documentType;
+    private DocumentType documentType;
     private String documentId;
     
 }

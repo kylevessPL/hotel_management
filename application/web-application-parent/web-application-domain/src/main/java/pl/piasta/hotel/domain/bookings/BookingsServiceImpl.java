@@ -48,14 +48,12 @@ public class BookingsServiceImpl implements BookingsService {
 
     @Override
     public Booking bookAndGetSummary(BookingCommand bookingCommand) {
-
         RoomDetails roomDetails = getRoomDetails(bookingCommand.getRoomId(), bookingCommand.getDateDetails());
         List<AdditionalService> additionalServicesList = getAdditionalServices(bookingCommand.getAdditionalServices());
         List<PaymentForm> paymentFormList = getPaymentForms();
         BigDecimal finalPrice = calculateFinalPrice(roomDetails, additionalServicesList, bookingCommand.getDateDetails());
         Integer customerId = saveCustomerAndGetId(bookingCommand.getCustomerDetails());
-        BookingDetails bookingDetails = getBookingDetails(bookingCommand.getDateDetails(), roomDetails, finalPrice, customerId);
-        Integer bookingId = saveBookingAndGetId(bookingDetails);
+        Integer bookingId = saveBookingAndGetId(bookingCommand.getDateDetails(), roomDetails, finalPrice, customerId);
         return getBookingSummary(paymentFormList, finalPrice, bookingId);
     }
 
@@ -83,11 +81,12 @@ public class BookingsServiceImpl implements BookingsService {
         return customersRepository.saveCustomerAndGetId(customerDetails);
     }
 
-    private Integer saveBookingAndGetId(BookingDetails bookingDetails) {
+    private Integer saveBookingAndGetId(DateDetails dateDetails, RoomDetails roomDetails, BigDecimal finalPrice, Integer customerId) {
+        BookingDetails bookingDetails = createBookingDetails(dateDetails, roomDetails, finalPrice, customerId);
         return bookingsRepository.saveBookingAndGetId(bookingDetails);
     }
 
-    private BookingDetails getBookingDetails(DateDetails dateDetails, RoomDetails roomDetails, BigDecimal finalPrice, Integer customerId) {
+    private BookingDetails createBookingDetails(DateDetails dateDetails, RoomDetails roomDetails, BigDecimal finalPrice, Integer customerId) {
         return new BookingDetails(
                 dateDetails,
                 customerId,
@@ -101,16 +100,16 @@ public class BookingsServiceImpl implements BookingsService {
     }
 
     private List<AdditionalService> getAdditionalServices(Integer[] additionalServices) {
-        return additionalServicesRepository.getAllAdditionalServicesById(
+        return additionalServicesRepository.getAllAdditionalServices(
                 Arrays.stream(additionalServices).collect(Collectors.toList()))
                 .orElseThrow(AdditionalServiceNotFoundException::new);
     }
 
     private RoomDetails getRoomDetails(Integer roomId, DateDetails dateDetails) {
-        if(isRoomAvailable(roomId, dateDetails)) {
-            return roomsRepository.getRoomDetailsByRoomId(roomId).orElseThrow(RoomNotFoundException::new);
+        if(!isRoomAvailable(roomId, dateDetails)) {
+            throw new RoomNotAvailableException();
         }
-        else throw new RoomNotAvailableException();
+        return roomsRepository.getRoomDetails(roomId).orElseThrow(RoomNotFoundException::new);
     }
 
     private boolean isRoomAvailable(Integer roomId, DateDetails dateDetails) {

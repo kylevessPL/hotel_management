@@ -20,7 +20,7 @@ public class CustomersRepositoryImpl implements CustomersRepository {
         CustomersEntity customer = dao.findByDocumentId(customerDetails.getDocumentId())
                 .orElseGet(CustomersEntity::new);
         updateEntity(customer, customerDetails);
-        return dao.saveAndFlush(customer).getId();
+        return dao.save(customer).getId();
     }
 
     void updateEntity(CustomersEntity customer, CustomerDetails customerDetails) {

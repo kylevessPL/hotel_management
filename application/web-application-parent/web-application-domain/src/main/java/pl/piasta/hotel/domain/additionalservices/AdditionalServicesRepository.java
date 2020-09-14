@@ -8,6 +8,6 @@ import java.util.Optional;
 public interface AdditionalServicesRepository {
 
     List<AdditionalService> getAllAdditionalServices();
-    Optional<List<AdditionalService>> getAllAdditionalServicesById(List<Integer> additionalServicesList);
+    Optional<List<AdditionalService>> getAllAdditionalServices(List<Integer> additionalServicesList);
 
 }

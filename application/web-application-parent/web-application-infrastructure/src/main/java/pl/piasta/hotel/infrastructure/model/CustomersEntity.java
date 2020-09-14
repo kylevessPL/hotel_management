@@ -2,9 +2,12 @@ package pl.piasta.hotel.infrastructure.model;
 
 import lombok.Getter;
 import lombok.Setter;
+import pl.piasta.hotel.domain.model.customers.utils.DocumentType;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -34,7 +37,8 @@ public class CustomersEntity {
     @Column(name = "city", nullable = false, length = 30)
     private String city;
     @Column(name = "document_type", nullable = false, length = 10)
-    private String documentType;
+    @Enumerated(EnumType.STRING)
+    private DocumentType documentType;
     @Column(name = "document_id", nullable = false, length = 10)
     private String documentId;
 

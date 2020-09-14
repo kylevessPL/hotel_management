@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.springframework.format.annotation.DateTimeFormat;
+import pl.piasta.hotel.domain.model.customers.utils.DocumentType;
 
 import javax.validation.constraints.Future;
 import javax.validation.constraints.Min;

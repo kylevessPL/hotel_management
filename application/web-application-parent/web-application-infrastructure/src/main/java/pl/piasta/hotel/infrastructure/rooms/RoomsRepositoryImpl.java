@@ -2,6 +2,7 @@ package pl.piasta.hotel.infrastructure.rooms;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 import pl.piasta.hotel.domain.model.rooms.Room;
 import pl.piasta.hotel.domain.model.rooms.utils.RoomDetails;
 import pl.piasta.hotel.domain.rooms.RoomsRepository;
@@ -33,6 +34,7 @@ public class RoomsRepositoryImpl implements RoomsRepository {
     private final AmenitiesEntityDao amenitiesDao;
 
     @Override
+    @Transactional(readOnly = true)
     public List<Room> getAllAvailableRoomsWithinDateRange(Date startDate, Date endDate) {
         List<Integer> bookedRooms = bookingsDao.findByStartDateLessThanEqualAndEndDateGreaterThanEqual(startDate, endDate)
                 .stream()
@@ -66,7 +68,8 @@ public class RoomsRepositoryImpl implements RoomsRepository {
     }
 
     @Override
-    public Optional<RoomDetails> getRoomDetailsByRoomId(Integer roomId) {
+    @Transactional(readOnly = true)
+    public Optional<RoomDetails> getRoomDetails(Integer roomId) {
         RoomDetails roomDetails = null;
         RoomsEntity roomsEntity = roomsDao.findById(roomId).orElse(null);
         if(roomsEntity != null) {
