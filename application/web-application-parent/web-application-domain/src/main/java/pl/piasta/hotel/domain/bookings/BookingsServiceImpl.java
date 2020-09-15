@@ -65,7 +65,7 @@ public class BookingsServiceImpl implements BookingsService {
         Integer bookingId = bookingConfirmationCommand.getBookingId();
         Integer paymentFormId = bookingConfirmationCommand.getPaymentFormId();
         String transactionId = bookingConfirmationCommand.getTransactionId();
-        BookingConfirmationDetails bookingConfirmationDetails = getBookingConfirmationDetails(bookingId);
+        BookingConfirmationDetails bookingConfirmationDetails = createBookingConfirmationDetails(bookingId);
         checkBookingValidity(bookingConfirmationDetails);
         checkPaymentValidity(paymentFormId);
         PaymentDetails paymentDetails = createPaymentFormDetails(bookingId, paymentFormId, transactionId);
@@ -128,7 +128,7 @@ public class BookingsServiceImpl implements BookingsService {
         return roomPrice.add(additionalServicesPrice).multiply(new BigDecimal(period));
     }
 
-    private BookingConfirmationDetails getBookingConfirmationDetails(Integer bookingId) {
+    private BookingConfirmationDetails createBookingConfirmationDetails(Integer bookingId) {
         return bookingsRepository.getBookingConfirmationDetails(bookingId).orElseThrow(BookingNotFoundException::new);
     }
 
