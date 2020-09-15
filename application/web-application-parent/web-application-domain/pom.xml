@@ -20,6 +20,10 @@
             <artifactId>spring-context</artifactId>
         </dependency>
         <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-tx</artifactId>
+        </dependency>
+        <dependency>
             <groupId>pl.piasta.hotel</groupId>
             <artifactId>web-application-domain-model</artifactId>
         </dependency>

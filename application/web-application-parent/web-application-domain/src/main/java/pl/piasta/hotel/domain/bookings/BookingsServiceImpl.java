@@ -2,6 +2,7 @@ package pl.piasta.hotel.domain.bookings;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import pl.piasta.hotel.domain.additionalservices.AdditionalServicesRepository;
 import pl.piasta.hotel.domain.customers.CustomersRepository;
 import pl.piasta.hotel.domain.model.additionalservices.AdditionalService;
@@ -47,6 +48,7 @@ public class BookingsServiceImpl implements BookingsService {
     private final PaymentsRepository paymentsRepository;
 
     @Override
+    @Transactional
     public Booking bookAndGetSummary(BookingCommand bookingCommand) {
         RoomDetails roomDetails = getRoomDetails(bookingCommand.getRoomId(), bookingCommand.getDateDetails());
         List<AdditionalService> additionalServicesList = getAdditionalServices(bookingCommand.getAdditionalServices());
