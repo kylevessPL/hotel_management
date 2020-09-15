@@ -60,6 +60,7 @@ public class BookingsServiceImpl implements BookingsService {
     }
 
     @Override
+    @Transactional
     public void confirmBooking(BookingConfirmationCommand bookingConfirmationCommand) {
         Integer bookingId = bookingConfirmationCommand.getBookingId();
         Integer paymentFormId = bookingConfirmationCommand.getPaymentFormId();
