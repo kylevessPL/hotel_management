@@ -48,7 +48,7 @@ public class BookingsRepositoryImpl implements BookingsRepository {
     public void saveBookingConfirmation(Integer bookingId) {
         Optional<BookingsEntity> booking = dao.findById(bookingId);
         booking.ifPresent(e -> {
-                updateEntityConfirmationStatus(e);
+                e.setConfirmed(true);
                 dao.save(e);
         });
     }
@@ -67,10 +67,6 @@ public class BookingsRepositoryImpl implements BookingsRepository {
         booking.setCustomerId(bookingDetails.getCustomerId());
         booking.setRoomId(bookingDetails.getRoomDetails().getRoomId());
         booking.setFinalPrice(bookingDetails.getFinalPrice());
-    }
-
-    void updateEntityConfirmationStatus(BookingsEntity booking) {
-        booking.setConfirmed(true);
     }
 
 }
