@@ -46,21 +46,18 @@ public class BookingsRepositoryImpl implements BookingsRepository {
     @Override
     @Transactional
     public void saveBookingConfirmation(Integer bookingId) {
-        BookingsEntity booking = dao.findById(bookingId)
-                .orElseGet(BookingsEntity::new);
-        updateEntityConfirmationStatus(booking);
-        dao.save(booking);
+        Optional<BookingsEntity> booking = dao.findById(bookingId);
+        booking.ifPresent(e -> {
+                updateEntityConfirmationStatus(e);
+                dao.save(e);
+        });
     }
 
     @Override
     @Transactional(readOnly = true)
     public Optional<BookingConfirmationDetails> getBookingConfirmationDetails(Integer bookingId) {
-        BookingConfirmationDetails bookingConfirmationDetails = null;
-        BookingsEntity bookingsEntity = dao.findById(bookingId).orElse(null);
-        if(bookingsEntity != null) {
-            bookingConfirmationDetails = bookingsEntityMapper.mapToBookingConfirmationDetails(bookingsEntity);
-        }
-        return Optional.ofNullable(bookingConfirmationDetails);
+        Optional<BookingsEntity> bookingsEntity = dao.findById(bookingId);
+        return bookingsEntityMapper.mapToBookingConfirmationDetails(bookingsEntity);
     }
 
     void updateEntity(BookingsEntity booking, BookingDetails bookingDetails) {

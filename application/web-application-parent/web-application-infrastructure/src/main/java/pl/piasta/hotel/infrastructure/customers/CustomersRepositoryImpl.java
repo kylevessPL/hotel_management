@@ -17,8 +17,7 @@ public class CustomersRepositoryImpl implements CustomersRepository {
     @Override
     @Transactional
     public Integer saveCustomerAndGetId(CustomerDetails customerDetails) {
-        CustomersEntity customer = dao.findByDocumentId(customerDetails.getDocumentId())
-                .orElseGet(CustomersEntity::new);
+        CustomersEntity customer = dao.findByDocumentId(customerDetails.getDocumentId()).orElseGet(CustomersEntity::new);
         updateEntity(customer, customerDetails);
         return dao.save(customer).getId();
     }

@@ -70,12 +70,8 @@ public class RoomsRepositoryImpl implements RoomsRepository {
     @Override
     @Transactional(readOnly = true)
     public Optional<RoomDetails> getRoomDetails(Integer roomId) {
-        RoomDetails roomDetails = null;
-        RoomsEntity roomsEntity = roomsDao.findById(roomId).orElse(null);
-        if(roomsEntity != null) {
-            roomDetails = roomsEntityMapper.mapToRoomDetails(roomsEntity);
-        }
-        return Optional.ofNullable(roomDetails);
+        Optional<RoomsEntity> roomsEntity = roomsDao.findById(roomId);
+        return roomsEntityMapper.mapToRoomDetails(roomsEntity);
     }
 
 }
