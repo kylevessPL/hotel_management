@@ -2,7 +2,6 @@ package pl.piasta.hotel.api.bookings;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -43,10 +42,9 @@ public class BookingsServiceController {
     }
 
     @PostMapping(value = "/hotel/services/bookings/confirm")
-    public ResponseEntity<String> confirmBooking(@RequestBody @Valid BookingConfirmationRequest bookingConfirmationRequest) {
+    public void confirmBooking(@RequestBody @Valid BookingConfirmationRequest bookingConfirmationRequest) {
         try {
             bookingsService.confirmBooking(bookingMapper.mapToCommand(bookingConfirmationRequest));
-            return ResponseEntity.ok("Booking id " + bookingConfirmationRequest.getBookingId() + " confirmed");
         } catch (BookingNotFoundException | PaymentFormNotFoundException | BookingAlreadyConfirmedException | BookingExpiredException ex) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, ex.getLocalizedMessage(), ex);
         }
