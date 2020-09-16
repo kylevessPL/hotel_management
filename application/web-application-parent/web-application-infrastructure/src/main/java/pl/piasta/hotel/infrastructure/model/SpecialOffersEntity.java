@@ -5,7 +5,10 @@ import lombok.Setter;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 @Entity
@@ -15,6 +18,8 @@ import javax.persistence.Table;
 public class SpecialOffersEntity {
 
     @Id @Column(name = "id", nullable = false)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "special_offers_generator")
+    @SequenceGenerator(name="special_offers_generator", sequenceName = "seq_special_offers", allocationSize = 1)
     private Integer id;
     @Column(name = "discount")
     private Integer discount;

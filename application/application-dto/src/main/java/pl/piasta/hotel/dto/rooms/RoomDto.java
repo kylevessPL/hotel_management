@@ -17,8 +17,8 @@ import java.util.List;
 @JsonPropertyOrder({ "id", "bedAmount", "standardPrice", "amenities" })
 public class RoomDto {
 
-    private int id;
-    private int bedAmount;
+    private Integer id;
+    private Integer bedAmount;
     private BigDecimal standardPrice;
     private List<AmenityDto> amenities;
 

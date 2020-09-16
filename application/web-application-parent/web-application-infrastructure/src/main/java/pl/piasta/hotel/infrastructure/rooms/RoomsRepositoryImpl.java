@@ -2,7 +2,9 @@ package pl.piasta.hotel.infrastructure.rooms;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 import pl.piasta.hotel.domain.model.rooms.Room;
+import pl.piasta.hotel.domain.model.rooms.utils.RoomDetails;
 import pl.piasta.hotel.domain.rooms.RoomsRepository;
 import pl.piasta.hotel.infrastructure.dao.AmenitiesEntityDao;
 import pl.piasta.hotel.infrastructure.dao.BookingsEntityDao;
@@ -10,6 +12,7 @@ import pl.piasta.hotel.infrastructure.dao.RoomAmenitiesEntityDao;
 import pl.piasta.hotel.infrastructure.dao.RoomsEntityDao;
 import pl.piasta.hotel.infrastructure.mapper.RoomsEntityMapper;
 import pl.piasta.hotel.infrastructure.model.AmenitiesEntity;
+import pl.piasta.hotel.infrastructure.model.BookingsEntity;
 import pl.piasta.hotel.infrastructure.model.RoomAmenitiesEntity;
 import pl.piasta.hotel.infrastructure.model.RoomsEntity;
 
@@ -17,6 +20,7 @@ import java.sql.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Repository
@@ -30,8 +34,12 @@ public class RoomsRepositoryImpl implements RoomsRepository {
     private final AmenitiesEntityDao amenitiesDao;
 
     @Override
+    @Transactional(readOnly = true)
     public List<Room> getAllAvailableRoomsWithinDateRange(Date startDate, Date endDate) {
-        List<Integer> bookedRooms = bookingsDao.findRoomIdBetweenDates(startDate, endDate);
+        List<Integer> bookedRooms = bookingsDao.findByStartDateLessThanEqualAndEndDateGreaterThanEqual(startDate, endDate)
+                .stream()
+                .map(BookingsEntity::getRoomId)
+                .collect(Collectors.toList());
         List<RoomsEntity> rooms = bookedRooms.isEmpty() ? roomsDao.findAll() : roomsDao.findByIdNotIn(bookedRooms);
         List<RoomAmenitiesEntity> roomAmenities = roomAmenitiesDao.findAllByRoomIdIn(rooms
                 .stream()
@@ -57,6 +65,17 @@ public class RoomsRepositoryImpl implements RoomsRepository {
                     .collect(Collectors.toList()));
         });
         return roomsEntityMapper.mapToRoom(rooms, roomAmenitiesMap);
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public Optional<RoomDetails> getRoomDetails(Integer roomId) {
+        RoomDetails roomDetails = null;
+        RoomsEntity roomsEntity = roomsDao.findById(roomId).orElse(null);
+        if(roomsEntity != null) {
+            roomDetails = roomsEntityMapper.mapToRoomDetails(roomsEntity);
+        }
+        return Optional.ofNullable(roomDetails);
     }
 
 }

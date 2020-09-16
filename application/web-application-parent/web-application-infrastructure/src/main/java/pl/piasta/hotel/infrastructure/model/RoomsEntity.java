@@ -5,7 +5,10 @@ import lombok.Setter;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import java.math.BigDecimal;
 
@@ -16,6 +19,8 @@ import java.math.BigDecimal;
 public class RoomsEntity {
 
     @Id @Column(name = "id", nullable = false)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "rooms_generator")
+    @SequenceGenerator(name="rooms_generator", sequenceName = "seq_rooms", allocationSize = 1)
     private Integer id;
     @Column(name = "room_number", nullable = false, length = 10)
     private String roomNumber;

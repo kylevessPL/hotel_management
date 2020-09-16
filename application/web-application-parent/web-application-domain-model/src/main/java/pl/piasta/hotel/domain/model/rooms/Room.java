@@ -13,8 +13,8 @@ import java.util.List;
 @Setter
 public class Room {
 
-    private final int id;
-    private final int bedAmount;
+    private final Integer id;
+    private final Integer bedAmount;
     private final BigDecimal standardPrice;
     private final List<Amenity> amenities;
 

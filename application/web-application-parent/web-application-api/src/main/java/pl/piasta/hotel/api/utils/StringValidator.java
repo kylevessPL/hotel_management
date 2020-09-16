@@ -1,4 +1,4 @@
-package pl.piasta.hotel.api.rooms.utils;
+package pl.piasta.hotel.api.utils;
 
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
@@ -16,10 +16,7 @@ public class StringValidator implements ConstraintValidator<ValidateString, Stri
 
     @Override
     public boolean isValid(final String value, final ConstraintValidatorContext context) {
-        if (value != null) {
-            return acceptedValues.contains(value);
-        }
-        return false;
+        return value != null && acceptedValues.stream().anyMatch(acceptedValue -> acceptedValue.equalsIgnoreCase(value));
     }
 
 }

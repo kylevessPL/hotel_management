@@ -3,6 +3,7 @@ package pl.piasta.hotel.infrastructure.mapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import pl.piasta.hotel.domain.model.rooms.Room;
+import pl.piasta.hotel.domain.model.rooms.utils.RoomDetails;
 import pl.piasta.hotel.infrastructure.model.AmenitiesEntity;
 import pl.piasta.hotel.infrastructure.model.RoomsEntity;
 
@@ -24,6 +25,13 @@ public class RoomsEntityMapper {
                         entity.getStandardPrice(),
                         amenitiesEntityMapper.mapToAmenity(roomAmenitiesMap.get(entity.getId()))))
                 .collect(Collectors.toList());
+    }
+
+    public RoomDetails mapToRoomDetails(RoomsEntity rooms) {
+         return new RoomDetails(
+                 rooms.getId(),
+                 rooms.getStandardPrice()
+         );
     }
 
 }

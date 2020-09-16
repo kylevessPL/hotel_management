@@ -1,0 +1,49 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+        xmlns:pro="http://www.liquibase.org/xml/ns/pro"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/pro http://www.liquibase.org/xml/ns/pro/liquibase-pro-4.0.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.0.xsd">
+
+    <changeSet author="geekon" id="7.0-1">
+        <modifyDataType schemaName="public" tableName="payment_forms"
+                        columnName="name" newDataType="VARCHAR(20)"/>
+    </changeSet>
+    <changeSet author="geekon" id="7.0-2">
+        <insert schemaName="public" tableName="payment_forms">
+            <column name="name" value="Cash"/>
+        </insert>
+    </changeSet>
+    <changeSet author="geekon" id="7.0-3">
+        <insert schemaName="public" tableName="payment_forms">
+            <column name="name" value="Check"/>
+        </insert>
+    </changeSet>
+    <changeSet author="geekon" id="7.0-4">
+        <insert schemaName="public" tableName="payment_forms">
+            <column name="name" value="Credit Card"/>
+        </insert>
+    </changeSet>
+    <changeSet author="geekon" id="7.0-5">
+        <insert schemaName="public" tableName="payment_forms">
+            <column name="name" value="PayPal"/>
+        </insert>
+    </changeSet>
+    <changeSet author="geekon" id="7.0-6">
+        <insert schemaName="public" tableName="payment_forms">
+            <column name="name" value="Western Union"/>
+        </insert>
+    </changeSet>
+    <changeSet author="geekon" id="7.0-7">
+        <modifyDataType schemaName="public" tableName="customers"
+                        columnName="house_number" newDataType="VARCHAR(10)"/>
+    </changeSet>
+    <changeSet author="geekon" id="7.0-8">
+        <addColumn schemaName="public" tableName="bookings">
+            <column name="confirmed" type="BOOLEAN" defaultValueBoolean="false">
+                <constraints nullable="false"/>
+            </column>
+        </addColumn>
+    </changeSet>
+</databaseChangeLog>
