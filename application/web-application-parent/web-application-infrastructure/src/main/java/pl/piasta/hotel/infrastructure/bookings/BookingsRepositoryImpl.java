@@ -57,7 +57,10 @@ public class BookingsRepositoryImpl implements BookingsRepository {
     @Transactional(readOnly = true)
     public Optional<BookingConfirmationDetails> getBookingConfirmationDetails(Integer bookingId) {
         Optional<BookingsEntity> bookingsEntity = dao.findById(bookingId);
-        return bookingsEntityMapper.mapToBookingConfirmationDetails(bookingsEntity);
+        if(bookingsEntity.isPresent()) {
+            return bookingsEntityMapper.mapToBookingConfirmationDetails(bookingsEntity);
+        }
+        return Optional.empty();
     }
 
     void updateEntity(BookingsEntity booking, BookingDetails bookingDetails) {
