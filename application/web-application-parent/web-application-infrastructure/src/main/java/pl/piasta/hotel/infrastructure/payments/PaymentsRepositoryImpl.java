@@ -14,14 +14,14 @@ import java.sql.Timestamp;
 @RequiredArgsConstructor
 public class PaymentsRepositoryImpl implements PaymentsRepository {
 
-    private final PaymentsEntityDao dao;
+    private final PaymentsEntityDao paymentsDao;
 
     @Override
     @Transactional
     public void savePayment(PaymentDetails paymentDetails) {
         PaymentsEntity payment = new PaymentsEntity();
         updateEntity(payment, paymentDetails);
-        dao.save(payment);
+        paymentsDao.save(payment);
     }
 
     void updateEntity(PaymentsEntity payment, PaymentDetails paymentDetails) {

@@ -6,18 +6,16 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import pl.piasta.hotel.dto.amenities.AmenityDto;
 
-import java.math.BigDecimal;
 import java.util.List;
 
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
 @Setter
-public class RoomDto {
+public class RoomInfoDto {
 
-    private Integer id;
+    private String roomNumber;
     private Integer bedAmount;
     private List<AmenityDto> amenities;
-    private BigDecimal standardPrice;
 
 }

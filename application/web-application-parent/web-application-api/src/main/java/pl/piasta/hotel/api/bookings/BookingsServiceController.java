@@ -2,8 +2,10 @@ package pl.piasta.hotel.api.bookings;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 import pl.piasta.hotel.api.bookings.mapper.BookingMapper;
@@ -18,6 +20,7 @@ import pl.piasta.hotel.domain.model.bookings.utils.PaymentFormNotFoundException;
 import pl.piasta.hotel.domain.model.bookings.utils.RoomNotAvailableException;
 import pl.piasta.hotel.domain.model.bookings.utils.RoomNotFoundException;
 import pl.piasta.hotel.dto.bookings.BookingDto;
+import pl.piasta.hotel.dto.bookings.BookingInfoDto;
 
 import javax.validation.Valid;
 
@@ -46,6 +49,15 @@ public class BookingsServiceController {
         try {
             bookingsService.confirmBooking(bookingMapper.mapToCommand(bookingConfirmationRequest));
         } catch (BookingNotFoundException | PaymentFormNotFoundException | BookingAlreadyConfirmedException | BookingExpiredException ex) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, ex.getLocalizedMessage(), ex);
+        }
+    }
+
+    @GetMapping(value = "/hotel/services/bookings")
+    public BookingInfoDto getBookingInfo(@RequestParam Integer id) {
+        try {
+            return bookingMapper.mapToDto(bookingsService.getBookingInfo(id));
+        } catch (BookingNotFoundException ex) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, ex.getLocalizedMessage(), ex);
         }
     }

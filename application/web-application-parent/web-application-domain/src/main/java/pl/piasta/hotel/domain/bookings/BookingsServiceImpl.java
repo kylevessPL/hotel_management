@@ -6,8 +6,10 @@ import org.springframework.transaction.annotation.Transactional;
 import pl.piasta.hotel.domain.additionalservices.AdditionalServicesRepository;
 import pl.piasta.hotel.domain.customers.CustomersRepository;
 import pl.piasta.hotel.domain.model.additionalservices.AdditionalService;
+import pl.piasta.hotel.domain.model.amenities.Amenity;
 import pl.piasta.hotel.domain.model.bookings.Booking;
 import pl.piasta.hotel.domain.model.bookings.BookingDate;
+import pl.piasta.hotel.domain.model.bookings.BookingInfo;
 import pl.piasta.hotel.domain.model.bookings.utils.AdditionalServiceNotFoundException;
 import pl.piasta.hotel.domain.model.bookings.utils.BookingAlreadyConfirmedException;
 import pl.piasta.hotel.domain.model.bookings.utils.BookingCommand;
@@ -15,20 +17,25 @@ import pl.piasta.hotel.domain.model.bookings.utils.BookingConfirmationCommand;
 import pl.piasta.hotel.domain.model.bookings.utils.BookingConfirmationDetails;
 import pl.piasta.hotel.domain.model.bookings.utils.BookingDetails;
 import pl.piasta.hotel.domain.model.bookings.utils.BookingExpiredException;
+import pl.piasta.hotel.domain.model.bookings.utils.BookingFinalDetails;
 import pl.piasta.hotel.domain.model.bookings.utils.BookingNotFoundException;
 import pl.piasta.hotel.domain.model.bookings.utils.PaymentFormNotFoundException;
+import pl.piasta.hotel.domain.model.bookings.utils.PaymentStatus;
 import pl.piasta.hotel.domain.model.bookings.utils.RoomNotAvailableException;
 import pl.piasta.hotel.domain.model.bookings.utils.RoomNotFoundException;
 import pl.piasta.hotel.domain.model.customers.utils.CustomerDetails;
 import pl.piasta.hotel.domain.model.paymentforms.PaymentForm;
 import pl.piasta.hotel.domain.model.payments.utils.PaymentDetails;
+import pl.piasta.hotel.domain.model.rooms.RoomInfo;
 import pl.piasta.hotel.domain.model.rooms.utils.DateDetails;
 import pl.piasta.hotel.domain.model.rooms.utils.RoomDetails;
+import pl.piasta.hotel.domain.model.rooms.utils.RoomFinalDetails;
 import pl.piasta.hotel.domain.paymentforms.PaymentFormsRepository;
 import pl.piasta.hotel.domain.payments.PaymentsRepository;
 import pl.piasta.hotel.domain.rooms.RoomsRepository;
 
 import java.math.BigDecimal;
+import java.sql.Date;
 import java.time.LocalDate;
 import java.time.Period;
 import java.time.ZoneOffset;
@@ -56,7 +63,7 @@ public class BookingsServiceImpl implements BookingsService {
         BigDecimal finalPrice = calculateFinalPrice(roomDetails, additionalServicesList, bookingCommand.getDateDetails());
         Integer customerId = saveCustomerAndGetId(bookingCommand.getCustomerDetails());
         Integer bookingId = saveBookingAndGetId(bookingCommand.getDateDetails(), roomDetails, finalPrice, customerId);
-        return getBookingSummary(paymentFormList, finalPrice, bookingId);
+        return createBookingSummary(paymentFormList, finalPrice, bookingId);
     }
 
     @Override
@@ -73,7 +80,49 @@ public class BookingsServiceImpl implements BookingsService {
         saveBookingConfirmation(bookingId);
     }
 
-    private Booking getBookingSummary(List<PaymentForm> paymentFormList, BigDecimal finalPrice, Integer bookingId) {
+    @Override
+    @Transactional(readOnly = true)
+    public BookingInfo getBookingInfo(Integer id) {
+        BookingFinalDetails bookingFinalDetails = getBookingFinalDetails(id);
+        RoomFinalDetails roomFinalDetails = getRoomFinalDetails(bookingFinalDetails.getRoomId());
+        PaymentStatus paymentStatus;
+        paymentStatus = createPaymentStatus(bookingFinalDetails);
+        return createBookingInfo(bookingFinalDetails, roomFinalDetails, paymentStatus);
+    }
+
+    private BookingInfo createBookingInfo(BookingFinalDetails bookingFinalDetails, RoomFinalDetails roomFinalDetails, PaymentStatus paymentStatus) {
+        Date startDate = bookingFinalDetails.getBookingDate().getStartDate();
+        Date endDate = bookingFinalDetails.getBookingDate().getEndDate();
+        RoomInfo roomInfo = createRoomInfo(roomFinalDetails);
+        return new BookingInfo(startDate, endDate, roomInfo, paymentStatus);
+    }
+
+    private RoomInfo createRoomInfo(RoomFinalDetails roomFinalDetails) {
+        String roomNumber = roomFinalDetails.getRoomNumber();
+        Integer bedAmount = roomFinalDetails.getBedAmount();
+        List<Amenity> amenities = roomFinalDetails.getAmenities();
+        return new RoomInfo(roomNumber, bedAmount, amenities);
+    }
+
+    private PaymentStatus createPaymentStatus(BookingFinalDetails bookingFinalDetails) {
+        PaymentStatus paymentStatus;
+        if(bookingFinalDetails.isConfirmed()) {
+            paymentStatus = PaymentStatus.PAYED;
+        } else {
+            paymentStatus = PaymentStatus.UPPON_ARRIVAL;
+        }
+        return paymentStatus;
+    }
+
+    private RoomFinalDetails getRoomFinalDetails(Integer id) {
+        return roomsRepository.getRoomFinalDetails(id);
+    }
+
+    private BookingFinalDetails getBookingFinalDetails(Integer id) {
+        return bookingsRepository.getBookingFinalDetails(id).orElseThrow(BookingNotFoundException::new);
+    }
+
+    private Booking createBookingSummary(List<PaymentForm> paymentFormList, BigDecimal finalPrice, Integer bookingId) {
         return new Booking(bookingId, finalPrice, paymentFormList);
     }
 

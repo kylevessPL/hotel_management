@@ -6,6 +6,7 @@ import org.springframework.transaction.annotation.Transactional;
 import pl.piasta.hotel.domain.bookings.BookingsRepository;
 import pl.piasta.hotel.domain.model.bookings.utils.BookingConfirmationDetails;
 import pl.piasta.hotel.domain.model.bookings.utils.BookingDetails;
+import pl.piasta.hotel.domain.model.bookings.utils.BookingFinalDetails;
 import pl.piasta.hotel.domain.model.rooms.utils.DateDetails;
 import pl.piasta.hotel.infrastructure.dao.BookingsEntityDao;
 import pl.piasta.hotel.infrastructure.mapper.BookingsEntityMapper;
@@ -59,6 +60,16 @@ public class BookingsRepositoryImpl implements BookingsRepository {
         Optional<BookingsEntity> bookingsEntity = dao.findById(bookingId);
         if(bookingsEntity.isPresent()) {
             return bookingsEntityMapper.mapToBookingConfirmationDetails(bookingsEntity);
+        }
+        return Optional.empty();
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public Optional<BookingFinalDetails> getBookingFinalDetails(Integer id) {
+        Optional<BookingsEntity> bookingsEntity = dao.findById(id);
+        if(bookingsEntity.isPresent()) {
+            return bookingsEntityMapper.mapToBookingFinalDetails(bookingsEntity);
         }
         return Optional.empty();
     }
