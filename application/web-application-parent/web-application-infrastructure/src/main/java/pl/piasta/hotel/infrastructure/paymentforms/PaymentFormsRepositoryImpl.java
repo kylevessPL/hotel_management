@@ -23,4 +23,10 @@ public class PaymentFormsRepositoryImpl implements PaymentFormsRepository {
         return paymentFormsEntityMapper.mapToPaymentForm(dao.findAll());
     }
 
+    @Override
+    @Transactional(readOnly = true)
+    public boolean paymentFormExists(Integer paymentFormId) {
+        return dao.existsById(paymentFormId);
+    }
+
 }
