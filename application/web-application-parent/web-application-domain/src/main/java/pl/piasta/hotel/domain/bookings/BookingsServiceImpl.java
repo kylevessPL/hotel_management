@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import pl.piasta.hotel.domain.additionalservices.AdditionalServicesRepository;
+import pl.piasta.hotel.domain.bookingsservices.BookingsServicesRepository;
 import pl.piasta.hotel.domain.customers.CustomersRepository;
 import pl.piasta.hotel.domain.model.additionalservices.AdditionalService;
 import pl.piasta.hotel.domain.model.amenities.Amenity;
@@ -49,6 +50,7 @@ public class BookingsServiceImpl implements BookingsService {
 
     private final BookingsRepository bookingsRepository;
     private final AdditionalServicesRepository additionalServicesRepository;
+    private final BookingsServicesRepository bookingsServicesRepository;
     private final CustomersRepository customersRepository;
     private final RoomsRepository roomsRepository;
     private final PaymentFormsRepository paymentFormsRepository;
@@ -63,6 +65,7 @@ public class BookingsServiceImpl implements BookingsService {
         BigDecimal finalPrice = calculateFinalPrice(roomDetails, additionalServicesList, bookingCommand.getDateDetails());
         Integer customerId = saveCustomerAndGetId(bookingCommand.getCustomerDetails());
         Integer bookingId = saveBookingAndGetId(bookingCommand.getDateDetails(), roomDetails, finalPrice, customerId);
+        saveBookingServices(bookingId, additionalServicesList);
         return createBookingSummary(paymentFormList, finalPrice, bookingId);
     }
 
@@ -132,6 +135,14 @@ public class BookingsServiceImpl implements BookingsService {
     private Integer saveBookingAndGetId(DateDetails dateDetails, RoomDetails roomDetails, BigDecimal finalPrice, Integer customerId) {
         BookingDetails bookingDetails = createBookingDetails(dateDetails, roomDetails, finalPrice, customerId);
         return bookingsRepository.saveBookingAndGetId(bookingDetails);
+    }
+
+    private void saveBookingServices(Integer bookingId, List<AdditionalService> additionalServicesList) {
+        List<Integer> additionalServices = additionalServicesList
+                .stream()
+                .map(AdditionalService::getId)
+                .collect(Collectors.toList());
+        bookingsServicesRepository.saveBookingServices(bookingId, additionalServices);
     }
 
     private BookingDetails createBookingDetails(DateDetails dateDetails, RoomDetails roomDetails, BigDecimal finalPrice, Integer customerId) {
