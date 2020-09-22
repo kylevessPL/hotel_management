@@ -85,8 +85,7 @@ public class BookingsServiceImpl implements BookingsService {
     public BookingInfo getBookingInfo(Integer id) {
         BookingFinalDetails bookingFinalDetails = getBookingFinalDetails(id);
         RoomFinalDetails roomFinalDetails = getRoomFinalDetails(bookingFinalDetails.getRoomId());
-        PaymentStatus paymentStatus;
-        paymentStatus = createPaymentStatus(bookingFinalDetails);
+        PaymentStatus paymentStatus = createPaymentStatus(bookingFinalDetails);
         return createBookingInfo(bookingFinalDetails, roomFinalDetails, paymentStatus);
     }
 
