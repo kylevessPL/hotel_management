@@ -13,16 +13,16 @@ import java.io.Serializable;
 @NoArgsConstructor
 @Getter
 @Setter
-public final class BookingConfirmationRequest implements Serializable {
+public class BookingConfirmationRequest implements Serializable {
 
     @NotNull
     @Min(1)
-    Integer bookingId;
+    private Integer bookingId;
     @NotNull
     @Min(1)
-    Integer paymentFormId;
+    private Integer paymentFormId;
     @NotBlank
     @Pattern(regexp = "^[a-z0-9 \\-]{36}$")
-    String transactionId;
+    private String transactionId;
 
 }

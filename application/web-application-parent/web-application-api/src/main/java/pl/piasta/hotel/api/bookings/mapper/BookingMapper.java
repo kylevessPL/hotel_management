@@ -12,7 +12,7 @@ import pl.piasta.hotel.domain.model.bookings.utils.BookingConfirmationCommand;
 import pl.piasta.hotel.dto.bookings.BookingDto;
 import pl.piasta.hotel.dto.bookings.BookingInfoDto;
 
-@Mapper(uses = {PaymentFormMapper.class, BookingCriteriaMapper.class, RoomMapper.class}, componentModel = "spring")
+@Mapper(uses = {PaymentFormMapper.class, RoomMapper.class}, componentModel = "spring")
 public interface BookingMapper {
 
     BookingDto mapToDto(Booking booking);
