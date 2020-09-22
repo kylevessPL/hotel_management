@@ -1,17 +1,17 @@
 package pl.piasta.hotel.dto.bookings.utils;
 
 import lombok.Getter;
-import lombok.RequiredArgsConstructor;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.sql.Date;
 
-@RequiredArgsConstructor
+@NoArgsConstructor
 @Getter
 @Setter
 public class BookingPeriod {
 
-    Date startDate;
-    Date endDate;
+    private Date startDate;
+    private Date endDate;
 
 }
