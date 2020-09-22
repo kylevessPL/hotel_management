@@ -13,7 +13,7 @@ import java.time.LocalDate;
 @NoArgsConstructor
 @Getter
 @Setter
-public class RoomCriteria {
+public class RoomQuery {
 
     @NotNull
     @Future
