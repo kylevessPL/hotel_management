@@ -5,6 +5,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 import pl.piasta.hotel.domain.model.rooms.Room;
 import pl.piasta.hotel.domain.model.rooms.utils.RoomDetails;
+import pl.piasta.hotel.domain.model.rooms.utils.RoomFinalDetails;
 import pl.piasta.hotel.domain.rooms.RoomsRepository;
 import pl.piasta.hotel.infrastructure.dao.AmenitiesEntityDao;
 import pl.piasta.hotel.infrastructure.dao.BookingsEntityDao;
@@ -75,6 +76,18 @@ public class RoomsRepositoryImpl implements RoomsRepository {
             return roomsEntityMapper.mapToRoomDetails(roomsEntity);
         }
         return Optional.empty();
+    }
+
+    @Override
+    public RoomFinalDetails getRoomFinalDetails(Integer roomId) {
+        RoomsEntity room = roomsDao.getOne(roomId);
+        List<RoomAmenitiesEntity> roomAmenities = roomAmenitiesDao.findAllByRoomId(room.getId());
+        List<AmenitiesEntity> amenities = amenitiesDao.findAllByIdIn(roomAmenities
+                .stream()
+                .map(RoomAmenitiesEntity::getAmenityId)
+                .distinct()
+                .collect(Collectors.toList()));
+        return roomsEntityMapper.mapToRoomFinalDetails(room, amenities);
     }
 
 }

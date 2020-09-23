@@ -2,16 +2,18 @@ package pl.piasta.hotel.domain.model.bookings;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
+import pl.piasta.hotel.domain.model.bookings.utils.PaymentStatus;
+import pl.piasta.hotel.domain.model.rooms.RoomInfo;
 
 import java.sql.Date;
-import java.sql.Timestamp;
 
 @RequiredArgsConstructor
 @Getter
-public final class BookingDate {
+public final class BookingInfo {
 
-    private final Timestamp bookDate;
     private final Date startDate;
     private final Date endDate;
+    private final RoomInfo room;
+    private final PaymentStatus paymentStatus;
 
 }

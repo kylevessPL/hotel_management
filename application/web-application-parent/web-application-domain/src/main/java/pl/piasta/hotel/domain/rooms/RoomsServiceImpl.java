@@ -4,10 +4,10 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import pl.piasta.hotel.domain.model.rooms.Room;
 import pl.piasta.hotel.domain.model.rooms.utils.DateDetails;
+import pl.piasta.hotel.domain.model.rooms.utils.RoomCommand;
 import pl.piasta.hotel.domain.model.rooms.utils.SortDetails;
 import pl.piasta.hotel.domain.model.rooms.utils.SortDir;
 
-import java.sql.Date;
 import java.util.Comparator;
 import java.util.List;
 
@@ -18,10 +18,10 @@ public class RoomsServiceImpl implements RoomsService {
     private final RoomsRepository repository;
 
     @Override
-    public List<Room> getAllAvailableRoomsWithinDateRange(DateDetails dateDetails, SortDetails sortDetails) {
-        Date startDate = dateDetails.getStartDate();
-        Date endDate = dateDetails.getEndDate();
-        List<Room> rooms = repository.getAllAvailableRoomsWithinDateRange(startDate, endDate);
+    public List<Room> getAllAvailableRoomsWithinDateRange(RoomCommand roomCommand) {
+        DateDetails dateDetails = roomCommand.getDateDetails();
+        SortDetails sortDetails = roomCommand.getSortDetails();
+        List<Room> rooms = repository.getAllAvailableRoomsWithinDateRange(dateDetails.getStartDate(), dateDetails.getEndDate());
         sortRooms(rooms, sortDetails);
         return rooms;
     }

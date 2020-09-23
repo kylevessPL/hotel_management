@@ -6,9 +6,10 @@ import pl.piasta.hotel.domain.model.bookings.BookingDate;
 
 @RequiredArgsConstructor
 @Getter
-public final class BookingConfirmationDetails {
+public final class BookingFinalDetails {
 
     private final BookingDate bookingDate;
+    private final Integer roomId;
     private final boolean confirmed;
     
 }
