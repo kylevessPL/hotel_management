@@ -22,13 +22,13 @@ public class AdditionalServicesRepositoryImpl implements AdditionalServicesRepos
 
     @Override
     @Transactional(readOnly = true)
-    public List<AdditionalService> getAllAdditionalServices() {
+    public List<AdditionalService> getAdditionalServices() {
         return additionalServicesMapper.mapToAdditionalService(dao.findAll());
     }
 
     @Override
     @Transactional(readOnly = true)
-    public Optional<List<AdditionalService>> getAllAdditionalServices(List<Integer> additionalServicesList) {
+    public Optional<List<AdditionalService>> getAdditionalServices(List<Integer> additionalServicesList) {
         List<AdditionalService> additionalServices = null;
         List<AdditionalServicesEntity> additionalServicesEntities = dao.findAllByIdIn(additionalServicesList);
         if(containsAllFromList(additionalServicesEntities, additionalServicesList)) {

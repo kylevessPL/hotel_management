@@ -14,7 +14,7 @@ public class AdditionalServicesServiceImpl implements AdditionalServicesService 
 
     @Override
     public List<AdditionalService> getAllAdditionalServices() {
-        return repository.getAllAdditionalServices();
+        return repository.getAdditionalServices();
     }
 
 }

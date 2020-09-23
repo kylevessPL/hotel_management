@@ -4,9 +4,11 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 import pl.piasta.hotel.domain.bookings.BookingsRepository;
+import pl.piasta.hotel.domain.model.bookings.utils.BookingCancellationDetails;
 import pl.piasta.hotel.domain.model.bookings.utils.BookingConfirmationDetails;
 import pl.piasta.hotel.domain.model.bookings.utils.BookingDetails;
 import pl.piasta.hotel.domain.model.bookings.utils.BookingFinalDetails;
+import pl.piasta.hotel.domain.model.bookings.utils.BookingStatus;
 import pl.piasta.hotel.domain.model.rooms.utils.DateDetails;
 import pl.piasta.hotel.infrastructure.dao.BookingsEntityDao;
 import pl.piasta.hotel.infrastructure.mapper.BookingsEntityMapper;
@@ -47,11 +49,17 @@ public class BookingsRepositoryImpl implements BookingsRepository {
     @Override
     @Transactional
     public void saveBookingConfirmation(Integer bookingId) {
-        Optional<BookingsEntity> booking = dao.findById(bookingId);
-        booking.ifPresent(e -> {
-                e.setConfirmed(true);
-                dao.save(e);
-        });
+        BookingsEntity booking = dao.getOne(bookingId);
+        booking.setStatus(BookingStatus.CONFIRMED);
+        dao.save(booking);
+    }
+
+    @Override
+    @Transactional
+    public void cancelBooking(Integer bookingId) {
+        BookingsEntity booking = dao.getOne(bookingId);
+        booking.setStatus(BookingStatus.CANCELLED);
+        dao.save(booking);
     }
 
     @Override
@@ -66,10 +74,20 @@ public class BookingsRepositoryImpl implements BookingsRepository {
 
     @Override
     @Transactional(readOnly = true)
-    public Optional<BookingFinalDetails> getBookingFinalDetails(Integer id) {
-        Optional<BookingsEntity> bookingsEntity = dao.findById(id);
+    public Optional<BookingFinalDetails> getBookingFinalDetails(Integer bookingId) {
+        Optional<BookingsEntity> bookingsEntity = dao.findById(bookingId);
         if(bookingsEntity.isPresent()) {
             return bookingsEntityMapper.mapToBookingFinalDetails(bookingsEntity);
+        }
+        return Optional.empty();
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public Optional<BookingCancellationDetails> getBookingCancellationDetails(Integer bookingId) {
+        Optional<BookingsEntity> bookingsEntity = dao.findById(bookingId);
+        if(bookingsEntity.isPresent()) {
+            return bookingsEntityMapper.mapToBookingCancellationDetails(bookingsEntity);
         }
         return Optional.empty();
     }

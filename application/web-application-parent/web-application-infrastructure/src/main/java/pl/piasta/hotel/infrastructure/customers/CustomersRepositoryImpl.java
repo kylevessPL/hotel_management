@@ -22,6 +22,12 @@ public class CustomersRepositoryImpl implements CustomersRepository {
         return dao.save(customer).getId();
     }
 
+    @Override
+    @Transactional(readOnly = true)
+    public String getCustomerDocumentId(Integer customerId) {
+        return dao.getOne(customerId).getDocumentId();
+    }
+
     void updateEntity(CustomersEntity customer, CustomerDetails customerDetails) {
         customer.setFirstName(customerDetails.getFirstName());
         customer.setLastName(customerDetails.getLastName());

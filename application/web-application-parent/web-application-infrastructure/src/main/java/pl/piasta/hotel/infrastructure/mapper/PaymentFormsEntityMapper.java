@@ -16,4 +16,8 @@ public class PaymentFormsEntityMapper {
                 .collect(Collectors.toList());
     }
 
+    public PaymentForm mapToPaymentForm(PaymentFormsEntity paymentForm) {
+        return new PaymentForm(paymentForm.getName());
+    }
+
 }

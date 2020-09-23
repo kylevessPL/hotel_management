@@ -29,4 +29,10 @@ public class PaymentFormsRepositoryImpl implements PaymentFormsRepository {
         return dao.existsById(paymentFormId);
     }
 
+    @Override
+    @Transactional(readOnly = true)
+    public PaymentForm getPaymentForm(Integer paymentFormId) {
+        return paymentFormsEntityMapper.mapToPaymentForm(dao.getOne(paymentFormId));
+    }
+
 }
