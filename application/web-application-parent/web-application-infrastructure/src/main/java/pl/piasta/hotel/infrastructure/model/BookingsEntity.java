@@ -2,9 +2,12 @@ package pl.piasta.hotel.infrastructure.model;
 
 import lombok.Getter;
 import lombok.Setter;
+import pl.piasta.hotel.domain.model.bookings.utils.BookingStatus;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -38,7 +41,8 @@ public class BookingsEntity {
     private Integer offerId;
     @Column(name = "final_price", precision = 2)
     private BigDecimal finalPrice;
-    @Column(name = "confirmed", nullable = false)
-    private Boolean confirmed = false;
+    @Column(name = "status", nullable = false)
+    @Enumerated(EnumType.STRING)
+    private BookingStatus status = BookingStatus.NOT_CONFIRMED;
 
 }
