@@ -5,6 +5,7 @@ import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 import pl.piasta.hotel.api.additionalservices.mapper.AdditionalServiceMapper;
@@ -29,7 +30,7 @@ public class AdditionalServicesServiceController {
             @ApiResponse(code = 200, message = "Success"),
             @ApiResponse(code = 500, message = "Internal server error"),
     })
-    @GetMapping(value = "/hotel/services/additional-services", produces = "application/json")
+    @GetMapping(value = "/hotel/services/additional-services", produces = MediaType.APPLICATION_JSON_VALUE)
     public List<AdditionalServiceResponse> getAllAdditionalServices() {
         return additionalServiceMapper.mapToResponse(additionalServicesService.getAllAdditionalServices());
     }

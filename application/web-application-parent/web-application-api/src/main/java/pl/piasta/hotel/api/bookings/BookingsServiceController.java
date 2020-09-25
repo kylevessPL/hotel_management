@@ -7,6 +7,7 @@ import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -52,7 +53,7 @@ public class BookingsServiceController {
             @ApiResponse(code = 400, message = "Booking information not valid"),
             @ApiResponse(code = 500, message = "Internal Server Error")
     })
-    @PostMapping(value = "/hotel/services/bookings/book", produces = "application/json")
+    @PostMapping(value = "/hotel/services/bookings/book", produces = MediaType.APPLICATION_JSON_VALUE)
     public BookingResponse book(@ApiParam(value = "Request body") @RequestBody @Valid BookingRequest bookingRequest) {
         try {
             return bookingMapper.mapToResponse(bookingsService.bookAndGetSummary(
@@ -75,7 +76,7 @@ public class BookingsServiceController {
             @ApiResponse(code = 400, message = "Booking information not valid"),
             @ApiResponse(code = 500, message = "Internal Server Error")
     })
-    @PostMapping(value = "/hotel/services/bookings/confirm", produces = "application/json")
+    @PostMapping(value = "/hotel/services/bookings/confirm", produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void confirmBooking(@ApiParam(value = "Request body") @RequestBody @Valid BookingConfirmationRequest bookingConfirmationRequest) {
         try {
@@ -95,7 +96,7 @@ public class BookingsServiceController {
             @ApiResponse(code = 400, message = "Booking information not valid"),
             @ApiResponse(code = 500, message = "Internal Server Error")
     })
-    @PutMapping(value = "/hotel/services/bookings/cancel", produces = "application/json")
+    @PutMapping(value = "/hotel/services/bookings/cancel", produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void cancelBooking(@ApiParam(value = "Request body") @RequestBody @Valid BookingCancellationRequest bookingCancellationRequest) {
         try {
@@ -115,7 +116,7 @@ public class BookingsServiceController {
             @ApiResponse(code = 400, message = "Booking id not valid"),
             @ApiResponse(code = 500, message = "Internal server error")
     })
-    @GetMapping(value = "/hotel/services/bookings", produces = "application/json")
+    @GetMapping(value = "/hotel/services/bookings", produces = MediaType.APPLICATION_JSON_VALUE)
     public BookingInfoResponse getBookingInfo(@ApiParam(value = "Booking id") @RequestParam Integer id) {
         try {
             return bookingMapper.mapToResponse(bookingsService.getBookingInfo(id));

@@ -5,6 +5,7 @@ import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 import pl.piasta.hotel.api.rooms.mapper.RoomMapper;
@@ -33,7 +34,7 @@ public class RoomsServiceController {
             @ApiResponse(code = 400, message = "Parameters not valid"),
             @ApiResponse(code = 500, message = "Internal server error")
     })
-    @GetMapping(value = "/hotel/services/rooms", produces = "application/json")
+    @GetMapping(value = "/hotel/services/rooms", produces = MediaType.APPLICATION_JSON_VALUE)
     public List<RoomResponse> getAllAvailableRoomsWithinDateRange(@Valid RoomQuery roomQuery) {
         return roomMapper.mapToResponse(roomsService.getAllAvailableRoomsWithinDateRange(roomMapper.mapToCommand(roomQuery)));
     }
