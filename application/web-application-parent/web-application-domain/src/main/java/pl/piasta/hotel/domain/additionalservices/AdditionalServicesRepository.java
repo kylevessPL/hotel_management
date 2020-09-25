@@ -7,7 +7,7 @@ import java.util.Optional;
 
 public interface AdditionalServicesRepository {
 
-    List<AdditionalService> getAllAdditionalServices();
-    Optional<List<AdditionalService>> getAllAdditionalServices(List<Integer> additionalServicesList);
+    List<AdditionalService> getAdditionalServices();
+    Optional<List<AdditionalService>> getAdditionalServices(List<Integer> additionalServicesList);
 
 }

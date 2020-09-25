@@ -1,4 +1,4 @@
-package pl.piasta.hotel.dto.bookings.utils;
+package pl.piasta.hotel.domain.model.payments.utils;
 
 public enum PaymentStatus {
 

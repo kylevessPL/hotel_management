@@ -10,6 +10,6 @@ public final class BookingFinalDetails {
 
     private final BookingDate bookingDate;
     private final Integer roomId;
-    private final boolean confirmed;
+    private final BookingStatus bookingStatus;
     
 }

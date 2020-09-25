@@ -24,6 +24,12 @@ public class PaymentsRepositoryImpl implements PaymentsRepository {
         dao.save(payment);
     }
 
+    @Override
+    @Transactional(readOnly = true)
+    public Integer getBookingPaymentFormId(Integer bookingId) {
+        return dao.findByBookingId(bookingId).getPaymentFormId();
+    }
+
     void updateEntity(PaymentsEntity payment, PaymentDetails paymentDetails) {
         payment.setBookingId(paymentDetails.getBookingId());
         payment.setPaymentDate(new Timestamp(System.currentTimeMillis()));
