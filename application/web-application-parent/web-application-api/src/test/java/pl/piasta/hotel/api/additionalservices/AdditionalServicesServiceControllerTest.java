@@ -21,7 +21,7 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import pl.piasta.hotel.api.additionalservices.mapper.AdditionalServiceMapper;
 import pl.piasta.hotel.domain.additionalservices.AdditionalServicesService;
 import pl.piasta.hotel.domain.model.additionalservices.AdditionalService;
-import pl.piasta.hotel.dto.additionalservices.AdditionalServiceDto;
+import pl.piasta.hotel.dto.additionalservices.AdditionalServiceResponse;
 
 import javax.persistence.EntityNotFoundException;
 import java.math.BigDecimal;
@@ -61,12 +61,12 @@ public class AdditionalServicesServiceControllerTest {
                 new AdditionalService(2, "Service2", new BigDecimal("2.50"))
         );
 
-        List<AdditionalServiceDto> additionalServicesDto = Arrays.asList(
-                new AdditionalServiceDto(1, "Service1", new BigDecimal("1.50")),
-                new AdditionalServiceDto(2, "Service2", new BigDecimal("2.50"))
+        List<AdditionalServiceResponse> additionalServicesDto = Arrays.asList(
+                new AdditionalServiceResponse(1, "Service1", new BigDecimal("1.50")),
+                new AdditionalServiceResponse(2, "Service2", new BigDecimal("2.50"))
         );
 
-        Mockito.when(additionalServiceMapper.mapToDto(ArgumentMatchers.anyList())).thenReturn(additionalServicesDto);
+        Mockito.when(additionalServiceMapper.mapToResponse(ArgumentMatchers.anyList())).thenReturn(additionalServicesDto);
         Mockito.when(additionalServicesService.getAllAdditionalServices()).thenReturn(additionalServices);
 
         mockMvc.perform(MockMvcRequestBuilders.get(ENDPOINT_URL).contentType(MediaType.APPLICATION_JSON))
@@ -88,9 +88,9 @@ public class AdditionalServicesServiceControllerTest {
     @Test
     public void getAllAdditionalServices_Should_Return_Empty_List() throws Exception {
         List<AdditionalService> additionalServicesEmptyList = Collections.emptyList();
-        List<AdditionalServiceDto> additionalServicesDtoEmptyList = Collections.emptyList();
+        List<AdditionalServiceResponse> additionalServicesDtoEmptyList = Collections.emptyList();
 
-        Mockito.when(additionalServiceMapper.mapToDto(ArgumentMatchers.anyList())).thenReturn(additionalServicesDtoEmptyList);
+        Mockito.when(additionalServiceMapper.mapToResponse(ArgumentMatchers.anyList())).thenReturn(additionalServicesDtoEmptyList);
         Mockito.when(additionalServicesService.getAllAdditionalServices()).thenReturn(additionalServicesEmptyList);
 
         mockMvc.perform(MockMvcRequestBuilders.get(ENDPOINT_URL).contentType(MediaType.APPLICATION_JSON))
@@ -105,7 +105,7 @@ public class AdditionalServicesServiceControllerTest {
 
     @Test
     public void getAllAdditionalServices_Should_Return_Empty_Body() throws Exception {
-        Mockito.when(additionalServiceMapper.mapToDto(ArgumentMatchers.anyList())).thenReturn(null);
+        Mockito.when(additionalServiceMapper.mapToResponse(ArgumentMatchers.anyList())).thenReturn(null);
         Mockito.when(additionalServicesService.getAllAdditionalServices()).thenReturn(null);
 
         mockMvc.perform(MockMvcRequestBuilders.get(ENDPOINT_URL).contentType(MediaType.APPLICATION_JSON))
@@ -118,7 +118,7 @@ public class AdditionalServicesServiceControllerTest {
 
     @Test
     public void getAllAdditionalServices_Should_Throw_Exception() throws Exception {
-        Mockito.when(additionalServiceMapper.mapToDto(ArgumentMatchers.anyList())).thenThrow(new EntityNotFoundException());
+        Mockito.when(additionalServiceMapper.mapToResponse(ArgumentMatchers.anyList())).thenThrow(new EntityNotFoundException());
         Mockito.when(additionalServicesService.getAllAdditionalServices()).thenThrow(new EntityNotFoundException());
 
         mockMvc.perform(MockMvcRequestBuilders.get(ENDPOINT_URL).contentType(MediaType.APPLICATION_JSON))

@@ -11,13 +11,13 @@ import pl.piasta.hotel.domain.model.bookings.BookingInfo;
 import pl.piasta.hotel.domain.model.bookings.utils.BookingCancellationCommand;
 import pl.piasta.hotel.domain.model.bookings.utils.BookingCommand;
 import pl.piasta.hotel.domain.model.bookings.utils.BookingConfirmationCommand;
-import pl.piasta.hotel.dto.bookings.BookingDto;
-import pl.piasta.hotel.dto.bookings.BookingInfoDto;
+import pl.piasta.hotel.dto.bookings.BookingInfoResponse;
+import pl.piasta.hotel.dto.bookings.BookingResponse;
 
 @Mapper(uses = {PaymentFormMapper.class, RoomMapper.class}, componentModel = "spring")
 public interface BookingMapper {
 
-    BookingDto mapToDto(Booking booking);
+    BookingResponse mapToResponse(Booking booking);
     @Mapping(source = "startDate", target = "dateDetails.startDate")
     @Mapping(source = "endDate", target = "dateDetails.endDate")
     @Mapping(source = "firstName", target = "customerDetails.firstName")
@@ -33,6 +33,6 @@ public interface BookingMapper {
     BookingConfirmationCommand mapToCommand(BookingConfirmationRequest bookingConfirmationRequest);
     @Mapping(source = "startDate", target = "period.startDate")
     @Mapping(source = "endDate", target = "period.endDate")
-    BookingInfoDto mapToDto(BookingInfo bookingInfo);
+    BookingInfoResponse mapToResponse(BookingInfo bookingInfo);
 
 }
