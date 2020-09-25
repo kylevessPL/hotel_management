@@ -16,7 +16,7 @@ import java.math.BigDecimal;
 @Setter
 public class AdditionalServiceResponse {
 
-    @ApiModelProperty(value = "Additional service id", example = "0")
+    @ApiModelProperty(value = "Additional service id", example = "1")
     private int id;
     @ApiModelProperty(value = "Additional service name", example = "Breakfast Pack")
     private String name;
