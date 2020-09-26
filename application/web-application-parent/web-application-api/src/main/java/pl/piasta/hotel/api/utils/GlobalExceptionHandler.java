@@ -1,26 +1,19 @@
 package pl.piasta.hotel.api.utils;
 
-import lombok.Getter;
-import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.http.converter.HttpMessageNotReadableException;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 import pl.piasta.hotel.domain.model.utils.BookingException;
 
 @ControllerAdvice
-public final class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
+public final class GlobalExceptionHandler {
 
     private static final int BAD_REQUEST = 400;
 
-    @RequiredArgsConstructor
-    @Getter
-    private static final class ErrorResponse {
-        private final int status;
-        private final String code;
-        private final String message;
-    }
+    private final static String VALIDATION_FAILED_CODE = "V06";
 
     @ExceptionHandler(value = BookingException.class)
     public ResponseEntity<ErrorResponse> bookingExceptionHandler(BookingException ex) {
@@ -28,6 +21,19 @@ public final class GlobalExceptionHandler extends ResponseEntityExceptionHandler
                 BAD_REQUEST,
                 ex.getMessage(),
                 ex.getDetails());
+        return new ResponseEntity<>(errorResponse, HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(value = {
+            HttpMessageNotReadableException.class,
+            MethodArgumentNotValidException.class,
+            IllegalArgumentException.class
+    })
+    public ResponseEntity<ErrorResponse> validationFailedExceptionHandler(Exception ex) {
+        ErrorResponse errorResponse = new ErrorResponse(
+                BAD_REQUEST,
+                VALIDATION_FAILED_CODE,
+                "Validation failed for provided parameters");
         return new ResponseEntity<>(errorResponse, HttpStatus.BAD_REQUEST);
     }
 
