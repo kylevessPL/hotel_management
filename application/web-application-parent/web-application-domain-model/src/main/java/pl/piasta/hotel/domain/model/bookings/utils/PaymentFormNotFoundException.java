@@ -1,9 +1,11 @@
 package pl.piasta.hotel.domain.model.bookings.utils;
 
-public class PaymentFormNotFoundException extends RuntimeException {
+import pl.piasta.hotel.domain.model.utils.BookingException;
+
+public class PaymentFormNotFoundException extends BookingException {
 
     public PaymentFormNotFoundException() {
-        super("P04");
+        super("P04", "Payment form not found");
     }
 
 }

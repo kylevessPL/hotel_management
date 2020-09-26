@@ -1,9 +1,11 @@
 package pl.piasta.hotel.domain.model.bookings.utils;
 
-public class BookingNotOwnedException extends RuntimeException {
+import pl.piasta.hotel.domain.model.utils.BookingException;
+
+public class BookingNotOwnedException extends BookingException {
 
     public BookingNotOwnedException() {
-        super("B14");
+        super("B14", "Booking not owned");
     }
 
 }

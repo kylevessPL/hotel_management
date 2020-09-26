@@ -1,9 +1,11 @@
 package pl.piasta.hotel.domain.model.bookings.utils;
 
-public class BookingNotFoundException extends RuntimeException {
+import pl.piasta.hotel.domain.model.utils.BookingException;
+
+public class BookingNotFoundException extends BookingException {
 
     public BookingNotFoundException() {
-        super("B04");
+        super("B04", "Booking not found");
     }
 
 }

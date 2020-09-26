@@ -1,9 +1,11 @@
 package pl.piasta.hotel.domain.model.bookings.utils;
 
-public class BookingExpiredException extends RuntimeException {
+import pl.piasta.hotel.domain.model.utils.BookingException;
+
+public class BookingExpiredException extends BookingException {
 
     public BookingExpiredException() {
-        super("B13");
+        super("B13", "Booking expired");
     }
 
 }

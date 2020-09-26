@@ -1,9 +1,11 @@
 package pl.piasta.hotel.domain.model.bookings.utils;
 
-public class BookingAlreadyConfirmedException extends RuntimeException {
+import pl.piasta.hotel.domain.model.utils.BookingException;
+
+public class BookingAlreadyConfirmedException extends BookingException {
 
     public BookingAlreadyConfirmedException() {
-        super("B12");
+        super("B12", "Booking already confirmed");
     }
 
 }

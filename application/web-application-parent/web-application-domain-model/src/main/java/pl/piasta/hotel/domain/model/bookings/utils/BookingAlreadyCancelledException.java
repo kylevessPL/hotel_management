@@ -1,9 +1,11 @@
 package pl.piasta.hotel.domain.model.bookings.utils;
 
-public class BookingAlreadyCancelledException extends RuntimeException {
+import pl.piasta.hotel.domain.model.utils.BookingException;
+
+public class BookingAlreadyCancelledException extends BookingException {
 
     public BookingAlreadyCancelledException() {
-        super("B09");
+        super("B09", "Booking already cancelled");
     }
 
 }
