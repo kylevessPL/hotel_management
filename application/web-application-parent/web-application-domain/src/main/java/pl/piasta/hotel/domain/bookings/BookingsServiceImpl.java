@@ -46,8 +46,11 @@ import java.time.LocalDate;
 import java.time.Period;
 import java.time.ZoneOffset;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
+
+import static java.math.BigDecimal.ZERO;
 
 @Service
 @RequiredArgsConstructor
@@ -183,11 +186,13 @@ public class BookingsServiceImpl implements BookingsService {
     }
 
     private void saveBookingServices(Integer bookingId, List<AdditionalService> additionalServicesList) {
-        List<Integer> additionalServices = additionalServicesList
-                .stream()
-                .map(AdditionalService::getId)
-                .collect(Collectors.toList());
-        bookingsServicesRepository.saveBookingServices(bookingId, additionalServices);
+        if(!additionalServicesList.isEmpty()) {
+            List<Integer> additionalServices = additionalServicesList
+                    .stream()
+                    .map(AdditionalService::getId)
+                    .collect(Collectors.toList());
+            bookingsServicesRepository.saveBookingServices(bookingId, additionalServices);
+        }
     }
 
     private BookingDetails createBookingDetails(DateDetails dateDetails, RoomDetails roomDetails, BigDecimal finalPrice, Integer customerId) {
@@ -204,9 +209,11 @@ public class BookingsServiceImpl implements BookingsService {
     }
 
     private List<AdditionalService> getAdditionalServices(Integer[] additionalServices) {
-        return additionalServicesRepository.getAdditionalServices(
-                Arrays.stream(additionalServices).collect(Collectors.toList()))
-                .orElseThrow(AdditionalServiceNotFoundException::new);
+        if(additionalServices != null && additionalServices.length > 0) {
+            return additionalServicesRepository.getAdditionalServices(Arrays.asList(additionalServices))
+                    .orElseThrow(AdditionalServiceNotFoundException::new);
+        }
+        return Collections.emptyList();
     }
 
     private RoomDetails getRoomDetails(Integer roomId, DateDetails dateDetails) {
@@ -225,10 +232,15 @@ public class BookingsServiceImpl implements BookingsService {
         LocalDate endDate = dateDetails.getEndDate().toLocalDate();
         long period = Period.between(startDate, endDate).getDays();
         BigDecimal roomPrice = roomDetails.getStandardPrice();
-        BigDecimal additionalServicesPrice = additionalServicesList
-                .stream()
-                .map(AdditionalService::getPrice)
-                .reduce(BigDecimal.ZERO, BigDecimal::add);
+        BigDecimal additionalServicesPrice;
+        if(!additionalServicesList.isEmpty()) {
+            additionalServicesPrice = additionalServicesList
+                    .stream()
+                    .map(AdditionalService::getPrice)
+                    .reduce(ZERO, BigDecimal::add);
+        } else {
+            additionalServicesPrice = ZERO;
+        }
         return roomPrice.add(additionalServicesPrice).multiply(new BigDecimal(period));
     }
 
