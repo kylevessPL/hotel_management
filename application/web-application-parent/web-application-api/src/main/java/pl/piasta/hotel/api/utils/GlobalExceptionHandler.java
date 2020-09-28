@@ -19,8 +19,8 @@ public final class GlobalExceptionHandler {
     public ResponseEntity<ErrorResponse> bookingExceptionHandler(BookingException ex) {
         ErrorResponse errorResponse = new ErrorResponse(
                 BAD_REQUEST,
-                ex.getMessage(),
-                ex.getDetails());
+                ex.getErrorCode().getCode(),
+                ex.getMessage());
         return new ResponseEntity<>(errorResponse, HttpStatus.BAD_REQUEST);
     }
 
@@ -29,7 +29,7 @@ public final class GlobalExceptionHandler {
             MethodArgumentNotValidException.class,
             IllegalArgumentException.class
     })
-    public ResponseEntity<ErrorResponse> validationFailedExceptionHandler(Exception ex) {
+    public ResponseEntity<ErrorResponse> validationFailedExceptionHandler() {
         ErrorResponse errorResponse = new ErrorResponse(
                 BAD_REQUEST,
                 VALIDATION_FAILED_CODE,
