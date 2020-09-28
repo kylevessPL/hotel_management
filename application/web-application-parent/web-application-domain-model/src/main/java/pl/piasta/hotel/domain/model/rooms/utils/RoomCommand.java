@@ -9,7 +9,7 @@ import lombok.Setter;
 @Setter
 public class RoomCommand {
 
-    DateDetails dateDetails;
-    SortDetails sortDetails;
+    private DateDetails dateDetails;
+    private SortDetails sortDetails;
 
 }
