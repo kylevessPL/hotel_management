@@ -1,7 +1,13 @@
 package pl.piasta.hotel.api.bookings;
 
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -24,11 +30,12 @@ import pl.piasta.hotel.domain.model.bookings.utils.BookingNotOwnedException;
 import pl.piasta.hotel.domain.model.bookings.utils.PaymentFormNotFoundException;
 import pl.piasta.hotel.domain.model.bookings.utils.RoomNotAvailableException;
 import pl.piasta.hotel.domain.model.bookings.utils.RoomNotFoundException;
-import pl.piasta.hotel.dto.bookings.BookingDto;
-import pl.piasta.hotel.dto.bookings.BookingInfoDto;
+import pl.piasta.hotel.dto.bookings.BookingInfoResponse;
+import pl.piasta.hotel.dto.bookings.BookingResponse;
 
 import javax.validation.Valid;
 
+@Api
 @RestController
 @RequiredArgsConstructor
 public class BookingsServiceController {
@@ -36,10 +43,20 @@ public class BookingsServiceController {
     private final BookingsService bookingsService;
     private final BookingMapper bookingMapper;
 
-    @PostMapping(value = "/hotel/services/bookings/book")
-    public BookingDto bookAndGetSummary(@RequestBody @Valid BookingRequest bookingRequest) {
+    @ApiOperation(
+            value = "Book a room",
+            notes = "You are required to pass booking details",
+            nickname = "book"
+    )
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "Successfully booked a room and retrieved booking details"),
+            @ApiResponse(code = 400, message = "Booking information not valid"),
+            @ApiResponse(code = 500, message = "Internal Server Error")
+    })
+    @PostMapping(value = "/hotel/services/bookings/book", produces = MediaType.APPLICATION_JSON_VALUE)
+    public BookingResponse book(@ApiParam(value = "Request body") @RequestBody @Valid BookingRequest bookingRequest) {
         try {
-            return bookingMapper.mapToDto(bookingsService.bookAndGetSummary(
+            return bookingMapper.mapToResponse(bookingsService.bookAndGetSummary(
                     bookingMapper.mapToCommand(bookingRequest))
             );
         } catch (RoomNotFoundException |
@@ -49,9 +66,19 @@ public class BookingsServiceController {
         }
     }
 
-    @PostMapping(value = "/hotel/services/bookings/confirm")
+    @ApiOperation(
+            value = "Confirm booking",
+            notes = "You are required to pass booking details",
+            nickname = "confirmBooking"
+    )
+    @ApiResponses(value = {
+            @ApiResponse(code = 204, message = "Success"),
+            @ApiResponse(code = 400, message = "Booking information not valid"),
+            @ApiResponse(code = 500, message = "Internal Server Error")
+    })
+    @PostMapping(value = "/hotel/services/bookings/confirm", produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void confirmBooking(@RequestBody @Valid BookingConfirmationRequest bookingConfirmationRequest) {
+    public void confirmBooking(@ApiParam(value = "Request body") @RequestBody @Valid BookingConfirmationRequest bookingConfirmationRequest) {
         try {
             bookingsService.confirmBooking(bookingMapper.mapToCommand(bookingConfirmationRequest));
         } catch (BookingNotFoundException | PaymentFormNotFoundException | BookingAlreadyConfirmedException | BookingAlreadyCancelledException | BookingExpiredException ex) {
@@ -59,9 +86,19 @@ public class BookingsServiceController {
         }
     }
 
-    @PutMapping(value = "/hotel/services/bookings/cancel")
+    @ApiOperation(
+            value = "Cancel booking",
+            notes = "You are required to pass booking details",
+            nickname = "cancelBooking"
+    )
+    @ApiResponses(value = {
+            @ApiResponse(code = 204, message = "Success"),
+            @ApiResponse(code = 400, message = "Booking information not valid"),
+            @ApiResponse(code = 500, message = "Internal Server Error")
+    })
+    @PutMapping(value = "/hotel/services/bookings/cancel", produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void cancelBooking(@RequestBody @Valid BookingCancellationRequest bookingCancellationRequest) {
+    public void cancelBooking(@ApiParam(value = "Request body") @RequestBody @Valid BookingCancellationRequest bookingCancellationRequest) {
         try {
             bookingsService.cancelBooking(bookingMapper.mapToCommand(bookingCancellationRequest));
         } catch (BookingNotFoundException | BookingNotOwnedException | BookingExpiredException | BookingAlreadyCancelledException ex) {
@@ -69,10 +106,20 @@ public class BookingsServiceController {
         }
     }
 
-    @GetMapping(value = "/hotel/services/bookings")
-    public BookingInfoDto getBookingInfo(@RequestParam Integer id) {
+    @ApiOperation(
+            value = "Get booking information",
+            notes = "You are required to pass booking id as a parameter",
+            nickname = "getBookingInfo"
+    )
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "Success"),
+            @ApiResponse(code = 400, message = "Booking id not valid"),
+            @ApiResponse(code = 500, message = "Internal server error")
+    })
+    @GetMapping(value = "/hotel/services/bookings", produces = MediaType.APPLICATION_JSON_VALUE)
+    public BookingInfoResponse getBookingInfo(@ApiParam(value = "Booking id") @RequestParam Integer id) {
         try {
-            return bookingMapper.mapToDto(bookingsService.getBookingInfo(id));
+            return bookingMapper.mapToResponse(bookingsService.getBookingInfo(id));
         } catch (BookingNotFoundException ex) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, ex.getLocalizedMessage(), ex);
         }
