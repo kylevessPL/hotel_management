@@ -56,7 +56,7 @@ public class BookingRequest implements Serializable {
     private String streetName;
     @ApiModelProperty(value = "Customer's house number", example = "747")
     @NotBlank
-    @Pattern(regexp = "^\\d+/?\\d*[a-zA-Z]?(?<!/)*$")
+    @Pattern(regexp = "^[0-9a-zA-Z ./]*$")
     @Size(max = 10)
     private String houseNumber;
     @ApiModelProperty(value = "Customer's ZIP code", example = "11735")
