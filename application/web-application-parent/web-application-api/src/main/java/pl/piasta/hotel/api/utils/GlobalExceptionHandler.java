@@ -62,7 +62,7 @@ public final class GlobalExceptionHandler extends ResponseEntityExceptionHandler
         ErrorResponse errorResponse = new ErrorResponse(
                 status.value(),
                 "",
-                ex.getMessage());
+                status.getReasonPhrase());
         return new ResponseEntity<>(errorResponse, headers, status);
     }
 
