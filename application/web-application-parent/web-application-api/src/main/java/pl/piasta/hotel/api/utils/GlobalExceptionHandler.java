@@ -19,23 +19,27 @@ public final class GlobalExceptionHandler extends ResponseEntityExceptionHandler
 
     @ExceptionHandler(value = BookingException.class)
     protected ResponseEntity<Object> handleBookingError(BookingException ex) {
+        HttpStatus status = HttpStatus.BAD_REQUEST;
+        logger.warn(status.toString(), ex);
         ErrorResponse errorResponse = new ErrorResponse(
                 HttpStatus.BAD_REQUEST.value(),
                 ex.getErrorCode().getCode(),
                 ex.getMessage());
-        return new ResponseEntity<>(errorResponse, new HttpHeaders(), HttpStatus.BAD_REQUEST);
+        return new ResponseEntity<>(errorResponse, new HttpHeaders(), status);
     }
 
     @ExceptionHandler(value = {
             MethodArgumentTypeMismatchException.class,
             IllegalArgumentException.class
     })
-    protected ResponseEntity<Object> handleValidationError() {
+    protected ResponseEntity<Object> handleValidationError(Exception ex) {
+        HttpStatus status = HttpStatus.BAD_REQUEST;
+        logger.warn(status.toString(), ex);
         ErrorResponse errorResponse = new ErrorResponse(
                 HttpStatus.BAD_REQUEST.value(),
                 ErrorCode.VALIDATION_FAILED.getCode(),
                 ErrorCode.VALIDATION_FAILED.getMessage());
-        return new ResponseEntity<>(errorResponse, new HttpHeaders(), HttpStatus.BAD_REQUEST);
+        return new ResponseEntity<>(errorResponse, new HttpHeaders(), status);
     }
 
     @ExceptionHandler
@@ -49,16 +53,17 @@ public final class GlobalExceptionHandler extends ResponseEntityExceptionHandler
 
     @Override
     protected ResponseEntity<Object> handleHttpMessageNotReadable(HttpMessageNotReadableException ex, HttpHeaders headers, HttpStatus status, WebRequest request) {
-        return handleValidationError();
+        return handleValidationError(ex);
     }
 
     @Override
     protected ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException ex, HttpHeaders headers, HttpStatus status, WebRequest request) {
-        return handleValidationError();
+        return handleValidationError(ex);
     }
 
     @Override
     protected ResponseEntity<Object> handleExceptionInternal(Exception ex, @Nullable Object body, HttpHeaders headers, HttpStatus status, WebRequest request) {
+        logger.warn(status.toString(), ex);
         ErrorResponse errorResponse = new ErrorResponse(
                 status.value(),
                 "",
