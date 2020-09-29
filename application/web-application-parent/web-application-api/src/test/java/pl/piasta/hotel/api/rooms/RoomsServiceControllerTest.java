@@ -6,6 +6,7 @@ import com.github.springtestdbunit.annotation.DatabaseSetup;
 import com.github.springtestdbunit.annotation.DatabaseTearDown;
 import com.github.springtestdbunit.annotation.DbUnitConfiguration;
 import lombok.RequiredArgsConstructor;
+import org.assertj.db.type.Request;
 import org.assertj.db.type.Table;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -84,9 +85,12 @@ public class RoomsServiceControllerTest {
     @DatabaseSetup(value = "classpath:utils/book-one.xml")
     public void getAllAvailableRoomsWithinDateRange_Should_Return_All_Except_One_Booked() {
         List<RoomResponse> response = getRoomResponse();
-        Table table = new Table(dataSource, "rooms", null, new String[] {"room_number"});
+        Request request = new Request(dataSource,
+                "select r.id from rooms r where r.id not in " +
+                        "(select room_id from bookings)"
+        );
         assertThat(response, both(not(empty())).and(notNullValue()));
-        assertThat(table).hasNumberOfColumns(response.size())
+        assertThat(request).hasNumberOfColumns(response.size())
                 .column("id").hasValues(response.get(0).getId(), response.get(1).getId(), response.get(2).getId())
                 .column("bed_amount").hasValues(response.get(0).getBedAmount(), response.get(1).getBedAmount(), response.get(2).getBedAmount());
     }
@@ -95,7 +99,6 @@ public class RoomsServiceControllerTest {
     @DatabaseSetup(value = "classpath:utils/book-all-others.xml")
     public void getAllAvailableRoomsWithinDateRange_Should_Return_No_Rooms() {
         List<RoomResponse> response = getRoomResponse();
-        Table table = new Table(dataSource, "rooms", null, new String[] {"room_number"});
         assertThat(response, both(is(empty())).and(notNullValue()));
     }
 
