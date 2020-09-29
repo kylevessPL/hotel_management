@@ -32,7 +32,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 @ContextConfiguration(classes = RoomsServiceImpl.class)
 @ExtendWith(SpringExtension.class)
 @PropertySource("classpath:application.properties")
-@AutoConfigureTestDatabase
+@AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
 @Transactional
 @RequiredArgsConstructor
 public class RoomsServiceControllerTest {
