@@ -209,11 +209,11 @@ public class BookingsServiceImpl implements BookingsService {
     }
 
     private List<AdditionalService> getAdditionalServices(Integer[] additionalServices) {
-        if(additionalServices != null && additionalServices.length > 0) {
-            return additionalServicesRepository.getAdditionalServices(Arrays.asList(additionalServices))
-                    .orElseThrow(AdditionalServiceNotFoundException::new);
+        if(additionalServices == null || additionalServices.length == 0) {
+            return Collections.emptyList();
         }
-        return Collections.emptyList();
+        return additionalServicesRepository.getAdditionalServices(Arrays.asList(additionalServices))
+                .orElseThrow(AdditionalServiceNotFoundException::new);
     }
 
     private RoomDetails getRoomDetails(Integer roomId, DateDetails dateDetails) {
