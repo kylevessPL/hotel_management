@@ -23,7 +23,7 @@ public final class GlobalExceptionHandler extends ResponseEntityExceptionHandler
                 HttpStatus.BAD_REQUEST.value(),
                 ex.getErrorCode().getCode(),
                 ex.getMessage());
-        return new ResponseEntity<>(errorResponse, HttpStatus.BAD_REQUEST);
+        return new ResponseEntity<>(errorResponse, new HttpHeaders(), HttpStatus.BAD_REQUEST);
     }
 
     @ExceptionHandler(value = {
@@ -35,11 +35,11 @@ public final class GlobalExceptionHandler extends ResponseEntityExceptionHandler
                 HttpStatus.BAD_REQUEST.value(),
                 ErrorCode.VALIDATION_FAILED.getCode(),
                 ErrorCode.VALIDATION_FAILED.getMessage());
-        return new ResponseEntity<>(errorResponse, HttpStatus.BAD_REQUEST);
+        return new ResponseEntity<>(errorResponse, new HttpHeaders(), HttpStatus.BAD_REQUEST);
     }
 
     @ExceptionHandler
-    public ResponseEntity<Object> anyExceptionHandler(Exception ex, WebRequest request) {
+    protected ResponseEntity<Object> anyExceptionHandler(Exception ex, WebRequest request) {
         try {
             return super.handleException(ex, request);
         } catch (Exception e) {
@@ -49,12 +49,12 @@ public final class GlobalExceptionHandler extends ResponseEntityExceptionHandler
 
     @Override
     protected ResponseEntity<Object> handleHttpMessageNotReadable(HttpMessageNotReadableException ex, HttpHeaders headers, HttpStatus status, WebRequest request) {
-        return this.handleValidationError();
+        return handleValidationError();
     }
 
     @Override
     protected ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException ex, HttpHeaders headers, HttpStatus status, WebRequest request) {
-        return this.handleValidationError();
+        return handleValidationError();
     }
 
     @Override
