@@ -1,1 +1,0 @@
-INSERT INTO customers (first_name, last_name, street_name, house_number, zip_code, city, document_type, document_id) VALUES ('James', 'Smith', 'Ethels Lane', '747', '11735', 'Farmingdale', 'IDCARD', 'SB1565402');

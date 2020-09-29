@@ -1,1 +1,0 @@
-INSERT INTO bookings (book_date, start_date, end_date, customer_id, room_id, final_price) VALUES (CURRENT_TIMESTAMP, '02-11-2020', '05-11-2020', 1, 1, '1001.10');
