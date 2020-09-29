@@ -15,7 +15,8 @@ public enum ErrorCode {
     BOOKING_NOT_OWNED("B14", "Booking not owned"),
     PAYMENT_FORM_NOT_FOUND("P04", "Payment form not found"),
     ROOM_NOT_AVAILABLE("R12", "Room not available"),
-    ROOM_NOT_FOUND("R04", "Room not found");
+    ROOM_NOT_FOUND("R04", "Room not found"),
+    VALIDATION_FAILED("V06", "Validation failed");
 
     private final String code;
     private final String message;
