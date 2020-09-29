@@ -12,12 +12,12 @@ public class PaymentFormsEntityMapper {
 
     public List<PaymentForm> mapToPaymentForm(List<PaymentFormsEntity> paymentForms) {
         return paymentForms.stream()
-                .map(entity -> new PaymentForm(entity.getName()))
+                .map(entity -> new PaymentForm(entity.getId(), entity.getName()))
                 .collect(Collectors.toList());
     }
 
     public PaymentForm mapToPaymentForm(PaymentFormsEntity paymentForm) {
-        return new PaymentForm(paymentForm.getName());
+        return new PaymentForm(paymentForm.getId(), paymentForm.getName());
     }
 
 }

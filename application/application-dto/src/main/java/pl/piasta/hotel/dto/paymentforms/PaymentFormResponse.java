@@ -12,7 +12,9 @@ import lombok.Setter;
 @Setter
 public class PaymentFormResponse {
 
-    @ApiModelProperty(value = "Payment form name", example = "[\"Cash\", \"Check\", \"Credit Card\", \"PayPal\", \"Western Union\"]")
+    @ApiModelProperty(value = "Payment form id", example = "1")
+    private Integer id;
+    @ApiModelProperty(value = "Payment form name", example = "Cash")
     private String name;
 
 }
