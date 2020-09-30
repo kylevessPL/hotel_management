@@ -11,23 +11,14 @@ import pl.piasta.hotel.domain.model.amenities.Amenity;
 import pl.piasta.hotel.domain.model.bookings.Booking;
 import pl.piasta.hotel.domain.model.bookings.BookingDate;
 import pl.piasta.hotel.domain.model.bookings.BookingInfo;
-import pl.piasta.hotel.domain.model.bookings.utils.AdditionalServiceNotFoundException;
-import pl.piasta.hotel.domain.model.bookings.utils.BookingAlreadyCancelledException;
-import pl.piasta.hotel.domain.model.bookings.utils.BookingAlreadyConfirmedException;
 import pl.piasta.hotel.domain.model.bookings.utils.BookingCancellationCommand;
 import pl.piasta.hotel.domain.model.bookings.utils.BookingCancellationDetails;
 import pl.piasta.hotel.domain.model.bookings.utils.BookingCommand;
 import pl.piasta.hotel.domain.model.bookings.utils.BookingConfirmationCommand;
 import pl.piasta.hotel.domain.model.bookings.utils.BookingConfirmationDetails;
 import pl.piasta.hotel.domain.model.bookings.utils.BookingDetails;
-import pl.piasta.hotel.domain.model.bookings.utils.BookingExpiredException;
 import pl.piasta.hotel.domain.model.bookings.utils.BookingFinalDetails;
-import pl.piasta.hotel.domain.model.bookings.utils.BookingNotFoundException;
-import pl.piasta.hotel.domain.model.bookings.utils.BookingNotOwnedException;
 import pl.piasta.hotel.domain.model.bookings.utils.BookingStatus;
-import pl.piasta.hotel.domain.model.bookings.utils.PaymentFormNotFoundException;
-import pl.piasta.hotel.domain.model.bookings.utils.RoomNotAvailableException;
-import pl.piasta.hotel.domain.model.bookings.utils.RoomNotFoundException;
 import pl.piasta.hotel.domain.model.customers.utils.CustomerDetails;
 import pl.piasta.hotel.domain.model.paymentforms.PaymentForm;
 import pl.piasta.hotel.domain.model.payments.utils.PaymentDetails;
@@ -36,6 +27,8 @@ import pl.piasta.hotel.domain.model.rooms.RoomInfo;
 import pl.piasta.hotel.domain.model.rooms.utils.DateDetails;
 import pl.piasta.hotel.domain.model.rooms.utils.RoomDetails;
 import pl.piasta.hotel.domain.model.rooms.utils.RoomFinalDetails;
+import pl.piasta.hotel.domain.model.utils.BookingException;
+import pl.piasta.hotel.domain.model.utils.ErrorCode;
 import pl.piasta.hotel.domain.paymentforms.PaymentFormsRepository;
 import pl.piasta.hotel.domain.payments.PaymentsRepository;
 import pl.piasta.hotel.domain.rooms.RoomsRepository;
@@ -148,11 +141,11 @@ public class BookingsServiceImpl implements BookingsService {
     }
 
     private BookingFinalDetails getBookingFinalDetails(Integer id) {
-        return bookingsRepository.getBookingFinalDetails(id).orElseThrow(BookingNotFoundException::new);
+        return bookingsRepository.getBookingFinalDetails(id).orElseThrow(() -> new BookingException(ErrorCode.BOOKING_NOT_FOUND));
     }
 
     private BookingCancellationDetails getBookingCancellationDetails(Integer bookingId) {
-        return bookingsRepository.getBookingCancellationDetails(bookingId).orElseThrow(BookingNotFoundException::new);
+        return bookingsRepository.getBookingCancellationDetails(bookingId).orElseThrow(() -> new BookingException(ErrorCode.BOOKING_NOT_FOUND));
     }
 
     private PaymentForm getBookingPaymentForm(Integer bookingId) {
@@ -172,7 +165,7 @@ public class BookingsServiceImpl implements BookingsService {
         Integer customerId = bookingCancellationDetails.getCustomerId();
         String bookingCustomerDocumentId = customersRepository.getCustomerDocumentId(customerId);
         if(!bookingCustomerDocumentId.equals(documentId)) {
-            throw new BookingNotOwnedException();
+            throw new BookingException(ErrorCode.BOOKING_NOT_OWNED);
         }
     }
 
@@ -213,14 +206,14 @@ public class BookingsServiceImpl implements BookingsService {
             return Collections.emptyList();
         }
         return additionalServicesRepository.getAdditionalServices(Arrays.asList(additionalServices))
-                .orElseThrow(AdditionalServiceNotFoundException::new);
+                .orElseThrow(() -> new BookingException(ErrorCode.ADDITIONAL_SERVICE_NOT_FOUND));
     }
 
     private RoomDetails getRoomDetails(Integer roomId, DateDetails dateDetails) {
         if(!isRoomAvailable(roomId, dateDetails)) {
-            throw new RoomNotAvailableException();
+            throw new BookingException(ErrorCode.ROOM_NOT_AVAILABLE);
         }
-        return roomsRepository.getRoomDetails(roomId).orElseThrow(RoomNotFoundException::new);
+        return roomsRepository.getRoomDetails(roomId).orElseThrow(() -> new BookingException(ErrorCode.ROOM_NOT_FOUND));
     }
 
     private boolean isRoomAvailable(Integer roomId, DateDetails dateDetails) {
@@ -245,24 +238,24 @@ public class BookingsServiceImpl implements BookingsService {
     }
 
     private BookingConfirmationDetails getBookingConfirmationDetails(Integer bookingId) {
-        return bookingsRepository.getBookingConfirmationDetails(bookingId).orElseThrow(BookingNotFoundException::new);
+        return bookingsRepository.getBookingConfirmationDetails(bookingId).orElseThrow(() -> new BookingException(ErrorCode.BOOKING_NOT_FOUND));
     }
 
     private void checkPaymentValidity(Integer paymentFormId) {
         if(!paymentFormExists(paymentFormId)) {
-            throw new PaymentFormNotFoundException();
+            throw new BookingException(ErrorCode.PAYMENT_FORM_NOT_FOUND);
         }
     }
 
     private void checkBookingValidity(BookingStatus bookingStatus, BookingDate bookingDate) {
         switch(bookingStatus) {
             case CONFIRMED:
-                throw new BookingAlreadyConfirmedException();
+                throw new BookingException((ErrorCode.BOOKING_ALREADY_CONFIRMED));
             case CANCELLED:
-                throw new BookingAlreadyCancelledException();
+                throw new BookingException(ErrorCode.BOOKING_ALREADY_CANCELLED);
             default:
                 if(!isBookingDateValid(bookingDate)) {
-                    throw new BookingExpiredException();
+                    throw new BookingException(ErrorCode.BOOKING_EXPIRED);
                 }
         }
     }
