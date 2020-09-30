@@ -12,11 +12,14 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
+import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
 import org.springframework.boot.autoconfigure.web.servlet.ServletWebServerFactoryAutoConfiguration;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.boot.web.server.LocalServerPort;
+import org.springframework.context.annotation.ImportResource;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpEntity;
@@ -53,9 +56,9 @@ import static org.hamcrest.core.IsNot.not;
         DirtiesContextTestExecutionListener.class,
         TransactionDbUnitTestExecutionListener.class
 })
-@DatabaseSetup(value = "classpath:utils/init-dataset.xml")
+@DatabaseSetup(value = "utils/init-dataset.xml")
 @DatabaseTearDown(type = DatabaseOperation.DELETE_ALL, value = {
-        "classpath:utils/init-dataset.xml", "classpath:utils/book-all-others.xml"
+        "utils/init-dataset.xml", "utils/book-all-others.xml"
 })
 @Transactional
 @RequiredArgsConstructor
@@ -83,7 +86,7 @@ public class RoomsServiceControllerTest {
     }
 
     @Test
-    @DatabaseSetup(value = "classpath:utils/book-one.xml")
+    @DatabaseSetup(value = "utils/book-one.xml")
     public void getAllAvailableRoomsWithinDateRange_Should_Return_All_Except_One_Booked() {
         List<RoomResponse> response = getRoomResponse();
         Request request = new Request(dataSource,
@@ -97,7 +100,7 @@ public class RoomsServiceControllerTest {
     }
 
     @Test
-    @DatabaseSetup(value = "classpath:utils/book-all-others.xml")
+    @DatabaseSetup(value = "utils/book-all-others.xml")
     public void getAllAvailableRoomsWithinDateRange_Should_Return_No_Rooms() {
         List<RoomResponse> response = getRoomResponse();
         assertThat(response, both(is(empty())).and(notNullValue()));
