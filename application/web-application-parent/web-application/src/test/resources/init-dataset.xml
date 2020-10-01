@@ -20,4 +20,7 @@
            city="Farmingdale"
            document_type="IDCARD"
            document_id="SB1565402"/>
+    <bookings/>
+    <bookings_services/>
+    <room_amenities/>
 </dataset>
