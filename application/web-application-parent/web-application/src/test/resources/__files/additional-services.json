@@ -1,0 +1,22 @@
+[
+  {
+    "id": 1,
+    "name": "Breakfast Pack",
+    "price": 19.99
+  },
+  {
+    "id": 2,
+    "name": "Lunch & Dinner Pack",
+    "price": 39.99
+  },
+  {
+    "id": 3,
+    "name": "Cleaning Service",
+    "price": 14.99
+  },
+  {
+    "id": 4,
+    "name": "Additional Bed",
+    "price": 9.99
+  }
+]
