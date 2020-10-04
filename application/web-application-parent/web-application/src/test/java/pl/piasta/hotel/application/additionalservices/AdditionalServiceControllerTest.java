@@ -8,11 +8,8 @@ import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
-import org.springframework.http.ResponseEntity;
 import pl.piasta.hotel.application.BaseIT;
-import pl.piasta.hotel.domain.model.additionalservices.AdditionalService;
 import pl.piasta.hotel.dto.additionalservices.AdditionalServiceResponse;
-import pl.piasta.hotel.dto.rooms.RoomResponse;
 
 import java.util.List;
 

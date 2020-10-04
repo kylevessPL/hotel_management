@@ -37,7 +37,7 @@ import static org.hamcrest.core.IsNot.not;
 })
 @DatabaseSetup(value = "classpath:init-dataset.xml")
 @DatabaseTearDown(type = DatabaseOperation.DELETE_ALL, value = "classpath:init-dataset.xml")
-public class RoomsServiceControllerTest extends BaseIT {
+public class RoomsServiceControllerDbUnitTest extends BaseIT {
 
     private static final String ENDPOINT_URL = "/hotel/services/rooms?startDate=04-11-2050&endDate=05-11-2050";
 

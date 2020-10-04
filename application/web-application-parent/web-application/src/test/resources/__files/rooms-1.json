@@ -1,0 +1,59 @@
+[
+  {
+    "id": 1,
+    "bedAmount": 4,
+    "amenities": [
+      {
+        "name": "en suite"
+      },
+      {
+        "name": "TV"
+      },
+      {
+        "name": "phone"
+      },
+      {
+        "name": "A/C"
+      }
+    ],
+    "standardPrice": 600.53
+  },
+  {
+    "id": 2,
+    "bedAmount": 1,
+    "amenities": [
+      {
+        "name": "en suite"
+      },
+      {
+        "name": "balcony"
+      },
+      {
+        "name": "TV"
+      },
+      {
+        "name": "A/C"
+      }
+    ],
+    "standardPrice": 286.17
+  },
+  {
+    "id": 3,
+    "bedAmount": 3,
+    "amenities": [
+      {
+        "name": "en suite"
+      },
+      {
+        "name": "balcony"
+      },
+      {
+        "name": "TV"
+      },
+      {
+        "name": "A/C"
+      }
+    ],
+    "standardPrice": 375.54
+  }
+]
