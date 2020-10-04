@@ -12,7 +12,7 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 import javax.persistence.PersistenceContext;
 import javax.sql.DataSource;
 
-@SpringBootTest(classes = TestConfig.class, properties="app.baseUrl=http://localhost:${wiremock.server.port}", webEnvironment= SpringBootTest.WebEnvironment.RANDOM_PORT)
+@SpringBootTest(classes = TestConfig.class, webEnvironment= SpringBootTest.WebEnvironment.RANDOM_PORT)
 @ExtendWith(SpringExtension.class)
 @ContextConfiguration(classes = PersistenceContext.class)
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
