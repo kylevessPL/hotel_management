@@ -1,10 +1,7 @@
 package pl.piasta.hotel.application.rooms;
 
-import com.github.springtestdbunit.TransactionDbUnitTestExecutionListener;
-import com.github.springtestdbunit.annotation.DatabaseOperation;
 import com.github.springtestdbunit.annotation.DatabaseSetup;
 import com.github.springtestdbunit.annotation.DatabaseTearDown;
-import com.github.springtestdbunit.annotation.DbUnitConfiguration;
 import org.assertj.db.type.Request;
 import org.assertj.db.type.Table;
 import org.junit.jupiter.api.Test;
@@ -13,14 +10,12 @@ import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
-import org.springframework.test.context.TestExecutionListeners;
-import org.springframework.test.context.support.DependencyInjectionTestExecutionListener;
-import org.springframework.test.context.support.DirtiesContextTestExecutionListener;
 import pl.piasta.hotel.application.BaseIT;
 import pl.piasta.hotel.dto.rooms.RoomResponse;
 
 import java.util.List;
 
+import static com.github.springtestdbunit.annotation.DatabaseOperation.DELETE_ALL;
 import static org.assertj.db.api.Assertions.assertThat;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.both;
@@ -29,15 +24,9 @@ import static org.hamcrest.Matchers.notNullValue;
 import static org.hamcrest.core.Is.is;
 import static org.hamcrest.core.IsNot.not;
 
-@DbUnitConfiguration(databaseConnection = "dataSource")
-@TestExecutionListeners({
-        DependencyInjectionTestExecutionListener.class,
-        DirtiesContextTestExecutionListener.class,
-        TransactionDbUnitTestExecutionListener.class
-})
-@DatabaseSetup(value = "classpath:init-dataset.xml")
-@DatabaseTearDown(type = DatabaseOperation.DELETE_ALL, value = "classpath:init-dataset.xml")
-public class RoomsServiceControllerDbUnitTest extends BaseIT {
+@DatabaseSetup(value = "classpath:init-rooms-dataset.xml")
+@DatabaseTearDown(type = DELETE_ALL, value = "classpath:init-rooms-dataset.xml")
+public class RoomsServiceControllerTest extends BaseIT {
 
     private static final String ENDPOINT_URL = "/hotel/services/rooms?startDate=04-11-2050&endDate=05-11-2050";
 
@@ -57,7 +46,7 @@ public class RoomsServiceControllerDbUnitTest extends BaseIT {
 
     @Test
     @DatabaseSetup(value = "classpath:book-one.xml")
-    @DatabaseTearDown(type = DatabaseOperation.DELETE_ALL, value = "classpath:book-one.xml")
+    @DatabaseTearDown(type = DELETE_ALL, value = "classpath:book-one.xml")
     public void getAllAvailableRoomsWithinDateRange_Should_Return_All_Except_One_Booked() {
         List<RoomResponse> response = getRoomResponse();
         Request request = new Request(dataSource,
@@ -73,7 +62,7 @@ public class RoomsServiceControllerDbUnitTest extends BaseIT {
 
     @Test
     @DatabaseSetup(value = "classpath:book-all.xml")
-    @DatabaseTearDown(type = DatabaseOperation.DELETE_ALL, value = "classpath:book-all.xml")
+    @DatabaseTearDown(type = DELETE_ALL, value = "classpath:book-all.xml")
     public void getAllAvailableRoomsWithinDateRange_Should_Return_No_Rooms() {
         List<RoomResponse> response = getRoomResponse();
         assertThat(response, is(empty()));

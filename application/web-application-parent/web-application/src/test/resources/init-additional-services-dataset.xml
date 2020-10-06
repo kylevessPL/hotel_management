@@ -1,0 +1,8 @@
+<dataset>
+    <additional_services id="1"
+           name="Breakfast Pack"
+           price="19.99"/>
+    <additional_services id="2"
+           name="Cleaning Service"
+           price="14.99"/>
+</dataset>

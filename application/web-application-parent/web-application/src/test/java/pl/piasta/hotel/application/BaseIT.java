@@ -1,13 +1,18 @@
 package pl.piasta.hotel.application;
 
+import com.github.springtestdbunit.TransactionDbUnitTestExecutionListener;
+import com.github.springtestdbunit.annotation.DbUnitConfiguration;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.cloud.contract.wiremock.AutoConfigureWireMock;
+import org.springframework.boot.web.server.LocalServerPort;
 import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.TestExecutionListeners;
+import org.springframework.test.context.jdbc.SqlScriptsTestExecutionListener;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
+import org.springframework.test.context.support.DependencyInjectionTestExecutionListener;
+import org.springframework.test.context.support.DirtiesContextTestExecutionListener;
 
 import javax.persistence.PersistenceContext;
 import javax.sql.DataSource;
@@ -16,13 +21,19 @@ import javax.sql.DataSource;
 @ExtendWith(SpringExtension.class)
 @ContextConfiguration(classes = PersistenceContext.class)
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
-@AutoConfigureWireMock(port = 0)
+@DbUnitConfiguration(databaseConnection = "dataSource")
+@TestExecutionListeners({
+        DependencyInjectionTestExecutionListener.class,
+        DirtiesContextTestExecutionListener.class,
+        TransactionDbUnitTestExecutionListener.class,
+        SqlScriptsTestExecutionListener.class,
+})
 public class BaseIT {
 
     @Autowired
     protected DataSource dataSource;
 
-    @Value("${wiremock.server.port}")
+    @LocalServerPort
     protected int port;
 
     protected String createURLWithPort(String path) {
