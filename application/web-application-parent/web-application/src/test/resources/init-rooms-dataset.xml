@@ -1,0 +1,26 @@
+<dataset>
+    <rooms id="1"
+           room_number="P01"
+           bed_amount="4"
+           standard_price="600.53"/>
+    <rooms id="2"
+           room_number="P02"
+           bed_amount="1"
+           standard_price="286.17"/>
+    <rooms id="3"
+           room_number="P03"
+           bed_amount="3"
+           standard_price="375.54"/>
+    <customers id="1"
+           first_name="James"
+           last_name="Smith"
+           street_name="Ethels Lane"
+           house_number="747"
+           zip_code="11735"
+           city="Farmingdale"
+           document_type="IDCARD"
+           document_id="SB1565402"/>
+    <bookings/>
+    <bookings_services/>
+    <room_amenities/>
+</dataset>

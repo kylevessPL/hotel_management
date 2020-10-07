@@ -1,0 +1,23 @@
+<dataset>
+    <bookings id="1"
+              book_date="[now]"
+              start_date="2050-11-02"
+              end_date="2050-11-05"
+              customer_id="1"
+              room_id="1"
+              final_price="1001.10"/>
+    <bookings id="2"
+              book_date="[now]"
+              start_date="2050-11-01"
+              end_date="2050-11-06"
+              customer_id="1"
+              room_id="2"
+              final_price="1090.45"/>
+    <bookings id="3"
+              book_date="[now]"
+              start_date="2050-11-04"
+              end_date="2050-11-09"
+              customer_id="1"
+              room_id="3"
+              final_price="990.80"/>
+</dataset>
