@@ -1,2 +1,2 @@
-# hotel_management
+# Hotel Management
 Hotel Management Spring Web Project
