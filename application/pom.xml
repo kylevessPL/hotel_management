@@ -15,7 +15,6 @@
     <version>1.0</version>
     <modules>
         <module>web-application-parent</module>
-        <module>desktop-application-parent</module>
         <module>application-dto</module>
     </modules>
     <name>Hotel Management parent module</name>
