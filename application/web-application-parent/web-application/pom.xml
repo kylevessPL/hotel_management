@@ -115,17 +115,5 @@
                 <artifactId>spring-boot-maven-plugin</artifactId>
             </plugin>
         </plugins>
-        <extensions>
-            <extension>
-                <groupId>com.github.shyiko.servers-maven-extension</groupId>
-                <artifactId>servers-maven-extension</artifactId>
-            </extension>
-        </extensions>
-        <resources>
-            <resource>
-                <directory>src/main/resources</directory>
-                <filtering>true</filtering>
-            </resource>
-        </resources>
     </build>
 </project>

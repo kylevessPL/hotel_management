@@ -18,8 +18,8 @@
                 <configuration>
                     <driver>org.postgresql.Driver</driver>
                     <url>jdbc:postgresql://localhost:5432/hotel-db</url>
-                    <username>${settings.servers.hotel-db.username}</username>
-                    <password>${settings.servers.hotel-db.password}</password>
+                    <username>hotel_admin</username>
+                    <password>3c;ZP~B^3JBf@nA*</password>
                     <changeLogFile>src/main/resources/db/changelog/db.changelog-master.xml</changeLogFile>
                     <outputChangeLogFile>src/main/resources/db/changelog/db.changelog-master.xml</outputChangeLogFile>
                 </configuration>
@@ -40,17 +40,5 @@
                 </executions>
             </plugin>
         </plugins>
-        <extensions>
-            <extension>
-                <groupId>com.github.shyiko.servers-maven-extension</groupId>
-                <artifactId>servers-maven-extension</artifactId>
-            </extension>
-        </extensions>
-        <resources>
-            <resource>
-                <directory>src/main/resources</directory>
-                <filtering>true</filtering>
-            </resource>
-        </resources>
     </build>
 </project>
