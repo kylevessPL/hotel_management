@@ -11,7 +11,7 @@ import pl.piasta.hotel.dto.rooms.RoomResponse;
 
 import java.util.List;
 
-@Mapper(uses = AmenityMapper.class, componentModel = "spring")
+@Mapper
 public interface RoomMapper {
 
     List<RoomResponse> mapToResponse(List<Room> rooms);

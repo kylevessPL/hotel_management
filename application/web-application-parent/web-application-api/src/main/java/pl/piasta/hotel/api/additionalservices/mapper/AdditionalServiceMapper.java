@@ -6,7 +6,7 @@ import pl.piasta.hotel.dto.additionalservices.AdditionalServiceResponse;
 
 import java.util.List;
 
-@Mapper(componentModel = "spring")
+@Mapper
 public interface AdditionalServiceMapper {
 
     List<AdditionalServiceResponse> mapToResponse(List<AdditionalService> additionalServices);

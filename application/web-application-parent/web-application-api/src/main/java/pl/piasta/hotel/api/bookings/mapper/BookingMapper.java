@@ -14,7 +14,7 @@ import pl.piasta.hotel.domain.model.bookings.utils.BookingConfirmationCommand;
 import pl.piasta.hotel.dto.bookings.BookingInfoResponse;
 import pl.piasta.hotel.dto.bookings.BookingResponse;
 
-@Mapper(uses = {PaymentFormMapper.class, RoomMapper.class}, componentModel = "spring")
+@Mapper(uses = {PaymentFormMapper.class, RoomMapper.class})
 public interface BookingMapper {
 
     BookingResponse mapToResponse(Booking booking);

@@ -6,7 +6,7 @@ import pl.piasta.hotel.dto.amenities.AmenityResponse;
 
 import java.util.List;
 
-@Mapper(componentModel = "spring")
+@Mapper
 public interface AmenityMapper {
 
     List<AmenityResponse> mapToResponse(List<Amenity> amenities);

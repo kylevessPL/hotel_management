@@ -6,7 +6,7 @@ import pl.piasta.hotel.dto.paymentforms.PaymentFormResponse;
 
 import java.util.List;
 
-@Mapper(componentModel = "spring")
+@Mapper
 public interface PaymentFormMapper {
 
     List<PaymentFormResponse> mapToResponse(List<PaymentForm> paymentForms);
