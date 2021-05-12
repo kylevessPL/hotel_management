@@ -1,10 +1,10 @@
 package pl.piasta.hotel.infrastructure.mapper;
 
 import org.springframework.stereotype.Component;
-import pl.piasta.hotel.domain.model.bookings.BookingDate;
-import pl.piasta.hotel.domain.model.bookings.utils.BookingCancellationDetails;
-import pl.piasta.hotel.domain.model.bookings.utils.BookingConfirmationDetails;
-import pl.piasta.hotel.domain.model.bookings.utils.BookingFinalDetails;
+import pl.piasta.hotel.domainmodel.bookings.BookingCancellationDetails;
+import pl.piasta.hotel.domainmodel.bookings.BookingConfirmationDetails;
+import pl.piasta.hotel.domainmodel.bookings.BookingDate;
+import pl.piasta.hotel.domainmodel.bookings.BookingFinalDetails;
 import pl.piasta.hotel.infrastructure.model.BookingsEntity;
 
 import java.util.Optional;

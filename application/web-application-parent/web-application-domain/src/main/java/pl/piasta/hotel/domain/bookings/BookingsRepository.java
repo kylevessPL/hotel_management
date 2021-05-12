@@ -1,10 +1,10 @@
 package pl.piasta.hotel.domain.bookings;
 
-import pl.piasta.hotel.domain.model.bookings.utils.BookingCancellationDetails;
-import pl.piasta.hotel.domain.model.bookings.utils.BookingConfirmationDetails;
-import pl.piasta.hotel.domain.model.bookings.utils.BookingDetails;
-import pl.piasta.hotel.domain.model.bookings.utils.BookingFinalDetails;
-import pl.piasta.hotel.domain.model.rooms.utils.DateDetails;
+import pl.piasta.hotel.domainmodel.bookings.BookingCancellationDetails;
+import pl.piasta.hotel.domainmodel.bookings.BookingConfirmationDetails;
+import pl.piasta.hotel.domainmodel.bookings.BookingDetails;
+import pl.piasta.hotel.domainmodel.bookings.BookingFinalDetails;
+import pl.piasta.hotel.domainmodel.rooms.DateDetails;
 
 import java.util.List;
 import java.util.Optional;

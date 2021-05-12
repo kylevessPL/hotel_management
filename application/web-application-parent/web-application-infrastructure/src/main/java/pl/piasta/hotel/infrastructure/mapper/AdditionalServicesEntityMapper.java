@@ -1,7 +1,7 @@
 package pl.piasta.hotel.infrastructure.mapper;
 
 import org.springframework.stereotype.Component;
-import pl.piasta.hotel.domain.model.additionalservices.AdditionalService;
+import pl.piasta.hotel.domainmodel.additionalservices.AdditionalService;
 import pl.piasta.hotel.infrastructure.model.AdditionalServicesEntity;
 
 import java.util.List;

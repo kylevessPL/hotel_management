@@ -1,7 +1,7 @@
 package pl.piasta.hotel.infrastructure.mapper;
 
 import org.springframework.stereotype.Component;
-import pl.piasta.hotel.domain.model.amenities.Amenity;
+import pl.piasta.hotel.domainmodel.amenities.Amenity;
 import pl.piasta.hotel.infrastructure.model.AmenitiesEntity;
 
 import java.util.List;

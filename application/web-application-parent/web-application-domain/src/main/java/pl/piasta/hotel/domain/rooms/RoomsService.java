@@ -1,7 +1,7 @@
 package pl.piasta.hotel.domain.rooms;
 
-import pl.piasta.hotel.domain.model.rooms.Room;
-import pl.piasta.hotel.domain.model.rooms.utils.RoomCommand;
+import pl.piasta.hotel.domainmodel.rooms.Room;
+import pl.piasta.hotel.domainmodel.rooms.RoomCommand;
 
 import java.util.List;
 

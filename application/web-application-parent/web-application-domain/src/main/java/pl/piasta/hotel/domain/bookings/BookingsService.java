@@ -1,10 +1,10 @@
 package pl.piasta.hotel.domain.bookings;
 
-import pl.piasta.hotel.domain.model.bookings.Booking;
-import pl.piasta.hotel.domain.model.bookings.BookingInfo;
-import pl.piasta.hotel.domain.model.bookings.utils.BookingCancellationCommand;
-import pl.piasta.hotel.domain.model.bookings.utils.BookingCommand;
-import pl.piasta.hotel.domain.model.bookings.utils.BookingConfirmationCommand;
+import pl.piasta.hotel.domainmodel.bookings.Booking;
+import pl.piasta.hotel.domainmodel.bookings.BookingCancellationCommand;
+import pl.piasta.hotel.domainmodel.bookings.BookingCommand;
+import pl.piasta.hotel.domainmodel.bookings.BookingConfirmationCommand;
+import pl.piasta.hotel.domainmodel.bookings.BookingInfo;
 
 public interface BookingsService {
 

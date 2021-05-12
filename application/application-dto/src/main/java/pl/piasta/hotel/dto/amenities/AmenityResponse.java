@@ -1,18 +1,16 @@
 package pl.piasta.hotel.dto.amenities;
 
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-@ApiModel
+@Schema
 @NoArgsConstructor
 @Getter
 @Setter
 public class AmenityResponse {
 
-    @ApiModelProperty(value = "Amenity name", example = "[\"en suite\", \"balcony\", \"TV\", \"radio\", \"phone\", \"A/C\"]")
+    @Schema(description = "Amenity name", example = "TV")
     private String name;
-
 }

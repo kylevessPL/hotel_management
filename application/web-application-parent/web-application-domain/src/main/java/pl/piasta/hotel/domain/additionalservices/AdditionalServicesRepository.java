@@ -1,6 +1,6 @@
 package pl.piasta.hotel.domain.additionalservices;
 
-import pl.piasta.hotel.domain.model.additionalservices.AdditionalService;
+import pl.piasta.hotel.domainmodel.additionalservices.AdditionalService;
 
 import java.util.List;
 import java.util.Optional;

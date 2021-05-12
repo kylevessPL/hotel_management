@@ -1,6 +1,6 @@
 package pl.piasta.hotel.domain.payments;
 
-import pl.piasta.hotel.domain.model.payments.utils.PaymentDetails;
+import pl.piasta.hotel.domainmodel.payments.PaymentDetails;
 
 public interface PaymentsRepository {
 

@@ -1,7 +1,6 @@
 package pl.piasta.hotel.dto.rooms;
 
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -10,19 +9,18 @@ import pl.piasta.hotel.dto.amenities.AmenityResponse;
 import java.math.BigDecimal;
 import java.util.List;
 
-@ApiModel
+@Schema
 @NoArgsConstructor
 @Getter
 @Setter
 public class RoomResponse {
 
-    @ApiModelProperty(value = "Room id", example = "1")
+    @Schema(description = "Room id", example = "1")
     private Integer id;
-    @ApiModelProperty(value = "Room bed amount", example = "4")
+    @Schema(description = "Room bed amount", example = "4")
     private Integer bedAmount;
-    @ApiModelProperty(value = "Room amenities", example = "[\"en suite\", \"TV\", \"phone\", \"A/C\"]")
+    @Schema(description = "Room amenities")
     private List<AmenityResponse> amenities;
-    @ApiModelProperty(value = "Room price", example = "600.53")
+    @Schema(description = "Room price", example = "600.53")
     private BigDecimal standardPrice;
-
 }

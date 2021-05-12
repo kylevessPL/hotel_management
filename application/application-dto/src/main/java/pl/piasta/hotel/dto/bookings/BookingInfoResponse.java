@@ -1,25 +1,21 @@
 package pl.piasta.hotel.dto.bookings;
 
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import pl.piasta.hotel.dto.bookings.utils.BookingPeriod;
-import pl.piasta.hotel.dto.bookings.utils.PaymentStatus;
 import pl.piasta.hotel.dto.rooms.RoomInfoResponse;
 
-@ApiModel
+@Schema
 @NoArgsConstructor
 @Getter
 @Setter
 public class BookingInfoResponse {
 
-    @ApiModelProperty(value = "Booking period details")
+    @Schema(description = "Booking period details")
     private BookingPeriod period;
-    @ApiModelProperty(value = "Booked room details")
+    @Schema(description = "Booked room details")
     private RoomInfoResponse room;
-    @ApiModelProperty(value = "Booking payment status", example = "PAYED")
+    @Schema(description = "Booking payment status")
     private PaymentStatus paymentStatus;
-
 }

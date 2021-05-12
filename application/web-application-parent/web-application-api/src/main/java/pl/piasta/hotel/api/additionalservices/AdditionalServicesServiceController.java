@@ -1,9 +1,9 @@
 package pl.piasta.hotel.api.additionalservices;
 
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiResponse;
-import io.swagger.annotations.ApiResponses;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,7 +14,7 @@ import pl.piasta.hotel.dto.additionalservices.AdditionalServiceResponse;
 
 import java.util.List;
 
-@Api
+@Tag(name = "Additional Services API", description = "API performing operations on additional service resources")
 @RestController
 @RequiredArgsConstructor
 public class AdditionalServicesServiceController {
@@ -22,13 +22,13 @@ public class AdditionalServicesServiceController {
     private final AdditionalServiceMapper additionalServiceMapper;
     private final AdditionalServicesService additionalServicesService;
 
-    @ApiOperation(
-            value = "Get all additional services",
-            nickname = "getAllAdditionalServices"
+    @Operation(
+            summary = "Get all additional services",
+            operationId = "getAllAdditionalServices"
     )
     @ApiResponses(value = {
-            @ApiResponse(code = 200, message = "Success"),
-            @ApiResponse(code = 500, message = "Internal server error"),
+            @ApiResponse(responseCode = "200", description = "Success"),
+            @ApiResponse(responseCode = "500", description = "Internal server error"),
     })
     @GetMapping(value = "/hotel/services/additional-services", produces = MediaType.APPLICATION_JSON_VALUE)
     public List<AdditionalServiceResponse> getAllAdditionalServices() {

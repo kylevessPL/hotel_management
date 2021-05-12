@@ -3,8 +3,8 @@ package pl.piasta.hotel.infrastructure.payments;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
-import pl.piasta.hotel.domain.model.payments.utils.PaymentDetails;
 import pl.piasta.hotel.domain.payments.PaymentsRepository;
+import pl.piasta.hotel.domainmodel.payments.PaymentDetails;
 import pl.piasta.hotel.infrastructure.dao.PaymentsEntityDao;
 import pl.piasta.hotel.infrastructure.model.PaymentsEntity;
 

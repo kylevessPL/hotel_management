@@ -1,11 +1,12 @@
 package pl.piasta.hotel.api.bookings;
 
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiParam;
-import io.swagger.annotations.ApiResponse;
-import io.swagger.annotations.ApiResponses;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
+import org.springdoc.api.annotations.ParameterObject;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,16 +17,13 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import pl.piasta.hotel.api.bookings.mapper.BookingMapper;
-import pl.piasta.hotel.api.bookings.utils.BookingCancellationRequest;
-import pl.piasta.hotel.api.bookings.utils.BookingConfirmationRequest;
-import pl.piasta.hotel.api.bookings.utils.BookingRequest;
 import pl.piasta.hotel.domain.bookings.BookingsService;
 import pl.piasta.hotel.dto.bookings.BookingInfoResponse;
 import pl.piasta.hotel.dto.bookings.BookingResponse;
 
 import javax.validation.Valid;
 
-@Api
+@Tag(name = "Bookings API", description = "API performing operations on booking resources")
 @RestController
 @RequiredArgsConstructor
 public class BookingsServiceController {
@@ -33,67 +31,63 @@ public class BookingsServiceController {
     private final BookingsService bookingsService;
     private final BookingMapper bookingMapper;
 
-    @ApiOperation(
-            value = "Book a room",
-            notes = "You are required to pass booking details",
-            nickname = "book"
+    @Operation(
+            summary = "Book a room",
+            operationId = "makeBooking"
     )
     @ApiResponses(value = {
-            @ApiResponse(code = 200, message = "Successfully booked a room and retrieved booking details"),
-            @ApiResponse(code = 400, message = "Booking information not valid"),
-            @ApiResponse(code = 500, message = "Internal Server Error")
+            @ApiResponse(responseCode = "200", description = "Successfully booked a room and retrieved booking details"),
+            @ApiResponse(responseCode = "400", description = "Booking information not valid"),
+            @ApiResponse(responseCode = "500", description = "Internal Server Error")
     })
     @PostMapping(value = "/hotel/services/bookings/book", produces = MediaType.APPLICATION_JSON_VALUE)
-    public BookingResponse book(@ApiParam(value = "Request body") @RequestBody @Valid BookingRequest bookingRequest) {
+    public BookingResponse book(@ParameterObject @RequestBody @Valid BookingRequest bookingRequest) {
         return bookingMapper.mapToResponse(bookingsService.bookAndGetSummary(
                 bookingMapper.mapToCommand(bookingRequest))
         );
     }
 
-    @ApiOperation(
-            value = "Confirm booking",
-            notes = "You are required to pass booking details",
-            nickname = "confirmBooking"
+    @Operation(
+            summary = "Confirm booking",
+            operationId = "confirmBooking"
     )
     @ApiResponses(value = {
-            @ApiResponse(code = 204, message = "Success"),
-            @ApiResponse(code = 400, message = "Booking information not valid"),
-            @ApiResponse(code = 500, message = "Internal Server Error")
+            @ApiResponse(responseCode = "204", description = "Success"),
+            @ApiResponse(responseCode = "400", description = "Booking information not valid"),
+            @ApiResponse(responseCode = "500", description = "Internal Server Error")
     })
     @PostMapping(value = "/hotel/services/bookings/confirm", produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void confirmBooking(@ApiParam(value = "Request body") @RequestBody @Valid BookingConfirmationRequest bookingConfirmationRequest) {
+    public void confirmBooking(@ParameterObject @RequestBody @Valid BookingConfirmationRequest bookingConfirmationRequest) {
         bookingsService.confirmBooking(bookingMapper.mapToCommand(bookingConfirmationRequest));
     }
 
-    @ApiOperation(
-            value = "Cancel booking",
-            notes = "You are required to pass booking details",
-            nickname = "cancelBooking"
+    @Operation(
+            summary = "Cancel booking",
+            operationId = "cancelBooking"
     )
     @ApiResponses(value = {
-            @ApiResponse(code = 204, message = "Success"),
-            @ApiResponse(code = 400, message = "Booking information not valid"),
-            @ApiResponse(code = 500, message = "Internal Server Error")
+            @ApiResponse(responseCode = "204", description = "Success"),
+            @ApiResponse(responseCode = "400", description = "Booking information not valid"),
+            @ApiResponse(responseCode = "500", description = "Internal Server Error")
     })
     @PutMapping(value = "/hotel/services/bookings/cancel", produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void cancelBooking(@ApiParam(value = "Request body") @RequestBody @Valid BookingCancellationRequest bookingCancellationRequest) {
+    public void cancelBooking(@ParameterObject @RequestBody @Valid BookingCancellationRequest bookingCancellationRequest) {
         bookingsService.cancelBooking(bookingMapper.mapToCommand(bookingCancellationRequest));
     }
 
-    @ApiOperation(
-            value = "Get booking information",
-            notes = "You are required to pass booking id as a parameter",
-            nickname = "getBookingInfo"
+    @Operation(
+            summary = "Get booking information",
+            operationId = "getBookingInfo"
     )
     @ApiResponses(value = {
-            @ApiResponse(code = 200, message = "Success"),
-            @ApiResponse(code = 400, message = "Booking id not valid"),
-            @ApiResponse(code = 500, message = "Internal server error")
+            @ApiResponse(responseCode = "200", description = "Success"),
+            @ApiResponse(responseCode = "400", description = "Booking id not valid"),
+            @ApiResponse(responseCode = "500", description = "Internal server error")
     })
     @GetMapping(value = "/hotel/services/bookings", produces = MediaType.APPLICATION_JSON_VALUE)
-    public BookingInfoResponse getBookingInfo(@ApiParam(value = "Booking id") @RequestParam Integer id) {
+    public BookingInfoResponse getBookingInfo(@Parameter(description = "Booking id") @RequestParam Integer id) {
         return bookingMapper.mapToResponse(bookingsService.getBookingInfo(id));
     }
 

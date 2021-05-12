@@ -4,7 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 import pl.piasta.hotel.domain.customers.CustomersRepository;
-import pl.piasta.hotel.domain.model.customers.utils.CustomerDetails;
+import pl.piasta.hotel.domainmodel.customers.CustomerDetails;
 import pl.piasta.hotel.infrastructure.dao.CustomersEntityDao;
 import pl.piasta.hotel.infrastructure.model.CustomersEntity;
 

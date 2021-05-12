@@ -2,7 +2,7 @@ package pl.piasta.hotel.infrastructure.model;
 
 import lombok.Getter;
 import lombok.Setter;
-import pl.piasta.hotel.domain.model.bookings.utils.BookingStatus;
+import pl.piasta.hotel.domainmodel.bookings.BookingStatus;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;

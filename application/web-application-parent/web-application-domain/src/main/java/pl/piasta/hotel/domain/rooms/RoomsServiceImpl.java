@@ -2,11 +2,11 @@ package pl.piasta.hotel.domain.rooms;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import pl.piasta.hotel.domain.model.rooms.Room;
-import pl.piasta.hotel.domain.model.rooms.utils.DateDetails;
-import pl.piasta.hotel.domain.model.rooms.utils.RoomCommand;
-import pl.piasta.hotel.domain.model.rooms.utils.SortDetails;
-import pl.piasta.hotel.domain.model.rooms.utils.SortDir;
+import pl.piasta.hotel.domainmodel.rooms.DateDetails;
+import pl.piasta.hotel.domainmodel.rooms.Room;
+import pl.piasta.hotel.domainmodel.rooms.RoomCommand;
+import pl.piasta.hotel.domainmodel.rooms.SortDetails;
+import pl.piasta.hotel.domainmodel.rooms.SortDir;
 
 import java.util.Comparator;
 import java.util.List;

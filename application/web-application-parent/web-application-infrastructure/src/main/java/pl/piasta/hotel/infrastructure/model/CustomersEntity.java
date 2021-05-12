@@ -2,7 +2,7 @@ package pl.piasta.hotel.infrastructure.model;
 
 import lombok.Getter;
 import lombok.Setter;
-import pl.piasta.hotel.domain.model.customers.utils.DocumentType;
+import pl.piasta.hotel.domainmodel.customers.DocumentType;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;

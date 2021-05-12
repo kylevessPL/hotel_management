@@ -1,20 +1,18 @@
 package pl.piasta.hotel.dto.paymentforms;
 
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-@ApiModel
+@Schema
 @NoArgsConstructor
 @Getter
 @Setter
 public class PaymentFormResponse {
 
-    @ApiModelProperty(value = "Payment form id", example = "1")
+    @Schema(description = "Payment form id", example = "1")
     private Integer id;
-    @ApiModelProperty(value = "Payment form name", example = "Cash")
+    @Schema(description = "Payment form name", example = "Cash")
     private String name;
-
 }
